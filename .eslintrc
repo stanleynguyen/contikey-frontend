@@ -1,0 +1,18 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "extends": [
+    "prettier"
+  ],
+  "globals": {
+    "window": true,
+    "document": true,
+    "localStorage": true,
+    "fetch": true
+  }
+}
