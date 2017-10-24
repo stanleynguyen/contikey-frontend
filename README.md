@@ -31,9 +31,12 @@ that is useful to (i.e. is only used in) such react component/container.
 
 ## Start writing code
 
+Install [yarn](https://yarnpkg.com/lang/en/docs/install/) if you don't already have it.
+
 ```bash
 git clone git@github.com:stanleynguyen/dboard-frontend.git
 cd dboard-frontend
+yarn install
 yarn start # this is to start the development server
 ```
 
