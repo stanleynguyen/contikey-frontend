@@ -8,6 +8,7 @@ import store, { history } from './store';
 
 import Layout from './components/Layout';
 import HomePage from './containers/HomePage';
+import LoginPage from './containers/LoginPage';
 
 const router = (
   <Provider store={store}>
@@ -15,6 +16,7 @@ const router = (
       <Layout>
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route path="/login" component={LoginPage} />
         </Switch>
       </Layout>
     </ConnectedRouter>
