@@ -39,10 +39,10 @@ class LoginPage extends React.Component {
     let statusChangeCallback = response => {
       if (response.status === 'connected') {
         this.setState({ status: 'logged in' });
-        console.log('id: ' + response.authResponse.userID); // get fb id
+        console.log('id: ', response.authResponse.userID); // get fb id
         FB.api('/me', response => console.log('name: ' + response.name)); // get name
         FB.api('/me/friends', response =>
-          console.log('friends: ' + response.data),
+          console.log('friends: ', response.data),
         ); // get list of friends who use this app
       } else {
         this.setState({ status: 'not logged in' });
@@ -63,6 +63,7 @@ class LoginPage extends React.Component {
           data-show-faces="false"
           data-auto-logout-link="true"
           data-use-continue-as="true"
+          data-scope="public_profile, user_friends, email"
         />
       </div>
     );
