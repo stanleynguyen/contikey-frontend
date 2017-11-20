@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Navbar,
   NavbarBrand,
   NavbarToggler,
   Collapse,
@@ -10,39 +9,29 @@ import {
   Button,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 
-import logo from '../../../assets/logo.svg';
-import home from '../../../assets/home-button.svg';
-import compass from '../../../assets/compass.svg';
-import user from '../../../assets/user.svg';
-import writing from '../../../assets/writing.svg';
-import { PRIMARY } from '../../../constants/colors';
+import logo from '../../../../assets/logo.svg';
+import home from '../../../../assets/home-button.svg';
+import compass from '../../../../assets/compass.svg';
+import user from '../../../../assets/user.svg';
+import writing from '../../../../assets/writing.svg';
+import noti from '../../../../assets/notifications.svg';
 
-const StyledNavbar = styled(Navbar)`
-  background-color: ${PRIMARY};
-  .logo {
-    height: 50px;
-    width: auto;
-    filter: invert(100%);
-  }
-  .navbar-icon {
-    height: 30px;
-    width: auto;
-  }
-  .btn {
-    background: transparent;
-    border: none;
-  }
-`;
+import StyledNavbar from './components/StyledNavbar';
+import NotificationPopup from './components/NotificationPopup';
 
 class DBoardNavbar extends React.Component {
   state = {
     isOpen: false,
+    notiOpen: false,
   };
 
   toggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
+  };
+
+  toggleNoti = () => {
+    this.setState({ notiOpen: !this.state.notiOpen });
   };
 
   render() {
@@ -63,6 +52,13 @@ class DBoardNavbar extends React.Component {
               <NavLink tag={Link} to="/explore">
                 <img className="navbar-icon" src={compass} />
               </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={Button} onClick={this.toggleNoti}>
+                <span className="badge">4</span>
+                <img className="navbar-icon" src={noti} />
+              </NavLink>
+              {this.state.notiOpen && <NotificationPopup />}
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/profile">

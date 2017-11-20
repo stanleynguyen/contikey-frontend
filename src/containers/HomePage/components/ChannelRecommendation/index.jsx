@@ -1,7 +1,6 @@
 import React from 'react';
 
 import StyleWrapper from './components/StyleWrapper';
-console.log(StyleWrapper);
 
 const ChannelRec = () => (
   <StyleWrapper>
