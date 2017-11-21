@@ -26,6 +26,26 @@ class DBoardNavbar extends React.Component {
     notiOpen: false,
   };
 
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutsideNoti);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutsideNoti);
+  }
+
+  handleClickOutsideNoti = e => {
+    console.log(e.target, this.notiBtn, this.popup);
+    if (
+      this.notiBtn &&
+      e.target !== this.notiBtn &&
+      !this.notiBtn.contains(e.target) &&
+      this.popup &&
+      !this.popup.contains(e.target)
+    ) {
+      this.setState({ notiOpen: false });
+    }
+  };
+
   toggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
   };
@@ -54,11 +74,17 @@ class DBoardNavbar extends React.Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Button} onClick={this.toggleNoti}>
+              <Button
+                className="nav-link"
+                onClick={this.toggleNoti}
+                innerRef={i => (this.notiBtn = i)}
+              >
                 <span className="badge">4</span>
                 <img className="navbar-icon" src={noti} />
-              </NavLink>
-              {this.state.notiOpen && <NotificationPopup />}
+              </Button>
+              {this.state.notiOpen && (
+                <NotificationPopup innerRef={i => (this.popup = i)} />
+              )}
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/profile">

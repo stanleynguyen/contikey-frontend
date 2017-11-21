@@ -7,97 +7,23 @@ import {
   InputGroup,
   InputGroupButton,
 } from 'reactstrap';
-import styled from 'styled-components';
-import { PRIMARY } from '../../constants/colors';
 
 import ArticleInfo from '../../components/ArticleInfo';
 import Comment from './components/Comment';
 import like from '../../assets/like.svg';
 import send from '../../assets/send.svg';
 
-const StyleWrapper = styled.div`
-  height: calc(100vh - 75px);
-  .container-fluid,
-  .row,
-  .left-section,
-  .right-section,
-  .view {
-    width: 100%;
-    height: 100%;
-  }
-  .left-section {
-    .view {
-      border-top: none;
-      border-left: none;
-      border-bottom: none;
-    }
-  }
-  .right-section {
-    padding: 20px 0;
-    position: relative;
-    .caption {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-    .like-container {
-      display: flex;
-      align-items: center;
-      .like {
-        background: transparent;
-        border: none;
-        padding: 0;
-        img {
-          height: 30px;
-          width: 30px;
-        }
-      }
-      .like-text {
-        margin-left: 10px;
-      }
-    }
-    .comment-section {
-      max-height: 50vh;
-      overflow-y: scroll;
-      margin-top: 20px;
-      &::-webkit-scrollbar {
-        width: 0;
-        background: transparent;
-      }
-      &::-webkit-scrollbar-thumb {
-        background: transparent;
-      }
-    }
-    .widget {
-      position: absolute;
-      bottom: 0;
-      z-index: 2;
-      padding: 5px 10px;
-      width: calc(100% + 45px);
-      margin-left: -15px;
-      background: ${PRIMARY};
-      .input-group {
-        .form-control {
-          border-top-left-radius: 9999px;
-          border-bottom-left-radius: 9999px;
-          border-right: none;
-        }
-        .btn-secondary {
-          height: 40px;
-          width: 40px;
-          border-top-right-radius: 9999px;
-          border-bottom-right-radius: 9999px;
-        }
-      }
-    }
-  }
-`;
+import StyleWrapper from './components/StyleWrapper';
 
 const ArticlePage = () => (
   <StyleWrapper>
     <Container fluid>
       <Row>
         <Col md="9" className="left-section">
-          <iframe className="view" src="https://www.joe.co.uk/" />
+          <iframe
+            className="view"
+            src="https://en.wikipedia.org/wiki/Singapore_University_of_Technology_and_Design"
+          />
         </Col>
         <Col md="3" className="right-section">
           <ArticleInfo />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import ArticleInfo from '../../../../components/ArticleInfo';
@@ -12,7 +13,7 @@ const Article = () => (
         hmm this is interesting! we acctually use emoticons rather than logic to
         make most of our daily decision
       </p>
-      <div className="preview">
+      <Link to="/article/1" className="preview">
         <div className="photo-container">
           <img className="img-fluid" src="https://unsplash.it/400/400" />
         </div>
@@ -24,7 +25,7 @@ const Article = () => (
           </p>
           <p className="url">techworm.net</p>
         </div>
-      </div>
+      </Link>
     </div>
   </StyleWrapper>
 );

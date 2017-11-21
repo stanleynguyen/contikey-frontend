@@ -5,7 +5,7 @@ import StyleWrapper from './components/StyleWrapper';
 import Notification from './components/Notification';
 
 const NotificationPopup = props => (
-  <StyleWrapper>
+  <StyleWrapper innerRef={props.innerRef}>
     <div className="header">
       Notification&nbsp;
       <span className="badge">4</span>
@@ -15,5 +15,11 @@ const NotificationPopup = props => (
     </div>
   </StyleWrapper>
 );
+NotificationPopup.propTypes = {
+  innerRef: PropTypes.func,
+};
+NotificationPopup.defaultProps = {
+  innerRef: () => {},
+};
 
 export default NotificationPopup;

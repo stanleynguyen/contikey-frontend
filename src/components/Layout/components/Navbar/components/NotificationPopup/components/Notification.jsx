@@ -6,7 +6,7 @@ const StyleWrapper = styled.div`
   background: ${props => (props.new ? '#edf2fa' : '#fff')};
   border-bottom: 1px solid #ccc;
   width: 100%;
-  padding: 20px;
+  padding: 10px 20px;
   display: flex;
   .img-fluid {
     flex: 0 0 70px;

@@ -26,7 +26,7 @@ export default styled.div`
   .body {
     max-width: 100%;
     min-height: 200px;
-    height: 40vh;
+    height: 50vh;
     overflow-y: scroll;
   }
   &:after,

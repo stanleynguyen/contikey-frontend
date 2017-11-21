@@ -7,6 +7,7 @@ export default styled.div`
   margin-bottom: 20px;
   box-shadow: 0 0 15px 0 #ccc;
   border-radius: 5px;
+
   .body {
     padding: 20px 0;
     .caption {
@@ -18,6 +19,11 @@ export default styled.div`
       border: 1px solid #ccc;
       border-radius: 5px;
       overflow: hidden;
+      color: #000;
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
       .photo-container {
         flex: 0 0 150px;
         height: auto;

@@ -10,6 +10,7 @@ import store, { history } from './store';
 import Layout from './components/Layout';
 import HomePage from './containers/HomePage';
 import ArticlePage from './containers/ArticlePage';
+import ProfilePage from './containers/ProfilePage';
 
 const router = (
   <Provider store={store}>
@@ -18,6 +19,7 @@ const router = (
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/article/:article_id" component={ArticlePage} />
+          <Route exact path="/profile" component={ProfilePage} />
         </Switch>
       </Layout>
     </ConnectedRouter>
