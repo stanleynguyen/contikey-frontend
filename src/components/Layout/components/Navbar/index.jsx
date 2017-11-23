@@ -34,7 +34,6 @@ class DBoardNavbar extends React.Component {
   }
 
   handleClickOutsideNoti = e => {
-    console.log(e.target, this.notiBtn, this.popup);
     if (
       this.notiBtn &&
       e.target !== this.notiBtn &&
@@ -87,7 +86,10 @@ class DBoardNavbar extends React.Component {
               )}
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/profile">
+              <NavLink
+                tag={Link}
+                to={{ pathname: '/login', state: { modal: true } }}
+              >
                 <img className="navbar-icon" src={user} />
               </NavLink>
             </NavItem>

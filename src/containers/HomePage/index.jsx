@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Container, Col, Row } from 'reactstrap';
 
 import Article from './components/Article';
@@ -8,6 +9,8 @@ import ChannelRec from './components/ChannelRecommendation';
 const StyleWrapper = styled.div`
   padding: 30px 0;
 `;
+
+import { history } from '../../store';
 
 const HomePage = () => (
   <StyleWrapper>
