@@ -13,8 +13,8 @@ const HomePage = () => (
   <StyleWrapper>
     <Container>
       <Row>
-        <Col md="8">{[...Array(10).keys()].map(i => <Article key={i} />)}</Col>
-        <Col md="4">
+        <Col xs="8">{[...Array(10).keys()].map(i => <Article key={i} />)}</Col>
+        <Col xs="4">
           {[...Array(10).keys()].map(i => <ChannelRec key={i} />)}
         </Col>
       </Row>
