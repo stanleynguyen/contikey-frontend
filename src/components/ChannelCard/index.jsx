@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import StyleWrapper from './components/StyleWrapper';
 import ArticlePreview from './components/ArticlePreview';
 
-const Channel = () => (
+const ChannelCard = () => (
   <StyleWrapper>
     <div className="info">
       <img
@@ -24,4 +24,4 @@ const Channel = () => (
   </StyleWrapper>
 );
 
-export default Channel;
+export default ChannelCard;
