@@ -28,4 +28,7 @@ export default styled.div`
     height: auto;
     width: auto;
   }
+  .page-title {
+    margin-top: 20px;
+  }
 `;
