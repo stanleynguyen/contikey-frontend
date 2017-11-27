@@ -39,6 +39,7 @@ class LoginPage extends React.Component {
     let statusChangeCallback = response => {
       if (response.status === 'connected') {
         this.setState({ status: 'logged in' });
+        console.log('accessToken: ', response.authResponse.accessToken);
         console.log('id: ', response.authResponse.userID); // get fb id
         FB.api('/me', response => console.log('name: ' + response.name)); // get name
         FB.api('/me/friends', response =>
