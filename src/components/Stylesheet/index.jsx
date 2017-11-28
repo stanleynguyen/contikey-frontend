@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { PRIMARY, SECONDARY, ACCENT } from '../../constants/colors';
 
 export default styled.div`
-  .container {
+  .container,
+  .container-fluid {
     min-width: 1200px;
   }
   .btn {

@@ -30,7 +30,7 @@ const StyleWrapper = styled(Link)`
 `;
 
 const ArticlePreview = () => (
-  <StyleWrapper className="col-md-3" to="/article/1">
+  <StyleWrapper className="col-3" to="/article/1">
     <div className="preview-img" />
     <h5 className="title">
       How Fallon Fox became the first known transgender athlete
