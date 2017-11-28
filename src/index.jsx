@@ -9,7 +9,7 @@ import store, { history } from './store';
 import ModalSwitch from './components/ModalSwitch';
 import { load } from './lib/fbSDK';
 
-import Layout from './components/Layout';
+import { GeneralLayout, NavbarLayout } from './components/Layout';
 import HomePage from './containers/HomePage';
 import ArticlePage from './containers/ArticlePage';
 import ExplorePage from './containers/ExplorePage';
@@ -19,18 +19,33 @@ import LoginPage, { ModalLoginPage } from './containers/LoginPage';
 const router = (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Layout>
+      <GeneralLayout>
         <ModalSwitch
           history={history}
-          modalRoutes={[<Route path="/login" component={ModalLoginPage} />]}
+          modalRoutes={[
+            <Route exact path="/login" component={ModalLoginPage} />,
+          ]}
         >
-          <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/article/:article_id" component={ArticlePage} />
-          <Route exact path="/explore" component={ExplorePage} />
-          <Route exact path="/profile" component={ProfilePage} />
+          <Route
+            path="/"
+            render={() => (
+              <NavbarLayout>
+                <Switch>
+                  <Route exact path="/" component={HomePage} />
+                  <Route
+                    exact
+                    path="/article/:article_id"
+                    component={ArticlePage}
+                  />
+                  <Route exact path="/explore" component={ExplorePage} />
+                  <Route exact path="/profile" component={ProfilePage} />
+                </Switch>
+              </NavbarLayout>
+            )}
+          />
         </ModalSwitch>
-      </Layout>
+      </GeneralLayout>
     </ConnectedRouter>
   </Provider>
 );

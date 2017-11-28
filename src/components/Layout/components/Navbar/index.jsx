@@ -75,6 +75,7 @@ class DBoardNavbar extends React.Component {
             <NavItem>
               <Button
                 className="nav-link"
+                color=""
                 onClick={this.toggleNoti}
                 innerRef={i => (this.notiBtn = i)}
               >
@@ -94,9 +95,9 @@ class DBoardNavbar extends React.Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Button}>
+              <Button className="nav-link" color="">
                 <img className="navbar-icon" src={writing} />
-              </NavLink>
+              </Button>
             </NavItem>
           </Nav>
         </Collapse>

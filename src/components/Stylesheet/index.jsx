@@ -2,9 +2,6 @@ import styled from 'styled-components';
 import { PRIMARY, SECONDARY, ACCENT } from '../../constants/colors';
 
 export default styled.div`
-  #content {
-    padding-top: 75px;
-  }
   .container {
     min-width: 1200px;
   }
