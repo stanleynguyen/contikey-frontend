@@ -27,7 +27,7 @@ const StyleWrapper = styled(Link)`
   }
 `;
 
-const FriendCard = props => (
+const UserCard = props => (
   <StyleWrapper to="/profile/1">
     <img
       className="avatar img-fluid"
@@ -37,8 +37,8 @@ const FriendCard = props => (
     <h3 className="name">{props.name}</h3>
   </StyleWrapper>
 );
-FriendCard.propTypes = {
+UserCard.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default FriendCard;
+export default UserCard;

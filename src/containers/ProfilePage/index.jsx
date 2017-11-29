@@ -3,11 +3,11 @@ import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import ChannelCard from '../../components/ChannelCard';
+import ChannelCard from 'components/ChannelCard';
+import ArticleCard from 'components/ArticleCard';
+import UserCard from 'components/UserCard';
 import TabsBar from './components/TabsBar';
 import UserInfo from './components/UserInfo';
-import ArticleCard from '../../components/ArticleCard';
-import FriendCard from './components/FriendCard';
 
 const StyleWrapper = styled.div`
   .container-fluid {
@@ -62,7 +62,7 @@ class ProfilePage extends React.Component {
                 <Row>
                   {[...Array(10).keys()].map(i => (
                     <Col xs="6" key={i}>
-                      <FriendCard name="Si-Yan Teo" />
+                      <UserCard name="Si-Yan Teo" />
                     </Col>
                   ))}
                 </Row>
