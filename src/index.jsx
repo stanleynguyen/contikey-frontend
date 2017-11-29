@@ -15,6 +15,7 @@ import ArticlePage from './containers/ArticlePage';
 import ChannelPage from './containers/ChannelPage';
 import ExplorePage from './containers/ExplorePage';
 import ProfilePage from './containers/ProfilePage';
+import SearchPage from './containers/SearchPage';
 import LoginPage, { ModalLoginPage } from './containers/LoginPage';
 
 const router = (
@@ -46,6 +47,7 @@ const router = (
                   />
                   <Route exact path="/explore" component={ExplorePage} />
                   <Route exact path="/profile" component={ProfilePage} />
+                  <Route path="/search" component={SearchPage} />
                 </Switch>
               </NavbarLayout>
             )}
