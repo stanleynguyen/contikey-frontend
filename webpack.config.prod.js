@@ -9,6 +9,7 @@ module.exports = {
   entry: [`${SRC_DIR}/index.jsx`],
   resolve: {
     extensions: ['.js', '.jsx'],
+    modules: ['src', 'node_modules'],
   },
   output: {
     path: DIST_DIR,

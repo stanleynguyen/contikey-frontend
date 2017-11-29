@@ -9,6 +9,7 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     extensions: ['.js', '.jsx'],
+    modules: ['src', 'node_modules'],
   },
   entry: [`${SRC_DIR}/index.jsx`],
   devServer: {
