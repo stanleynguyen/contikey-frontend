@@ -12,6 +12,7 @@ import { load } from './lib/fbSDK';
 import { GeneralLayout, NavbarLayout } from './components/Layout';
 import HomePage from './containers/HomePage';
 import ArticlePage from './containers/ArticlePage';
+import ChannelPage from './containers/ChannelPage';
 import ExplorePage from './containers/ExplorePage';
 import ProfilePage from './containers/ProfilePage';
 import LoginPage, { ModalLoginPage } from './containers/LoginPage';
@@ -37,6 +38,11 @@ const router = (
                     exact
                     path="/article/:article_id"
                     component={ArticlePage}
+                  />
+                  <Route
+                    exact
+                    path="/channel/:channel_id"
+                    component={ChannelPage}
                   />
                   <Route exact path="/explore" component={ExplorePage} />
                   <Route exact path="/profile" component={ProfilePage} />
