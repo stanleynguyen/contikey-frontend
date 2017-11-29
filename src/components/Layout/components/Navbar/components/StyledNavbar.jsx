@@ -38,4 +38,25 @@ export default styled(Navbar)`
     top: 0;
     right: 0;
   }
+  .input-group {
+    width: 400px;
+    margin-left: 20px;
+    .input-group-btn {
+      padding: 7px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    .form-control {
+      color: #fff;
+      border: none;
+      &:hover,
+      &:focus {
+        border: none;
+      }
+    }
+    .input-group-btn,
+    .form-control {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
 `;

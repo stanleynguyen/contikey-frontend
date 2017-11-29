@@ -7,23 +7,30 @@ import {
   NavItem,
   NavLink,
   Button,
+  InputGroup,
+  InputGroupButton,
+  Input,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import logo from '../../../../assets/logo.svg';
-import home from '../../../../assets/home-button.svg';
-import compass from '../../../../assets/compass.svg';
-import user from '../../../../assets/user.svg';
-import writing from '../../../../assets/writing.svg';
-import noti from '../../../../assets/notifications.svg';
+import logo from 'assets/logo.svg';
+import home from 'assets/home-button.svg';
+import compass from 'assets/compass.svg';
+import user from 'assets/user.svg';
+import writing from 'assets/writing.svg';
+import noti from 'assets/notifications.svg';
+import glass from 'assets/mag-glass.svg';
 
 import StyledNavbar from './components/StyledNavbar';
 import NotificationPopup from './components/NotificationPopup';
+import PostModal from './components/PostModal';
+import { history } from 'store';
 
 class DBoardNavbar extends React.Component {
   state = {
     isOpen: false,
     notiOpen: false,
+    postOpen: false,
   };
 
   componentDidMount() {
@@ -53,12 +60,30 @@ class DBoardNavbar extends React.Component {
     this.setState({ notiOpen: !this.state.notiOpen });
   };
 
+  togglePost = () => {
+    this.setState({ postOpen: !this.state.postOpen });
+  };
+
+  handleSearch = e => {
+    e.preventDefault();
+    const query = this.searchInput.value;
+    if (query) history.push(`/search?q=${query}`);
+  };
+
   render() {
     return (
       <StyledNavbar light expand="md" fixed="top">
         <NavbarBrand tag={Link} to="/">
           <img className="logo" src={logo} alt="Logo" />
         </NavbarBrand>
+        <form onSubmit={this.handleSearch}>
+          <InputGroup>
+            <InputGroupButton>
+              <img className="img-fluid" src={glass} />
+            </InputGroupButton>
+            <Input type="text" innerRef={i => (this.searchInput = i)} />
+          </InputGroup>
+        </form>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
@@ -95,9 +120,13 @@ class DBoardNavbar extends React.Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <Button className="nav-link" color="">
+              <Button className="nav-link" color="" onClick={this.togglePost}>
                 <img className="navbar-icon" src={writing} />
               </Button>
+              <PostModal
+                isOpen={this.state.postOpen}
+                toggle={this.togglePost}
+              />
             </NavItem>
           </Nav>
         </Collapse>
