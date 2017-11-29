@@ -5,7 +5,6 @@ export default styled.div`
   flex-direction: column;
   padding: 30px 50px;
   box-shadow: 0 0 15px 0 #ccc;
-  margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
   .info {
