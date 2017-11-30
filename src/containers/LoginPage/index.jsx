@@ -1,41 +1,10 @@
 import React from 'react';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
-import { load } from '../../lib/fbSDK';
-import kidPic from '../../assets/kid.jpeg';
-import logo from '../../assets/logo.svg';
-
-const StyleWrapper = styled.div`
-  width: 100%;
-  height: ${({ insideModal }) => (insideModal ? '100%' : '100vh')};
-  background: ${({ insideModal }) =>
-    insideModal ? '#fff' : `url(${kidPic}) no-repeat center center`};
-  background-size: cover;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  .header {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-
-    .logo {
-      width: 100px;
-      height: 100px;
-      margin-right: 20px;
-    }
-    .tagline {
-      .title,
-      .subtitle {
-        margin-bottom: 0;
-      }
-    }
-  }
-`;
+import { load } from 'lib/fbSDK';
+import logo from 'assets/logo.svg';
+import StyleWrapper from './components/StyleWrapper';
 
 class LoginPage extends React.Component {
   static propTypes = {
