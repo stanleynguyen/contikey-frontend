@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { load } from 'lib/fbSDK';
+import { reload } from 'lib/fbSDK';
 import logo from 'assets/logo.svg';
 import StyleWrapper from './components/StyleWrapper';
 
@@ -15,7 +15,7 @@ class LoginPage extends React.Component {
   };
 
   componentDidMount() {
-    load();
+    reload();
   }
 
   render() {

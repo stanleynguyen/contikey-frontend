@@ -4,8 +4,7 @@ import createHistory from 'history/createBrowserHistory';
 import thunk from 'redux-thunk';
 
 import rootReducer from './reducers';
-
-const defaultState = {};
+import { defaultState } from 'constants/misc';
 
 export const history = createHistory();
 const historyMiddleware = routerMiddleware(history);

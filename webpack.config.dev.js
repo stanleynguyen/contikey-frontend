@@ -11,7 +11,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     modules: ['src', 'node_modules'],
   },
-  entry: [`${SRC_DIR}/index.jsx`],
+  entry: ['babel-polyfill', `${SRC_DIR}/index.jsx`],
   devServer: {
     inline: true,
     port: 3000,
@@ -34,7 +34,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
-        BASE_URL: JSON.stringify('http://localhost:8080'), // change to whatever port that you are using to host backend at your local must be different from 3000
+        BASE_URL: JSON.stringify('http://127.0.0.1:8000'), // change to whatever port that you are using to host backend at your local must be different from 3000
       },
     }),
   ],
@@ -49,7 +49,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['react', 'es2015', 'stage-1'],
+              presets: ['react', 'es2015', 'stage-0'],
             },
           },
         ],
