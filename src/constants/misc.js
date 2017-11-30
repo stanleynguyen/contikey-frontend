@@ -6,4 +6,5 @@ export const ERROR = 'ERROR';
 
 export const defaultState = {
   auth: { status: NONE, error: '' },
+  feed: { status: NONE, articles: [], cursor: '', error: '' },
 };
