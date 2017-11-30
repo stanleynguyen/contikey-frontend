@@ -18,7 +18,6 @@ export function formatAgo(date) {
       minute: 'numeric',
     })}`;
   } else {
-    console.log(days);
     const hours = Math.floor(seconds / 3600);
     if (hours > 0) {
       return `${hours} hours ago`;
