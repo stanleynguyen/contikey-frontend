@@ -17,4 +17,26 @@ export const defaultState = {
     },
   },
   feed: { status: NONE, articles: [], cursor: '', error: '' },
+  profile: {
+    channels: {
+      status: NONE,
+      value: [],
+      error: '',
+    },
+    articles: {
+      status: NONE,
+      value: [],
+      error: '',
+    },
+    friends: {
+      status: NONE,
+      value: [],
+      error: '',
+    },
+    following: {
+      status: NONE,
+      value: [],
+      error: '',
+    },
+  },
 };

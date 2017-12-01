@@ -9,9 +9,17 @@ export const authenticateUser = () => async dispatchEvent => {
   dispatchEvent(authLoading());
   try {
     const res = await login();
-    console.log(res);
     dispatchEvent(authSuccess(res));
   } catch (e) {
     dispatchEvent(authFail(e));
+  }
+};
+
+export const authRefresh = actionToRetry => async dispatchEvent => {
+  try {
+    await login();
+    dispatchEvent(actionToRetry());
+  } catch (e) {
+    throw e;
   }
 };

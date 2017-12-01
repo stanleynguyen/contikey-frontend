@@ -19,3 +19,15 @@ export const feed = PropTypes.shape({
   articles: PropTypes.array.isRequired,
   error: PropTypes.string.isRequired,
 });
+
+const profileFieldShape = PropTypes.shape({
+  status: PropTypes.oneOf(availableStatuses).isRequired,
+  value: PropTypes.array.isRequired,
+  error: PropTypes.string.isRequired,
+});
+export const profile = PropTypes.shape({
+  channels: profileFieldShape.isRequired,
+  articles: profileFieldShape.isRequired,
+  friends: profileFieldShape.isRequired,
+  following: profileFieldShape.isRequired,
+});

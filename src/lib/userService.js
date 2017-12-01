@@ -12,8 +12,23 @@ export const login = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify({ accessToken }),
     }),
   );
   return res;
 };
+
+const getFieldTemplate = field => async (params = { user_id: '' }) => {
+  const { user_id } = params;
+  const res = await serviceReq(
+    fetch(`${SERVICE_URL}/${user_id ? `${user_id}/` : ''}${field}/`, {
+      credentials: 'include',
+    }),
+  );
+  return res;
+};
+export const getChannels = getFieldTemplate('channels');
+export const getArticles = getFieldTemplate('articles');
+export const getFriends = getFieldTemplate('friends');
+export const getFollowing = getFieldTemplate('following');
