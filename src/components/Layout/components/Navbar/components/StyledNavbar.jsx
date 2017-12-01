@@ -12,6 +12,9 @@ export default styled(Navbar)`
   .navbar-icon {
     height: 30px;
     width: auto;
+    &.avatar {
+      border-radius: 3px;
+    }
   }
   .navbar-nav .nav-link {
     padding: 0;

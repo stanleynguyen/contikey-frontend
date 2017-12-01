@@ -6,7 +6,16 @@ export default function auth(state = {}, action) {
     case AUTH_LOADING:
       return Object.assign({}, state, { status: LOADING });
     case AUTH_SUCCESS:
-      return Object.assign({}, state, { status: SUCCESS });
+      return Object.assign(
+        {},
+        state,
+        { status: SUCCESS },
+        {
+          user: Object.assign({}, action.payload.user, {
+            new_user: action.payload.new_user,
+          }),
+        },
+      );
     case AUTH_FAIL:
       return Object.assign(
         {},

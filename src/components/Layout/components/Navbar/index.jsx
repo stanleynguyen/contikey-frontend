@@ -12,6 +12,7 @@ import {
   Input,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import logo from 'assets/logo.svg';
 import home from 'assets/home-button.svg';
@@ -25,6 +26,8 @@ import StyledNavbar from './components/StyledNavbar';
 import NotificationPopup from './components/NotificationPopup';
 import PostModal from './components/PostModal';
 import { history } from 'store';
+import { auth as authType } from 'constants/propTypes';
+import { SUCCESS } from 'constants/misc';
 
 class DBoardNavbar extends React.Component {
   state = {
@@ -32,6 +35,7 @@ class DBoardNavbar extends React.Component {
     notiOpen: false,
     postOpen: false,
   };
+  static propTypes = { auth: authType };
 
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutsideNoti);
@@ -112,12 +116,22 @@ class DBoardNavbar extends React.Component {
               )}
             </NavItem>
             <NavItem>
-              <NavLink
-                tag={Link}
-                to={{ pathname: '/login', state: { modal: true } }}
-              >
-                <img className="navbar-icon" src={user} />
-              </NavLink>
+              {this.props.auth.status !== SUCCESS && (
+                <NavLink
+                  tag={Link}
+                  to={{ pathname: '/login', state: { modal: true } }}
+                >
+                  <img className="navbar-icon" src={user} />
+                </NavLink>
+              )}
+              {this.props.auth.status === SUCCESS && (
+                <NavLink tag={Link} to="/profile">
+                  <img
+                    className="navbar-icon avatar"
+                    src={this.props.auth.user.photo}
+                  />
+                </NavLink>
+              )}
             </NavItem>
             <NavItem>
               <Button className="nav-link" color="" onClick={this.togglePost}>
@@ -135,4 +149,4 @@ class DBoardNavbar extends React.Component {
   }
 }
 
-export default DBoardNavbar;
+export default connect(({ auth }) => ({ auth }), {})(DBoardNavbar);

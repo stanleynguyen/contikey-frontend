@@ -5,6 +5,16 @@ export const SUCCESS = 'SUCCESS';
 export const ERROR = 'ERROR';
 
 export const defaultState = {
-  auth: { status: NONE, error: '' },
+  auth: {
+    status: NONE,
+    error: '',
+    user: {
+      user_id: 0,
+      email: '',
+      name: '',
+      photo: '',
+      new_user: false,
+    },
+  },
   feed: { status: NONE, articles: [], cursor: '', error: '' },
 };
