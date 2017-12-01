@@ -83,7 +83,7 @@ class DBoardNavbar extends React.Component {
         <form onSubmit={this.handleSearch}>
           <InputGroup>
             <InputGroupButton>
-              <img className="img-fluid" src={glass} />
+              <img className="navbar-icon" src={glass} />
             </InputGroupButton>
             <Input type="text" innerRef={i => (this.searchInput = i)} />
           </InputGroup>
