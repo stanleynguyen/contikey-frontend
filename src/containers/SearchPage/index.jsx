@@ -83,7 +83,7 @@ class SearchPage extends React.Component {
                 <Row>
                   {this.state.data.map(u => (
                     <Col xs="6">
-                      <UserCard key={u['user_id']} {...u} name="Si-Yan Teo" />
+                      <UserCard key={u['user_id']} {...u} />
                     </Col>
                   ))}
                 </Row>

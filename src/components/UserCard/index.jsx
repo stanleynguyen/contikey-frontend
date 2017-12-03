@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { NO_IMAGE_PLACEHOLDER } from 'constants/misc';
+
 const StyleWrapper = styled(Link)`
   display: flex;
   align-items: center;
@@ -28,10 +30,10 @@ const StyleWrapper = styled(Link)`
 `;
 
 const UserCard = props => (
-  <StyleWrapper to="/profile/1">
+  <StyleWrapper to={`/profile/${props.user_id}`}>
     <img
       className="avatar img-fluid"
-      src="https://picsum.photos/400/400?random"
+      src={props.photo ? props.photo : NO_IMAGE_PLACEHOLDER}
       alt="Avatar"
     />
     <h3 className="name">{props.name}</h3>
@@ -39,6 +41,12 @@ const UserCard = props => (
 );
 UserCard.propTypes = {
   name: PropTypes.string.isRequired,
+};
+
+UserCard.defaultProps = {
+  name: 'Si-Yan Teo',
+  photo: 'https://picsum.photos/400/400?random',
+  user_id: 1,
 };
 
 export default UserCard;
