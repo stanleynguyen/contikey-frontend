@@ -51,5 +51,6 @@ export const defaultState = {
     error: '',
     likes: 0,
     user: defaultUser,
+    comment_status: NONE,
   },
 };

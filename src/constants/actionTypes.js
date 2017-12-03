@@ -26,3 +26,5 @@ export const ARTICLE_SUCCESS = '@article/SUCCESS';
 export const ARTICLE_FAIL = '@article/FAIL';
 export const ARTICLE_LIKE = '@article/LIKE';
 export const ARTICLE_UNLIKE = '@article/UNLIKE';
+export const ARTICLE_COMMENTING = '@article/COMMENTING';
+export const ARTICLE_COMMENT = '@article/COMMENT';

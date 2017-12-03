@@ -47,4 +47,5 @@ export const article = PropTypes.shape({
   created_at: PropTypes.string.isRequired,
   user: user.isRequired,
   likes: PropTypes.number.isRequired,
+  comment_status: PropTypes.oneOf(availableStatuses).isRequired,
 });

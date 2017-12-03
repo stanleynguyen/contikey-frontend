@@ -15,7 +15,12 @@ import Comment from './components/Comment';
 import like from '../../assets/like.svg';
 import send from '../../assets/send.svg';
 import StyleWrapper from './components/StyleWrapper';
-import { articleFetch, articleLike, articleUnlike } from 'actions';
+import {
+  articleFetch,
+  articleLike,
+  articleUnlike,
+  articleComment,
+} from 'actions';
 import { SUCCESS, LOADING } from 'constants/misc';
 import Spinner from 'components/Spinner';
 import { article as articleType, auth as authType } from 'constants/propTypes';
@@ -40,6 +45,12 @@ class ArticlePage extends React.Component {
     if (article_id !== prevProps.match.params.article_id) {
       this.props.articleFetch({ article_id });
     }
+    if (
+      prevProps.article.comment_status === LOADING &&
+      this.props.article.comment_status === SUCCESS
+    ) {
+      this.commentInput.value = '';
+    }
   }
 
   handleLikeClick = () => {
@@ -53,6 +64,16 @@ class ArticlePage extends React.Component {
     } else if (this.props.article.liked) {
       this.props.articleUnlike();
     }
+  };
+  handleCommentFocus = () =>
+    this.props.auth.status !== SUCCESS &&
+    history.push('/login', { modal: true });
+  handleCommentSubmit = e => {
+    e.preventDefault();
+    const { article_id } = this.props.article;
+    const comment_text = this.commentInput.value;
+    if (!comment_text || comment_text === '') return;
+    this.props.articleComment({ article_id, comment_text });
   };
 
   render() {
@@ -94,9 +115,14 @@ class ArticlePage extends React.Component {
                   ))}
                 </div>
                 <div className="widget">
-                  <form>
+                  <form onSubmit={this.handleCommentSubmit}>
                     <InputGroup>
-                      <Input placeholder="Write a comment" />
+                      <Input
+                        placeholder="Write a comment"
+                        innerRef={i => (this.commentInput = i)}
+                        disabled={this.props.article.comment_status === LOADING}
+                        onFocus={this.handleCommentFocus}
+                      />
                       <InputGroupButton>
                         <button className="btn-secondary">
                           <img className="img-fluid" src={send} />
@@ -118,4 +144,5 @@ export default connect(({ article, auth }) => ({ article, auth }), {
   articleFetch,
   articleLike,
   articleUnlike,
+  articleComment,
 })(ArticlePage);

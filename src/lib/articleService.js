@@ -28,3 +28,11 @@ export const likeUnlikeArticle = async ({ article_id }, like = true) =>
       credentials: 'include',
     }),
   );
+
+export const commentArticle = async ({ article_id, comment_text }) =>
+  await fetch(`${SERVICE_URL}/${article_id}/comment/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ article_id, comment_text }),
+  });
