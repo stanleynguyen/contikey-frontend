@@ -73,7 +73,7 @@ class SearchPage extends React.Component {
             <Col xs="12">
               {this.state.tab === 'channels' &&
                 this.state.data.map(c => (
-                  <ChannelCard key={c['channel_id']} data={c} />
+                  <ChannelCard key={c['channel_id']} {...c} />
                 ))}
               {this.state.tab === 'articles' &&
                 this.state.data.map(a => (

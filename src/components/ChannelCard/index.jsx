@@ -8,22 +8,19 @@ import ArticlePreview from './components/ArticlePreview';
 
 const ChannelCard = props => (
   <StyleWrapper>
-    <Link className="plain" to={`/channel/${props.data.channel_id}`}>
+    <Link className="plain" to={`/channel/${props.channel_id}`}>
       <div className="info">
-        <img
-          className="avatar img-fluid rounded-circle"
-          src={props.data.avatar}
-        />
+        <img className="avatar img-fluid rounded-circle" src={props.avatar} />
         <div className="details">
-          <h4 className="title">{props.data.title}</h4>
-          <p className="faded">{props.data.num_subscribers} subscribers</p>
+          <h4 className="title">{props.title}</h4>
+          <p className="faded">{props.num_subscribers} subscribers</p>
         </div>
       </div>
     </Link>
     <div className="articles">
       <Row>
-        {props.data.articles.map(a => (
-          <ArticlePreview key={a['article_id']} data={a} />
+        {props.articles.map(a => (
+          <ArticlePreview key={a['article_id']} {...a} />
         ))}
       </Row>
     </div>
@@ -31,13 +28,11 @@ const ChannelCard = props => (
 );
 
 ChannelCard.defaultProps = {
-  data: {
-    channel_id: 1,
-    avatar: 'https://unsplash.it/300/300',
-    title: 'Sport News',
-    num_subscribers: 100,
-    articles: [],
-  },
+  channel_id: 1,
+  avatar: 'https://unsplash.it/300/300',
+  title: 'Sport News',
+  num_subscribers: 100,
+  articles: [],
 };
 
 export default ChannelCard;
