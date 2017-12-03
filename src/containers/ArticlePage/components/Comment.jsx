@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { SECONDARY } from '../../../constants/colors';
 import { formatAgo } from '../../../lib/time';
+import { comment as commentType } from 'constants/propTypes';
 
 const StyleWrapper = styled.div`
   background-color: ${SECONDARY};
@@ -18,15 +19,14 @@ const StyleWrapper = styled.div`
   }
 `;
 
-const Comment = () => (
+const Comment = props => (
   <StyleWrapper>
     <h6 className="author">Si-Yan Teo</h6>
-    <p className="text">
-      I'm thinking it can look more like convo style (like messenger/whatsapp)
-      rather than comments like fb
-    </p>
-    <p className="time">{formatAgo(new Date())}</p>
+    <p className="text">{props.comment_text}</p>
+    <p className="time">{formatAgo(new Date(props.created_at))}</p>
   </StyleWrapper>
 );
+
+Comment.propTypes = commentType.isRequired;
 
 export default Comment;

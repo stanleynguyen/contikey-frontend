@@ -31,3 +31,15 @@ export const profile = PropTypes.shape({
   friends: profileFieldShape.isRequired,
   following: profileFieldShape.isRequired,
 });
+
+export const comment = PropTypes.shape({
+  comment_id: PropTypes.number.isRequired,
+  comment_text: PropTypes.string.isRequired,
+  created_at: PropTypes.string.isRequired,
+});
+export const article = PropTypes.shape({
+  status: PropTypes.oneOf(availableStatuses).isRequired,
+  url: PropTypes.string.isRequired,
+  comments: PropTypes.arrayOf(comment),
+  created_at: PropTypes.string.isRequired,
+});

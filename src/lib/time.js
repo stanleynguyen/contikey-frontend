@@ -20,13 +20,13 @@ export function formatAgo(date) {
   } else {
     const hours = Math.floor(seconds / 3600);
     if (hours > 0) {
-      return `${hours} hours ago`;
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
     } else {
       const minutes = Math.floor(seconds / 60);
       if (minutes > 0) {
-        return `${minutes} minutes ago`;
+        return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
       } else {
-        return `${seconds} seconds ago`;
+        return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
       }
     }
   }

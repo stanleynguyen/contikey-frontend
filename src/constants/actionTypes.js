@@ -20,3 +20,7 @@ export const PROFILE_FRIENDS_FAIL = '@profile/FRIENDS_FAIL';
 export const PROFILE_FOLLOWING_LOADING = '@profile/FOLLOWING_LOADING';
 export const PROFILE_FOLLOWING_SUCCEED = '@profile/FOLLOWING_SUCCEED';
 export const PROFILE_FOLLOWING_FAIL = '@profile/FOLLOWING_FAIL';
+
+export const ARTICLE_LOADING = '@article/LOADING';
+export const ARTICLE_SUCCESS = '@article/SUCCESS';
+export const ARTICLE_FAIL = '@article/FAIL';

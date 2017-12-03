@@ -39,4 +39,12 @@ export const defaultState = {
       error: '',
     },
   },
+  article: {
+    status: NONE,
+    url: '',
+    caption: '',
+    comments: [],
+    created_at: '',
+    error: '',
+  },
 };

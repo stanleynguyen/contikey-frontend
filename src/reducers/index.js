@@ -4,10 +4,12 @@ import { routerReducer } from 'react-router-redux';
 import auth from './auth';
 import feed from './feed';
 import profile from './profile';
+import article from './article';
 
 export default combineReducers({
   router: routerReducer,
   auth,
   feed,
   profile,
+  article,
 });

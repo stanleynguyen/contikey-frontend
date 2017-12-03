@@ -8,6 +8,15 @@ export const loadFeed = async (params = { cursor: '' }) => {
   return await serviceReq(
     fetch(`${SERVICE_URL}/feed/${cursor ? cursor : ''}`, {
       method: 'GET',
+      credentials: 'include',
     }),
   );
 };
+
+export const loadArticleById = async ({ article_id }) =>
+  await serviceReq(
+    fetch(`${SERVICE_URL}/${article_id}`, {
+      method: 'GET',
+      credentials: 'include',
+    }),
+  );

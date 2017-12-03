@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { formatAgo } from 'lib/time';
 
 const StyleWrapper = styled.div`
   display: flex;
@@ -28,34 +29,30 @@ const StyleWrapper = styled.div`
 `;
 
 const ArticleInfo = props => {
-  if (props.showUser) {
-    return (
-      <StyleWrapper>
-        <img className="avatar" src="https://unsplash.it/300/300" />
-        <div className="info">
+  return (
+    <StyleWrapper>
+      <img className="avatar" src="https://unsplash.it/300/300" />
+      <div className="info">
+        {props.showUser && (
           <p className="user-to-channel">
             Siyan <span className="arrow">&gt;</span> Random
           </p>
-          <p className="time-container">today &middot; 5 min read</p>
-        </div>
-      </StyleWrapper>
-    );
-  } else {
-    return (
-      <StyleWrapper>
-        <div className="info">
-          <p className="time-container">today &middot; 5 min read</p>
-        </div>
-      </StyleWrapper>
-    );
-  }
+        )}
+        <p className="time-container">
+          {formatAgo(new Date(props.created_at))} &middot; 5 min read
+        </p>
+      </div>
+    </StyleWrapper>
+  );
 };
 
 ArticleInfo.propTypes = {
   showUser: PropTypes.bool,
+  created_at: PropTypes.string,
 };
 ArticleInfo.defaultProps = {
   showUser: true,
+  created_at: JSON.stringify(new Date()),
 };
 
 export default ArticleInfo;

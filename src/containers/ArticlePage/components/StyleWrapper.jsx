@@ -7,9 +7,15 @@ export default styled.div`
   .row,
   .left-section,
   .right-section,
-  .view {
+  .view,
+  .spinner-container {
     width: 100%;
     height: 100%;
+  }
+  .spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .left-section {
     .view {
