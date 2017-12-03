@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRIMARY, SECONDARY, ACCENT } from '../../constants/colors';
+import { PRIMARY, SECONDARY, ACCENT, FADED } from '../../constants/colors';
 
 export default styled.div`
   .container,
@@ -60,5 +60,14 @@ export default styled.div`
         font-weight: normal;
       }
     }
+  }
+  a.plain {
+    color: initial;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .faded {
+    color: ${FADED};
   }
 `;
