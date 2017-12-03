@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { formatAgo } from 'lib/time';
+import { Link } from 'react-router-dom';
 
 import { formatAgo } from 'lib/time';
 
@@ -37,11 +37,13 @@ const ArticleInfo = props => {
       <div className="info">
         {props.showUser && (
           <p className="user-to-channel">
-            {props.user.name} <span className="arrow">&gt;</span>{' '}
-            {props.channel.title}
-          </p>
-          <p className="time-container">
-            {formatAgo(new Date(props.created_at))} &middot; 5 min read
+            <Link className="plain" to={`/user/${props.user.user_id}`}>
+              {props.user.name + ' '}
+            </Link>
+            <span className="arrow">&gt;</span>
+            <Link className="plain" to={`/channel/${props.channel.channel_id}`}>
+              {' ' + props.channel.title}
+            </Link>
           </p>
         )}
         <p className="time-container">
