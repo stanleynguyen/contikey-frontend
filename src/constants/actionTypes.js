@@ -24,3 +24,5 @@ export const PROFILE_FOLLOWING_FAIL = '@profile/FOLLOWING_FAIL';
 export const ARTICLE_LOADING = '@article/LOADING';
 export const ARTICLE_SUCCESS = '@article/SUCCESS';
 export const ARTICLE_FAIL = '@article/FAIL';
+export const ARTICLE_LIKE = '@article/LIKE';
+export const ARTICLE_UNLIKE = '@article/UNLIKE';

@@ -20,3 +20,11 @@ export const loadArticleById = async ({ article_id }) =>
       credentials: 'include',
     }),
   );
+
+export const likeUnlikeArticle = async ({ article_id }, like = true) =>
+  await serviceReq(
+    fetch(`${SERVICE_URL}/${article_id}/like/`, {
+      method: like ? 'POST' : 'DELETE',
+      credentials: 'include',
+    }),
+  );

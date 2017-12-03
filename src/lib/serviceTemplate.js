@@ -1,9 +1,9 @@
 export async function serviceReq(fetchProm) {
   try {
     const res = await fetchProm;
-    if (res.status === 200) {
+    if (res.status === 200 || res.status === 201) {
       const payload = await res.json();
-      return Object.assign({}, { status: 200 }, payload);
+      return Object.assign({}, { status: res.status }, payload);
     } else {
       const payload = await res.json();
       throw Object.assign({}, { status: res.status }, payload);

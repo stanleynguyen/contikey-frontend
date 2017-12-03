@@ -40,6 +40,9 @@ export default styled.div`
         border: none;
         padding: 0;
         cursor: pointer;
+        &:focus {
+          outline: none;
+        }
         &.inverted {
           filter: grayscale(100%);
         }

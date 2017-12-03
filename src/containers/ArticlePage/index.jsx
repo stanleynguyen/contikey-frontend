@@ -15,10 +15,11 @@ import Comment from './components/Comment';
 import like from '../../assets/like.svg';
 import send from '../../assets/send.svg';
 import StyleWrapper from './components/StyleWrapper';
-import { articleFetch } from 'actions';
+import { articleFetch, articleLike, articleUnlike } from 'actions';
 import { SUCCESS, LOADING } from 'constants/misc';
 import Spinner from 'components/Spinner';
-import { article as articleType } from 'constants/propTypes';
+import { article as articleType, auth as authType } from 'constants/propTypes';
+import { history } from 'store';
 
 class ArticlePage extends React.Component {
   static propTypes = {
@@ -27,6 +28,7 @@ class ArticlePage extends React.Component {
       params: PropTypes.shape({ article_id: PropTypes.string.isRequired })
         .isRequired,
     }).isRequired,
+    auth: authType.isRequired,
   };
 
   componentDidMount() {
@@ -39,6 +41,19 @@ class ArticlePage extends React.Component {
       this.props.articleFetch({ article_id });
     }
   }
+
+  handleLikeClick = () => {
+    if (
+      this.props.auth.status !== SUCCESS ||
+      this.props.article.status === LOADING
+    ) {
+      history.push('/login', { modal: true });
+    } else if (!this.props.article.liked) {
+      this.props.articleLike();
+    } else if (this.props.article.liked) {
+      this.props.articleUnlike();
+    }
+  };
 
   render() {
     return (
@@ -65,6 +80,7 @@ class ArticlePage extends React.Component {
                     className={`like ${this.props.article.liked
                       ? ''
                       : 'inverted'}`}
+                    onClick={this.handleLikeClick}
                   >
                     <img src={like} alt="Like" />
                   </button>
@@ -98,6 +114,8 @@ class ArticlePage extends React.Component {
   }
 }
 
-export default connect(({ article }) => ({ article }), { articleFetch })(
-  ArticlePage,
-);
+export default connect(({ article, auth }) => ({ article, auth }), {
+  articleFetch,
+  articleLike,
+  articleUnlike,
+})(ArticlePage);
