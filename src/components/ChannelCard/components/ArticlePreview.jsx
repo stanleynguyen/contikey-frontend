@@ -35,14 +35,12 @@ const StyleWrapper = styled(Link)`
 const ArticlePreview = props => (
   <StyleWrapper
     className="col-3"
-    to={`/article/${props.data.article_id}`}
-    img={
-      props.data.preview_image ? props.data.preview_image : NO_IMAGE_PLACEHOLDER
-    }
+    to={`/article/${props.article_id}`}
+    img={props.preview_image ? props.preview_image : NO_IMAGE_PLACEHOLDER}
   >
     <div className="preview-img" />
-    <h5 className="title">{props.data.preview_title}</h5>
-    <p className="faded">{props.data.url}</p>
+    <h5 className="title">{props.preview_title}</h5>
+    <p className="faded">{props.url}</p>
   </StyleWrapper>
 );
 
@@ -56,12 +54,10 @@ ArticlePreview.propTypes = {
 };
 
 ArticlePreview.defaultProps = {
-  data: {
-    article_id: 1,
-    preview_image: 'https://unsplash.it/700/700',
-    preview_title: 'How Fallon Fox became the first known transgender athlete',
-    url: 'website.com',
-  },
+  article_id: 1,
+  preview_image: 'https://unsplash.it/700/700',
+  preview_title: 'How Fallon Fox became the first known transgender athlete',
+  url: 'website.com',
 };
 
 export default ArticlePreview;
