@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { formatAgo } from 'lib/time';
 
+import { formatAgo } from 'lib/time';
+
 const StyleWrapper = styled.div`
   display: flex;
   .avatar {
@@ -35,7 +37,11 @@ const ArticleInfo = props => {
       <div className="info">
         {props.showUser && (
           <p className="user-to-channel">
-            Siyan <span className="arrow">&gt;</span> Random
+            {props.user.name} <span className="arrow">&gt;</span>{' '}
+            {props.channel.title}
+          </p>
+          <p className="time-container">
+            {formatAgo(new Date(props.created_at))} &middot; 5 min read
           </p>
         )}
         <p className="time-container">
@@ -53,6 +59,15 @@ ArticleInfo.propTypes = {
 ArticleInfo.defaultProps = {
   showUser: true,
   created_at: JSON.stringify(new Date()),
+  user: {
+    name: 'Siyan',
+    photo: 'https://unsplash.it/300/300',
+    user_id: 1,
+  },
+  channel: {
+    channel_id: 1,
+    title: 'Random',
+  },
 };
 
 export default ArticleInfo;

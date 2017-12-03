@@ -29,26 +29,29 @@ const StyleWrapper = styled(Link)`
     .url {
       margin-bottom: 0;
     }
-    .url {
-      color: #999;
-    }
   }
 `;
 
-const ArticlePreview = () => (
-  <StyleWrapper to="/article/1">
+const ArticlePreview = props => (
+  <StyleWrapper to={`/article/${props.article_id}`}>
     <div className="photo-container">
-      <img className="img-fluid" src="https://unsplash.it/400/400" />
+      <img className="img-fluid" src={props.preview_image} />
     </div>
     <div className="detail">
-      <h4 className="title"> What is the best programming lang for IoT</h4>
-      <p className="text">
-        Do you know which one is the best programming lang for IoT? Programming
-        langs are behind every IoT enabled device and service
-      </p>
-      <p className="url">techworm.net</p>
+      <h4 className="title">{props.preview_title}</h4>
+      <p className="text">{props.preview_text}</p>
+      <p className="url faded">{props.url}</p>
     </div>
   </StyleWrapper>
 );
+
+ArticlePreview.defaultProps = {
+  article_id: 1,
+  preview_image: 'https://unsplash.it/400/400',
+  preview_title: 'What is the best programming lang for IoT',
+  preview_text:
+    'Do you know which one is the best programming lang for IoT? Programming langs are behind every IoT enabled device and service',
+  url: 'techworm.net',
+};
 
 export default ArticlePreview;
