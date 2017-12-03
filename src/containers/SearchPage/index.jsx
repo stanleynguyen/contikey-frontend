@@ -2,6 +2,8 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 
+import { loadSearch } from 'lib/searchService';
+
 import TabsBar from './components/TabsBar';
 import ChannelCard from 'components/ChannelCard';
 import ArticleCard from 'components/ArticleCard';
@@ -24,13 +26,25 @@ class SearchPage extends React.Component {
   state = {
     query: '',
     tab: 'channels',
+    data: null,
   };
 
   componentDidMount() {
     this.updateParams();
+    loadSearch(this.state.tab, this.state.query).then(res =>
+      this.setState({ data: res.data }),
+    );
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     this.updateParams();
+    if (
+      this.state.tab !== prevState.tab ||
+      this.state.query !== prevState.query
+    ) {
+      loadSearch(this.state.tab, this.state.query).then(res =>
+        this.setState({ data: res.data }),
+      );
+    }
   }
 
   updateParams = () => {
@@ -46,6 +60,8 @@ class SearchPage extends React.Component {
   };
 
   render() {
+    if (!this.state.data) return <p>No data found</p>;
+
     return (
       <StyleWrapper>
         <Container fluid>
@@ -56,14 +72,18 @@ class SearchPage extends React.Component {
           <Row>
             <Col xs="12">
               {this.state.tab === 'channels' &&
-                [...Array(10).keys()].map(i => <ChannelCard key={i} />)}
+                this.state.data.map(c => (
+                  <ChannelCard key={c['channel_id']} data={c} />
+                ))}
               {this.state.tab === 'articles' &&
-                [...Array(10).keys()].map(i => <ArticleCard key={i} />)}
+                this.state.data.map(a => (
+                  <ArticleCard key={a['article_id']} data={a} />
+                ))}
               {this.state.tab === 'users' && (
                 <Row>
-                  {[...Array(10).keys()].map(i => (
-                    <Col xs="6" key={i}>
-                      <UserCard name="Si-Yan Teo" />
+                  {this.state.data.map(u => (
+                    <Col xs="6">
+                      <UserCard key={u['user_id']} data={u} name="Si-Yan Teo" />
                     </Col>
                   ))}
                 </Row>
