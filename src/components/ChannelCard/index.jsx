@@ -19,9 +19,7 @@ const ChannelCard = props => (
     </Link>
     <div className="articles">
       <Row>
-        {props.articles.map(a => (
-          <ArticlePreview key={a['article_id']} {...a} />
-        ))}
+        {props.articles.map(a => <ArticlePreview key={a.article_id} {...a} />)}
       </Row>
     </div>
   </StyleWrapper>

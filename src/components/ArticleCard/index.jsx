@@ -40,6 +40,8 @@ ArticleCard.defaultProps = {
   user: {
     user_id: 1,
     name: 'siyan',
+    email: 'sy@sutd.edu',
+    photo: 'https://picsum.photos/200/200?random',
   },
 };
 
