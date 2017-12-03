@@ -3,6 +3,7 @@ import { PRIMARY } from '../../../constants/colors';
 
 export default styled.div`
   height: calc(100vh - 75px);
+  min-height: 400px;
   .container-fluid,
   .row,
   .left-section,
@@ -38,6 +39,10 @@ export default styled.div`
         background: transparent;
         border: none;
         padding: 0;
+        cursor: pointer;
+        &.inverted {
+          filter: grayscale(100%);
+        }
         img {
           height: 30px;
           width: 30px;

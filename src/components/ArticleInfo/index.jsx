@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { formatAgo } from 'lib/time';
+import { user as userType } from 'constants/propTypes';
 
 const StyleWrapper = styled.div`
   display: flex;
@@ -33,7 +34,7 @@ const StyleWrapper = styled.div`
 const ArticleInfo = props => {
   return (
     <StyleWrapper>
-      <img className="avatar" src="https://unsplash.it/300/300" />
+      <img className="avatar" src={props.user.photo} />
       <div className="info">
         {props.showUser && (
           <p className="user-to-channel">
@@ -57,15 +58,11 @@ const ArticleInfo = props => {
 ArticleInfo.propTypes = {
   showUser: PropTypes.bool,
   created_at: PropTypes.string,
+  user: userType.isRequired,
 };
 ArticleInfo.defaultProps = {
   showUser: true,
   created_at: JSON.stringify(new Date()),
-  user: {
-    name: 'Siyan',
-    photo: 'https://unsplash.it/300/300',
-    user_id: 1,
-  },
   channel: {
     channel_id: 1,
     title: 'Random',

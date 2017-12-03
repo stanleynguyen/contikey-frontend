@@ -6,17 +6,18 @@ export const ERROR = 'ERROR';
 export const NO_IMAGE_PLACEHOLDER =
   'http://festa.org.nz/wp-content/uploads/2016/08/no_image_placeholder.png';
 
+const defaultUser = {
+  user_id: 0,
+  email: '',
+  name: '',
+  photo: '',
+  new_user: false,
+};
 export const defaultState = {
   auth: {
     status: NONE,
     error: '',
-    user: {
-      user_id: 0,
-      email: '',
-      name: '',
-      photo: '',
-      new_user: false,
-    },
+    user: defaultUser,
   },
   feed: { status: NONE, articles: [], cursor: '', error: '' },
   profile: {
@@ -48,5 +49,7 @@ export const defaultState = {
     comments: [],
     created_at: '',
     error: '',
+    likes: 0,
+    user: defaultUser,
   },
 };

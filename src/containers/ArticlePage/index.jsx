@@ -23,8 +23,10 @@ import { article as articleType } from 'constants/propTypes';
 class ArticlePage extends React.Component {
   static propTypes = {
     article: articleType.isRequired,
-    match: PropTypes.shape({ article_id: PropTypes.number.isRequired })
-      .isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({ article_id: PropTypes.string.isRequired })
+        .isRequired,
+    }).isRequired,
   };
 
   componentDidMount() {
@@ -53,13 +55,22 @@ class ArticlePage extends React.Component {
                 <iframe className="view" src={this.props.article.url} />
               </Col>
               <Col md="3" className="right-section">
-                <ArticleInfo created_at={this.props.article.created_at} />
+                <ArticleInfo
+                  user={this.props.article.user}
+                  created_at={this.props.article.created_at}
+                />
                 <p className="caption">{this.props.article.caption}</p>
                 <div className="like-container">
-                  <button className="like">
+                  <button
+                    className={`like ${this.props.article.liked
+                      ? ''
+                      : 'inverted'}`}
+                  >
                     <img src={like} alt="Like" />
                   </button>
-                  <span className="like-text">31 people like this</span>
+                  <span className="like-text">
+                    {this.props.article.likes} people like this
+                  </span>
                 </div>
                 <div className="comment-section">
                   {this.props.article.comments.map(c => (

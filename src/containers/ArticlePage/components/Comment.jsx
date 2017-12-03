@@ -17,11 +17,23 @@ const StyleWrapper = styled.div`
     text-align: right;
     margin-bottom: 0;
   }
+  .author,
+  .avatar {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .avatar {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
 `;
 
 const Comment = props => (
   <StyleWrapper>
-    <h6 className="author">Si-Yan Teo</h6>
+    <img className="img-fluid avatar" src={props.photo} />
+    <h6 className="author">{props.name}</h6>
     <p className="text">{props.comment_text}</p>
     <p className="time">{formatAgo(new Date(props.created_at))}</p>
   </StyleWrapper>
