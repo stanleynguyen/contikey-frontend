@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 
 import { loadSearch } from 'lib/searchService';
-
+import Spinner from 'components/Spinner';
 import TabsBar from './components/TabsBar';
 import ChannelCard from 'components/ChannelCard';
 import ArticleCard from 'components/ArticleCard';
@@ -60,7 +60,9 @@ class SearchPage extends React.Component {
   };
 
   render() {
-    if (!this.state.data) return <p>No data found</p>;
+    let state = 'loading';
+    if (this.state.data && this.state.data.length === 0) state = 'empty';
+    if (this.state.data && this.state.data.length > 0) state = 'data';
 
     return (
       <StyleWrapper>
@@ -71,23 +73,28 @@ class SearchPage extends React.Component {
         <Container>
           <Row>
             <Col xs="12">
-              {this.state.tab === 'channels' &&
+              {state == 'loading' && <Spinner />}
+              {state == 'empty' && <p>No results found :(</p>}
+              {state == 'data' &&
+                this.state.tab === 'channels' &&
                 this.state.data.map(c => (
                   <ChannelCard key={c['channel_id']} {...c} />
                 ))}
-              {this.state.tab === 'articles' &&
+              {state == 'data' &&
+                this.state.tab === 'articles' &&
                 this.state.data.map(a => (
                   <ArticleCard key={a['article_id']} {...a} />
                 ))}
-              {this.state.tab === 'users' && (
-                <Row>
-                  {this.state.data.map(u => (
-                    <Col xs="6">
-                      <UserCard key={u['user_id']} {...u} />
-                    </Col>
-                  ))}
-                </Row>
-              )}
+              {state == 'data' &&
+                this.state.tab === 'users' && (
+                  <Row>
+                    {this.state.data.map(u => (
+                      <Col xs="6">
+                        <UserCard key={u['user_id']} {...u} />
+                      </Col>
+                    ))}
+                  </Row>
+                )}
             </Col>
           </Row>
         </Container>
