@@ -52,10 +52,10 @@ class SearchPage extends React.Component {
     const queryStringTab = params.get('tab');
     const queryString = params.get('q');
     if (queryStringTab && this.state.tab !== queryStringTab) {
-      this.setState({ tab: queryStringTab });
+      this.setState({ tab: queryStringTab, data: null });
     }
     if (queryString && this.state.query !== queryString) {
-      this.setState({ query: queryString });
+      this.setState({ query: queryString, data: null });
     }
   };
 

@@ -1,27 +1,43 @@
 import React from 'react';
 import { Row } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import StyleWrapper from './components/StyleWrapper';
 import ArticlePreview from './components/ArticlePreview';
 
-const ChannelCard = () => (
+const ChannelCard = props => (
   <StyleWrapper>
-    <div className="info">
-      <img
-        className="avatar img-fluid rounded-circle"
-        src="https://unsplash.it/300/300"
-      />
-      <div className="details">
-        <h4 className="title">Sport News</h4>
-        <p className="extra">231 subscribers</p>
+    <Link className="plain" to={`/channel/${props.data.channel_id}`}>
+      <div className="info">
+        <img
+          className="avatar img-fluid rounded-circle"
+          src={props.data.avatar}
+        />
+        <div className="details">
+          <h4 className="title">{props.data.title}</h4>
+          <p className="faded">{props.data.num_subscribers} subscribers</p>
+        </div>
       </div>
-    </div>
+    </Link>
     <div className="articles">
-      <Row>{[...Array(4).keys()].map(i => <ArticlePreview key={i} />)}</Row>
+      <Row>
+        {props.data.articles.map(a => (
+          <ArticlePreview key={a['article_id']} data={a} />
+        ))}
+      </Row>
     </div>
-    <button className="btn btn-invisible">See More</button>
   </StyleWrapper>
 );
+
+ChannelCard.defaultProps = {
+  data: {
+    channel_id: 1,
+    avatar: 'https://unsplash.it/300/300',
+    title: 'Sport News',
+    num_subscribers: 100,
+    articles: [],
+  },
+};
 
 export default ChannelCard;

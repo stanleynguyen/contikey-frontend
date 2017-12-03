@@ -3,6 +3,8 @@ export const NONE = 'NONE';
 export const LOADING = 'LOADING';
 export const SUCCESS = 'SUCCESS';
 export const ERROR = 'ERROR';
+export const NO_IMAGE_PLACEHOLDER =
+  'http://festa.org.nz/wp-content/uploads/2016/08/no_image_placeholder.png';
 
 export const defaultState = {
   auth: {
