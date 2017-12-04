@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { SECONDARY } from '../../../constants/colors';
 
 const StyleWrapper = styled.div`
-  .tabs-bar:before {
+  .tabs-bar.with-log:before {
     content: 'Activity Log';
     margin-right: auto;
     visibility: hidden;
@@ -15,7 +15,7 @@ const StyleWrapper = styled.div`
 
 const TabsBar = props => (
   <StyleWrapper>
-    <div className="tabs-bar">
+    <div className={`tabs-bar ? ${props.showLog ? 'with-log' : ''}`}>
       <Link
         className={`tab-btn ${props.tab === 'channels' ? 'active' : ''}`}
         to="/profile?tab=channels"
@@ -40,22 +40,24 @@ const TabsBar = props => (
       >
         Subscribed <span className="count">6</span>
       </Link>
-      <Link
-        className={`tab-btn ml-auto ${props.tab === 'activity'
-          ? 'active'
-          : ''}`}
-        to="/profile?tab=activity"
-      >
-        Activity Log
-      </Link>
+      {props.showLog && (
+        <Link
+          className={`tab-btn ml-auto ${props.tab === 'log' ? 'active' : ''}`}
+          to="/profile?tab=log"
+        >
+          Activity Log
+        </Link>
+      )}
     </div>
   </StyleWrapper>
 );
 TabsBar.propTypes = {
   tab: PropTypes.string,
+  showLog: PropTypes.bool,
 };
 TabsBar.defaultProps = {
   tab: 'channels',
+  showLog: false,
 };
 
 export default TabsBar;

@@ -11,6 +11,9 @@ import {
   PROFILE_FRIENDS_FAIL,
   PROFILE_FRIENDS_LOADING,
   PROFILE_FRIENDS_SUCCEED,
+  PROFILE_LOG_FAIL,
+  PROFILE_LOG_LOADING,
+  PROFILE_LOG_SUCCEED,
 } from 'constants/actionTypes';
 import { LOADING, SUCCESS, ERROR } from 'constants/misc';
 
@@ -75,6 +78,10 @@ export default function profile(state = {}, action) {
         status: SUCCESS,
         value: action.payload.data,
       });
+    case PROFILE_LOG_FAIL:
+    case PROFILE_LOG_LOADING:
+    case PROFILE_LOG_SUCCEED:
+      console.log(action.payload);
     default:
       return state;
   }

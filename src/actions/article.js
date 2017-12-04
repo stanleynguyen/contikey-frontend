@@ -12,6 +12,8 @@ import {
   likeUnlikeArticle,
   commentArticle,
 } from 'lib/articleService';
+import { authRefresh } from 'actions';
+import { withAuth } from 'lib/authentication';
 
 const articleLoading = () => ({ type: ARTICLE_LOADING });
 const articleSuccess = payload => ({ type: ARTICLE_SUCCESS, payload });
@@ -34,7 +36,12 @@ export const articleFetch = ({ article_id }) => async dispatchEvent => {
 export const articleLike = () => async (dispatchEvent, getState) => {
   const { article_id } = getState().article;
   try {
-    const res = await likeUnlikeArticle({ article_id }, true);
+    const dispatchRefresh = () =>
+      dispatchEvent(authRefresh(() => articleLike()));
+    const res = await withAuth(
+      likeUnlikeArticle.bind(null, { article_id }, true),
+      dispatchRefresh,
+    );
     dispatchEvent(articleLikeAction());
   } catch (e) {
     dispatchEvent(articleFail(e));
@@ -44,7 +51,12 @@ export const articleLike = () => async (dispatchEvent, getState) => {
 export const articleUnlike = () => async (dispatchEvent, getState) => {
   const { article_id } = getState().article;
   try {
-    const res = await likeUnlikeArticle({ article_id }, false);
+    const dispatchRefresh = () =>
+      dispatchEvent(authRefresh(() => articleLike()));
+    const res = await withAuth(
+      likeUnlikeArticle.bind(null, { article_id }, false),
+      dispatchRefresh,
+    );
     dispatchEvent(articleUnlikeAction());
   } catch (e) {
     dispatchEvent(articleFail(e));
@@ -57,7 +69,14 @@ export const articleComment = ({ article_id, comment_text }) => async (
 ) => {
   dispatchEvent(articleCommenting());
   try {
-    await commentArticle({ article_id, comment_text });
+    const dispatchRefresh = () =>
+      dispatchEvent(
+        authRefresh(() => articleComment({ article_id, comment_text })),
+      );
+    await withAuth(
+      commentArticle.bind(null, { article_id, comment_text }),
+      dispatchRefresh,
+    );
     const payload = Object.assign({}, getState().auth.user, {
       article_id,
       comment_text,

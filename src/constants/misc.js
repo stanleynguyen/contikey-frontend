@@ -41,6 +41,11 @@ export const defaultState = {
       value: [],
       error: '',
     },
+    log: {
+      status: NONE,
+      value: [],
+      error: '',
+    },
   },
   article: {
     status: NONE,

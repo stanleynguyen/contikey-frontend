@@ -16,8 +16,10 @@ import {
   profileLoadArticles,
   profileLoadFollowing,
   profileLoadFriends,
+  profileLoadLog,
 } from 'actions';
-import { LOADING } from 'constants/misc';
+import { LOADING, SUCCESS } from 'constants/misc';
+import { history } from 'store';
 
 const StyleWrapper = styled.div`
   .container-fluid {
@@ -34,23 +36,49 @@ class ProfilePage extends React.Component {
   };
   static propTypes = {
     location: PropTypes.shape({
-      search: PropTypes.string,
+      search: PropTypes.string.isRequired,
+    }).isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({ profile_id: PropTypes.string }).isRequired,
     }).isRequired,
     auth: authType.isRequired,
     profile: profileType.isRequired,
   };
 
   componentDidMount() {
+    this.redirectIfMyOwnProfile();
     this.updateTab();
-    this.props.profileLoadChannels();
-    this.props.profileLoadArticles();
-    this.props.profileLoadFriends();
-    this.props.profileLoadFollowing();
+    this.loadData();
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this.updateTab();
+    if (this.props.auth.status !== prevProps.auth.status) {
+      this.redirectIfMyOwnProfile();
+    }
+    if (
+      this.props.match.params.profile_id !== prevProps.match.params.profile_id
+    ) {
+      this.redirectIfMyOwnProfile();
+      this.loadData();
+    }
   }
 
+  redirectIfMyOwnProfile = () => {
+    if (
+      this.props.auth.status === SUCCESS &&
+      this.props.auth.user.user_id === this.props.auth.user.user_id
+    ) {
+      history.push('/profile');
+    }
+  };
+  loadData = () => {
+    const user_id = this.props.match.params.profile_id;
+    this.props.profileLoadChannels({ user_id });
+    this.props.profileLoadArticles({ user_id });
+    this.props.profileLoadFriends({ user_id });
+    this.props.profileLoadFollowing({ user_id });
+    if (!user_id) this.props.profileLoadLog();
+  };
   updateTab = () => {
     const queryStringTab = new URLSearchParams(this.props.location.search).get(
       'tab',
@@ -69,7 +97,8 @@ class ProfilePage extends React.Component {
       (this.state.tab === 'friends' &&
         this.props.profile.friends.status === LOADING) ||
       (this.state.tab === 'subscribed' &&
-        this.props.profile.following.status === LOADING);
+        this.props.profile.following.status === LOADING) ||
+      (this.state.tab === 'log' && this.props.profile.log.status === LOADING);
     return (
       <StyleWrapper>
         <Container fluid>
@@ -77,7 +106,10 @@ class ProfilePage extends React.Component {
             photo={this.props.auth.user.photo}
             name={this.props.auth.user.name}
           />
-          <TabsBar tab={this.state.tab} />
+          <TabsBar
+            tab={this.state.tab}
+            showLog={!this.props.match.params.profile_id}
+          />
         </Container>
         <Container>
           <Row>
@@ -111,4 +143,5 @@ export default connect(({ auth, profile }) => ({ auth, profile }), {
   profileLoadArticles,
   profileLoadFollowing,
   profileLoadFriends,
+  profileLoadLog,
 })(ProfilePage);

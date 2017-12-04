@@ -11,6 +11,9 @@ import {
   PROFILE_FRIENDS_FAIL,
   PROFILE_FRIENDS_LOADING,
   PROFILE_FRIENDS_SUCCEED,
+  PROFILE_LOG_LOADING,
+  PROFILE_LOG_SUCCEED,
+  PROFILE_LOG_FAIL,
 } from 'constants/actionTypes';
 import { authRefresh } from './auth';
 import { withAuth } from 'lib/authentication';
@@ -20,6 +23,7 @@ import {
   getFollowing,
   getFriends,
 } from 'lib/userService';
+import { getActivityLog } from 'lib/statService';
 
 const profileArticlesLoading = () => ({
   type: PROFILE_ARTICLES_LOADING,
@@ -63,6 +67,9 @@ const profileFriendsFail = payload => ({
   type: PROFILE_FRIENDS_FAIL,
   payload,
 });
+const profileLogLoading = () => ({ type: PROFILE_LOG_LOADING });
+const profileLogSucceed = payload => ({ type: PROFILE_LOG_SUCCEED, payload });
+const profileLogFail = payload => ({ type: PROFILE_LOG_FAIL, payload });
 
 export const profileLoadChannels = (
   params = { user_id: '' },
@@ -133,5 +140,17 @@ export const profileLoadFollowing = (
     dispatchEvent(profileFollowingSucceed(res));
   } catch (e) {
     dispatchEvent(profileFollowingFail(e));
+  }
+};
+
+export const profileLoadLog = () => async dispatchEvent => {
+  dispatchEvent(profileLogLoading());
+  try {
+    const dispatchRefresh = () =>
+      dispatchEvent(authRefresh(() => profileLoadLog()));
+    const res = await withAuth(getActivityLog, dispatchRefresh);
+    dispatchEvent(profileLogSucceed(res));
+  } catch (e) {
+    dispatchEvent(profileLogFail(e));
   }
 };

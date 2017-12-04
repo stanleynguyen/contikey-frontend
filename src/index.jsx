@@ -53,6 +53,11 @@ const router = (
                   />
                   <Route exact path="/explore" component={ExplorePage} />
                   <Route exact path="/profile" component={ProfilePage} />
+                  <Route
+                    exact
+                    path="/profile/:profile_id"
+                    component={ProfilePage}
+                  />
                   <Route path="/search" component={SearchPage} />
                 </Switch>
               </NavbarLayout>
