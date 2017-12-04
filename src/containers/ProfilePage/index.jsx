@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import ChannelCard from 'components/ChannelCard';
 import ArticleCard from 'components/ArticleCard';
 import UserCard from 'components/UserCard';

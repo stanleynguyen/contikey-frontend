@@ -6,11 +6,13 @@ import {
   ARTICLE_UNLIKE,
   ARTICLE_COMMENTING,
   ARTICLE_COMMENT,
+  ARTICLE_POSTED,
 } from 'constants/actionTypes';
 import {
   loadArticleById,
   likeUnlikeArticle,
   commentArticle,
+  postArticle,
 } from 'lib/articleService';
 import { authRefresh } from 'actions';
 import { withAuth } from 'lib/authentication';
@@ -22,6 +24,7 @@ const articleLikeAction = () => ({ type: ARTICLE_LIKE });
 const articleUnlikeAction = () => ({ type: ARTICLE_UNLIKE });
 const articleCommenting = () => ({ type: ARTICLE_COMMENTING });
 const articleCommented = payload => ({ type: ARTICLE_COMMENT, payload });
+const articlePosted = () => ({ type: ARTICLE_POSTED });
 
 export const articleFetch = ({ article_id }) => async dispatchEvent => {
   dispatchEvent(articleLoading());
@@ -83,6 +86,15 @@ export const articleComment = ({ article_id, comment_text }) => async (
       created_at: new Date(),
     });
     dispatchEvent(articleCommented(payload));
+  } catch (e) {
+    dispatchEvent(articleFail(e));
+  }
+};
+export const articleNew = params => async dispatchEvent => {
+  dispatchEvent(articleLoading());
+  try {
+    const res = await postArticle(params);
+    dispatchEvent(articlePosted(res));
   } catch (e) {
     dispatchEvent(articleFail(e));
   }

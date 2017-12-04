@@ -2,6 +2,7 @@ import React from 'react';
 import { ModalBody, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 
+import { user as userType } from 'constants/propTypes';
 import StyledModal from './components/StyledModal';
 import ArticleForm from './components/ArticleForm';
 import ChannelForm from './components/ChannelForm';
@@ -13,6 +14,9 @@ class PostModal extends React.Component {
   static propTypes = {
     isOpen: PropTypes.bool.isRequired,
     toggle: PropTypes.func.isRequired,
+    user: userType.isRequired,
+    articleNew: PropTypes.func.isRequired,
+    channelNew: PropTypes.func.isRequired,
   };
 
   changeTab = tab => {
@@ -44,10 +48,18 @@ class PostModal extends React.Component {
           </div>
           <div className="box-body">
             {this.state.tab === 'post' && (
-              <ArticleForm toggle={this.props.toggle} />
+              <ArticleForm
+                toggle={this.props.toggle}
+                channels={this.props.user.channels}
+                articleNew={this.props.articleNew}
+              />
             )}
             {this.state.tab === 'channel' && (
-              <ChannelForm toggle={this.props.toggle} />
+              <ChannelForm
+                toggle={this.props.toggle}
+                user_id={this.props.user.user_id}
+                channelNew={this.props.channelNew}
+              />
             )}
           </div>
         </div>
@@ -55,5 +67,4 @@ class PostModal extends React.Component {
     );
   }
 }
-
 export default PostModal;

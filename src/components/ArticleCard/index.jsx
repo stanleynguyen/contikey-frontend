@@ -34,7 +34,7 @@ const ArticleCard = props => {
 };
 
 ArticleCard.propTypes = articleType.isRequired;
-ArticleCard.propTypes.channel = channelType.isRequired;
+ArticleCard.propTypes.channel = channelType;
 ArticleCard.defaultProps = {
   showUser: true,
 };

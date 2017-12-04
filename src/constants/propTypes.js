@@ -8,6 +8,7 @@ export const user = PropTypes.shape({
   email: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   photo: PropTypes.string.isRequired,
+  channels: PropTypes.array,
 });
 
 export const auth = PropTypes.shape({

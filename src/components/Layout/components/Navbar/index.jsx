@@ -22,11 +22,13 @@ import writing from 'assets/writing.svg';
 import noti from 'assets/notifications.svg';
 import glass from 'assets/mag-glass.svg';
 
+import PropTypes from 'prop-types';
+import { auth as authType } from 'constants/propTypes';
 import StyledNavbar from './components/StyledNavbar';
 import NotificationPopup from './components/NotificationPopup';
 import PostModal from './components/PostModal';
 import { history } from 'store';
-import { auth as authType } from 'constants/propTypes';
+import { articleNew, channelNew } from 'actions';
 import { SUCCESS } from 'constants/misc';
 
 class DBoardNavbar extends React.Component {
@@ -35,7 +37,11 @@ class DBoardNavbar extends React.Component {
     notiOpen: false,
     postOpen: false,
   };
-  static propTypes = { auth: authType };
+  static propTypes = {
+    auth: authType,
+    articleNew: PropTypes.func,
+    channelNew: PropTypes.func,
+  };
 
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutsideNoti);
@@ -144,6 +150,9 @@ class DBoardNavbar extends React.Component {
               <PostModal
                 isOpen={this.state.postOpen}
                 toggle={this.togglePost}
+                user={this.props.auth.user}
+                articleNew={this.props.articleNew}
+                channelNew={this.props.channelNew}
               />
             </NavItem>
           </Nav>
@@ -153,4 +162,10 @@ class DBoardNavbar extends React.Component {
   }
 }
 
-export default connect(({ auth }) => ({ auth }), {})(DBoardNavbar);
+export default connect(
+  ({ auth, article, channel }) => ({ auth, article, channel }),
+  {
+    articleNew,
+    channelNew,
+  },
+)(DBoardNavbar);

@@ -56,8 +56,8 @@ class HomePage extends React.Component {
         <Container>
           <Row>
             <div className="col-8" ref={i => (this.articleStream = i)}>
-              {this.props.feed.articles.map(v => (
-                <ArticleCard key={v.article_id} {...v} />
+              {this.props.feed.articles.map(i => (
+                <ArticleCard key={i} {...i} user={this.props.auth.user} />
               ))}
             </div>
             <Col xs="4">

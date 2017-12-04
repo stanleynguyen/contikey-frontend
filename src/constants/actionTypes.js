@@ -36,3 +36,8 @@ export const ARTICLE_LIKE = '@article/LIKE';
 export const ARTICLE_UNLIKE = '@article/UNLIKE';
 export const ARTICLE_COMMENTING = '@article/COMMENTING';
 export const ARTICLE_COMMENT = '@article/COMMENT';
+export const ARTICLE_POSTED = '@article/POSTED';
+
+export const CHANNEL_LOADING = '@channel/LOADING';
+export const CHANNEL_SUCCESS = '@channel/SUCCESS';
+export const CHANNEL_FAIL = '@channel/FAIL';

@@ -9,6 +9,9 @@ export default styled.form`
     border-radius: 0;
     padding-left: 0;
   }
+  .alert {
+    margin-top: 10px;
+  }
   .buttons {
     display: flex;
     justify-content: space-between;
