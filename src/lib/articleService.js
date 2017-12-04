@@ -36,3 +36,6 @@ export const commentArticle = async ({ article_id, comment_text }) =>
     credentials: 'include',
     body: JSON.stringify({ article_id, comment_text }),
   });
+
+export const loadExplore = async () =>
+  await serviceReq(fetch(`${SERVICE_URL}/explore/`, { method: 'GET' }));
