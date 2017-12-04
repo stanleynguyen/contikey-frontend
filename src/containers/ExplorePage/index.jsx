@@ -14,7 +14,7 @@ class ExplorePage extends React.Component {
   };
 
   componentDidMount() {
-    loadExplore().then(res => this.setState({ data: res.articles }));
+    loadExplore().then(res => this.setState({ data: res.data }));
   }
 
   render() {
