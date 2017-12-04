@@ -25,9 +25,7 @@ export default function article(state = {}, action) {
         { status: SUCCESS },
         action.payload.article,
         {
-          comments: action.payload.article.comments.sort(
-            (a, b) => (a > b ? -1 : 1),
-          ),
+          comments: action.payload.comments.sort((a, b) => (a > b ? -1 : 1)),
         },
       );
     case ARTICLE_LIKE:
