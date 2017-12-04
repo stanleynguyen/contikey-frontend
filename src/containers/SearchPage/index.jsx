@@ -21,15 +21,15 @@ const StyleWrapper = styled.div`
 class SearchPage extends React.Component {
   state = {
     query: '',
-    tab: 'channels',
+    tab: '',
     data: null,
   };
 
   componentDidMount() {
     this.updateParams();
-    loadSearch(this.state.tab, this.state.query).then(res =>
-      this.setState({ data: res.data }),
-    );
+    // loadSearch(this.state.tab, this.state.query).then(res =>
+    //   this.setState({ data: res.data }),
+    // );
   }
   componentDidUpdate(prevProps, prevState) {
     this.updateParams();
@@ -45,7 +45,10 @@ class SearchPage extends React.Component {
 
   updateParams = () => {
     const params = new URLSearchParams(this.props.location.search);
-    const queryStringTab = params.get('tab');
+    let queryStringTab = params.get('tab');
+    if (!queryStringTab) {
+      queryStringTab = 'channels';
+    }
     const queryString = params.get('q');
     if (queryStringTab && this.state.tab !== queryStringTab) {
       this.setState({ tab: queryStringTab, data: null });
@@ -85,7 +88,7 @@ class SearchPage extends React.Component {
                 this.state.tab === 'users' && (
                   <Row>
                     {this.state.data.map(u => (
-                      <Col xs="6">
+                      <Col xs="6" key={u['user_id']}>
                         <UserCard key={u['user_id']} {...u} />
                       </Col>
                     ))}

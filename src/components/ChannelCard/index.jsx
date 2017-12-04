@@ -11,8 +11,10 @@ import ChannelInfo from './components/ChannelInfo';
 const ChannelCard = props => (
   <StyleWrapper>
     <ChannelInfo
+      channel_id={props.channel_id}
       user={props.user}
       title={props.title}
+      num_subscribers={props.num_subscribers}
       description={props.description}
     />
     <div className="articles">

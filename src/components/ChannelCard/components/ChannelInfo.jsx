@@ -40,6 +40,7 @@ const ChannelInfo = props => (
   </StyleWrapper>
 );
 ChannelInfo.propTypes = {
+  channel_id: PropTypes.number.isRequired,
   user: userType.isRequired,
   title: PropTypes.string.isRequired,
   num_subscribers: PropTypes.number,
