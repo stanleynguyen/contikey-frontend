@@ -30,7 +30,8 @@ export default styled.div`
     width: auto;
   }
   .page-title {
-    margin-top: 20px;
+    text-align: center;
+    padding: 40px;
   }
   .tabs-bar {
     width: 100%;

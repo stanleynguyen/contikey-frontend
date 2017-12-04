@@ -10,15 +10,11 @@ import ArticleCard from 'components/ArticleCard';
 import UserCard from 'components/UserCard';
 
 const StyleWrapper = styled.div`
-  .search-title {
-    text-align: center;
-    padding: 20px;
-  }
   .container-fluid {
     padding: 0;
   }
   .container {
-    padding: 20px;
+    padding: 20px 15px;
   }
 `;
 
@@ -67,7 +63,7 @@ class SearchPage extends React.Component {
     return (
       <StyleWrapper>
         <Container fluid>
-          <h3 className="search-title">Searching for: {this.state.query}</h3>
+          <h3 className="page-title">Searching for: {this.state.query}</h3>
           <TabsBar url={'?q=' + this.state.query + '&'} tab={this.state.tab} />
         </Container>
         <Container>
