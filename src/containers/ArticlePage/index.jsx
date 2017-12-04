@@ -94,6 +94,7 @@ class ArticlePage extends React.Component {
                 <ArticleInfo
                   user={this.props.article.user}
                   created_at={this.props.article.created_at}
+                  num_words={this.props.article.num_words}
                 />
                 <p className="caption">{this.props.article.caption}</p>
                 <div className="like-container">

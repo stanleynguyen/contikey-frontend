@@ -21,6 +21,11 @@ export const defaultState = {
   },
   feed: { status: NONE, articles: [], cursor: '', error: '' },
   profile: {
+    user: {
+      status: NONE,
+      value: defaultUser,
+      error: '',
+    },
     channels: {
       status: NONE,
       value: [],

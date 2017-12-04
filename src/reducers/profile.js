@@ -14,6 +14,9 @@ import {
   PROFILE_LOG_FAIL,
   PROFILE_LOG_LOADING,
   PROFILE_LOG_SUCCEED,
+  PROFILE_USER_FAIL,
+  PROFILE_USER_LOADING,
+  PROFILE_USER_SUCCEED,
 } from 'constants/actionTypes';
 import { LOADING, SUCCESS, ERROR } from 'constants/misc';
 
@@ -77,6 +80,20 @@ export default function profile(state = {}, action) {
       return genNewState(state, 'friends', {
         status: SUCCESS,
         value: action.payload.data,
+      });
+    case PROFILE_USER_FAIL:
+      return genNewState(state, 'user', {
+        status: ERROR,
+        error: action.payload.message,
+      });
+    case PROFILE_USER_LOADING:
+      return genNewState(state, 'user', {
+        status: LOADING,
+      });
+    case PROFILE_USER_SUCCEED:
+      return genNewState(state, 'user', {
+        status: SUCCESS,
+        value: action.payload.user,
       });
     case PROFILE_LOG_FAIL:
     case PROFILE_LOG_LOADING:

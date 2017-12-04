@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyleWrapper = styled(Link)`
   display: flex;
@@ -45,13 +46,12 @@ const ArticlePreview = props => (
   </StyleWrapper>
 );
 
-ArticlePreview.defaultProps = {
-  article_id: 1,
-  preview_image: 'https://unsplash.it/400/400',
-  preview_title: 'What is the best programming lang for IoT',
-  preview_text:
-    'Do you know which one is the best programming lang for IoT? Programming langs are behind every IoT enabled device and service',
-  url: 'techworm.net',
+ArticlePreview.propsType = {
+  article_id: PropTypes.number.isRequired,
+  preview_image: PropTypes.string.isRequired,
+  preview_text: PropTypes.string.isRequired,
+  preview_title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default ArticlePreview;

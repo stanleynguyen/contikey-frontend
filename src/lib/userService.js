@@ -32,3 +32,11 @@ export const getChannels = getFieldTemplate('channels');
 export const getArticles = getFieldTemplate('articles');
 export const getFriends = getFieldTemplate('friends');
 export const getFollowing = getFieldTemplate('following');
+export const getUserInfo = async (params = { user_id: '' }) => {
+  const { user_id } = params;
+  return await serviceReq(
+    fetch(`${SERVICE_URL}/${user_id ? `${user_id}/` : ''}`, {
+      credentials: 'include',
+    }),
+  );
+};

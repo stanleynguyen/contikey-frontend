@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import {
+  articlePreview as articleType,
+  channel as channelType,
+} from 'constants/propTypes';
 
 import ArticleInfo from '../ArticleInfo';
 import ArticlePreview from './components/ArticlePreview';
@@ -9,40 +12,31 @@ import StyleWrapper from './components/StyleWrapper';
 const ArticleCard = props => {
   return (
     <StyleWrapper>
-      <ArticleInfo {...props} />
+      <ArticleInfo
+        showUser={props.showUser}
+        created_at={props.created_at}
+        user={props.user}
+        num_words={props.num_words}
+        channel={props.channel}
+      />
       <div className="body">
         <p className="caption">{props.caption}</p>
-        <ArticlePreview {...props} />
+        <ArticlePreview
+          article_id={props.article_id}
+          preview_image={props.preview_image}
+          preview_text={props.preview_text}
+          preview_title={props.preview_title}
+          url={props.url}
+        />
       </div>
     </StyleWrapper>
   );
 };
 
-ArticleCard.propTypes = {
-  showUser: PropTypes.bool,
-};
+ArticleCard.propTypes = articleType.isRequired;
+ArticleCard.propTypes.channel = channelType.isRequired;
 ArticleCard.defaultProps = {
   showUser: true,
-  article_id: 1,
-  caption:
-    'hmm this is interesting! we actually use emotions rather than logic to make most of our daily decisions',
-  channel: {
-    channel_id: 1,
-    title: 'Random channel title',
-  },
-  created_at: '2017-12-01T21:07:51',
-  preview_image: 'https://unsplash.it/700/700',
-  preview_text:
-    'Do you know which one is the best programming lang for IoT? Programming langs are behind every IoT enabled device and service',
-  preview_title: 'What is the best programming lang for IoT',
-  shared_from_article_id: null,
-  url: 'techworm.net',
-  user: {
-    user_id: 1,
-    name: 'siyan',
-    email: 'sy@sutd.edu',
-    photo: 'https://picsum.photos/200/200?random',
-  },
 };
 
 export default ArticleCard;

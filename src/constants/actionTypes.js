@@ -1,6 +1,7 @@
 export const AUTH_LOADING = '@auth/LOADING';
 export const AUTH_SUCCESS = '@auth/SUCCESS';
 export const AUTH_FAIL = '@auth/FAIL';
+export const AUTH_GET_NOTI = '@auth/GET_NOTI';
 
 export const FEED_LOADING = '@feed/LOADING';
 export const FEED_SUCCESS = '@feed/SUCCESS';
@@ -8,6 +9,9 @@ export const FEED_PAGINATING = '@feed/PAGINATING';
 export const FEED_PAGINATED = '@feed/PAGINATED';
 export const FEED_FAIL = '@feed/FAIL';
 
+export const PROFILE_USER_LOADING = '@profile/USER_LOADING';
+export const PROFILE_USER_SUCCEED = '@profile/USER_SUCCEED';
+export const PROFILE_USER_FAIL = '@profile/USER_FAIL';
 export const PROFILE_CHANNELS_LOADING = '@profile/CHANNELS_LOADING';
 export const PROFILE_CHANNELS_SUCCEED = '@profile/CHANNELS_SUCCEED';
 export const PROFILE_CHANNELS_FAIL = '@profile/CHANNELS_FAIL';

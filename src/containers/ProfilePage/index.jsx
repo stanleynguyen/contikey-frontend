@@ -17,6 +17,7 @@ import {
   profileLoadFollowing,
   profileLoadFriends,
   profileLoadLog,
+  profileLoadUser,
 } from 'actions';
 import { LOADING, SUCCESS } from 'constants/misc';
 import { history } from 'store';
@@ -54,6 +55,7 @@ class ProfilePage extends React.Component {
     this.updateTab();
     if (this.props.auth.status !== prevProps.auth.status) {
       this.redirectIfMyOwnProfile();
+      if (!this.props.match.params.profile_id) this.loadData();
     }
     if (
       this.props.match.params.profile_id !== prevProps.match.params.profile_id
@@ -73,6 +75,7 @@ class ProfilePage extends React.Component {
   };
   loadData = () => {
     const user_id = this.props.match.params.profile_id;
+    this.props.profileLoadUser({ user_id });
     this.props.profileLoadChannels({ user_id });
     this.props.profileLoadArticles({ user_id });
     this.props.profileLoadFriends({ user_id });
@@ -103,21 +106,47 @@ class ProfilePage extends React.Component {
       <StyleWrapper>
         <Container fluid>
           <UserInfo
-            photo={this.props.auth.user.photo}
-            name={this.props.auth.user.name}
+            photo={this.props.profile.user.value.photo}
+            name={this.props.profile.user.value.name}
           />
           <TabsBar
             tab={this.state.tab}
             showLog={!this.props.match.params.profile_id}
+            channelCount={this.props.profile.channels.value.length}
+            articleCount={this.props.profile.articles.value.length}
+            friendCount={this.props.profile.friends.value.length}
+            followingCount={this.props.profile.following.value.length}
           />
         </Container>
         <Container>
           <Row>
             <Col xs="12">
               {this.state.tab === 'channels' &&
-                [...Array(10).keys()].map(i => <ChannelCard key={i} />)}
+                this.props.profile.channels.value.map(c => (
+                  <ChannelCard
+                    key={c.channel_id}
+                    user={this.props.profile.user.value}
+                    {...c}
+                    articles={this.props.profile.articles.value
+                      .filter(v => v.channel_id === c.channel_id)
+                      .map(v =>
+                        Object.assign({}, v, {
+                          user: this.props.profile.user.value,
+                        }),
+                      )}
+                  />
+                ))}
               {this.state.tab === 'articles' &&
-                [...Array(10).keys()].map(i => <ArticleCard key={i} />)}
+                this.props.profile.articles.value.map(v => (
+                  <ArticleCard
+                    key={v.article_id}
+                    {...v}
+                    user={this.props.profile.user.value}
+                    channel={this.props.profile.channels.value.find(
+                      c => c.channel_id === v.channel_id,
+                    )}
+                  />
+                ))}
               {this.state.tab === 'friends' && (
                 <Row>
                   {[...Array(10).keys()].map(i => (
@@ -144,4 +173,5 @@ export default connect(({ auth, profile }) => ({ auth, profile }), {
   profileLoadFollowing,
   profileLoadFriends,
   profileLoadLog,
+  profileLoadUser,
 })(ProfilePage);

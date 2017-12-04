@@ -20,25 +20,25 @@ const TabsBar = props => (
         className={`tab-btn ${props.tab === 'channels' ? 'active' : ''}`}
         to="/profile?tab=channels"
       >
-        Channels <span className="count">3</span>
+        Channels <span className="count">{props.channelCount}</span>
       </Link>
       <Link
         className={`tab-btn ${props.tab === 'articles' ? 'active' : ''}`}
         to="/profile?tab=articles"
       >
-        Articles <span className="count">23</span>
+        Articles <span className="count">{props.articleCount}</span>
       </Link>
       <Link
         className={`tab-btn ${props.tab === 'friends' ? 'active' : ''}`}
         to="/profile?tab=friends"
       >
-        Friends <span className="count">1000</span>
+        Friends <span className="count">{props.friendCount}</span>
       </Link>
       <Link
         className={`tab-btn ${props.tab === 'subscribed' ? 'active' : ''}`}
         to="/profile?tab=subscribed"
       >
-        Subscribed <span className="count">6</span>
+        Subscribed <span className="count">{props.followingCount}</span>
       </Link>
       {props.showLog && (
         <Link
@@ -54,6 +54,10 @@ const TabsBar = props => (
 TabsBar.propTypes = {
   tab: PropTypes.string,
   showLog: PropTypes.bool,
+  channelCount: PropTypes.number.isRequired,
+  articleCount: PropTypes.number.isRequired,
+  friendCount: PropTypes.number.isRequired,
+  followingCount: PropTypes.number.isRequired,
 };
 TabsBar.defaultProps = {
   tab: 'channels',

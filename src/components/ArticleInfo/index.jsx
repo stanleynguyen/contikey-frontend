@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { formatAgo } from 'lib/time';
+import { formatAgo, getMinutesRead } from 'lib/time';
 import { user as userType } from 'constants/propTypes';
 
 const StyleWrapper = styled.div`
@@ -48,7 +48,8 @@ const ArticleInfo = props => {
           </p>
         )}
         <p className="time-container">
-          {formatAgo(new Date(props.created_at))} &middot; 5 min read
+          {formatAgo(new Date(props.created_at))} &middot;{' '}
+          {props.num_words && getMinutesRead(props.num_words)}
         </p>
       </div>
     </StyleWrapper>
@@ -59,6 +60,7 @@ ArticleInfo.propTypes = {
   showUser: PropTypes.bool,
   created_at: PropTypes.string,
   user: userType.isRequired,
+  num_words: PropTypes.number,
 };
 ArticleInfo.defaultProps = {
   showUser: true,

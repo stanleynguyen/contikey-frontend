@@ -23,7 +23,7 @@ export const feed = PropTypes.shape({
 
 const profileFieldShape = PropTypes.shape({
   status: PropTypes.oneOf(availableStatuses).isRequired,
-  value: PropTypes.array.isRequired,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
   error: PropTypes.string.isRequired,
 });
 export const profile = PropTypes.shape({
@@ -31,6 +31,8 @@ export const profile = PropTypes.shape({
   articles: profileFieldShape.isRequired,
   friends: profileFieldShape.isRequired,
   following: profileFieldShape.isRequired,
+  log: profileFieldShape.isRequired,
+  user: profileFieldShape.isRequired,
 });
 
 export const comment = PropTypes.shape({
@@ -48,4 +50,24 @@ export const article = PropTypes.shape({
   user: user.isRequired,
   likes: PropTypes.number.isRequired,
   comment_status: PropTypes.oneOf(availableStatuses).isRequired,
+});
+
+export const articlePreview = PropTypes.shape({
+  article_id: PropTypes.number.isRequired,
+  preview_image: PropTypes.string.isRequired,
+  preview_title: PropTypes.string.isRequired,
+  preview_text: PropTypes.string.isRequired,
+  channel_id: PropTypes.number.isRequired,
+  caption: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  user: user.isRequired,
+  showUser: PropTypes.bool,
+  created_at: PropTypes.string.isRequired,
+});
+export const channel = PropTypes.shape({
+  channel_id: PropTypes.number.isRequired,
+  user: user,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  articles: PropTypes.arrayOf(articlePreview),
 });

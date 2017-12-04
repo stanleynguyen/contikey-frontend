@@ -61,6 +61,8 @@ class DBoardNavbar extends React.Component {
   };
 
   toggleNoti = () => {
+    if (this.props.auth.status !== SUCCESS)
+      return history.push('/login', { modal: true });
     this.setState({ notiOpen: !this.state.notiOpen });
   };
 

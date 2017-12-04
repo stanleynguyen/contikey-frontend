@@ -22,6 +22,7 @@ export default function article(state = {}, action) {
       return Object.assign(
         {},
         state,
+        action.payload,
         { status: SUCCESS },
         action.payload.article,
         {
