@@ -24,7 +24,6 @@ export default function article(state = {}, action) {
         state,
         action.payload,
         { status: SUCCESS },
-        action.payload.article,
         {
           comments: action.payload.comments.sort((a, b) => (a > b ? -1 : 1)),
         },
