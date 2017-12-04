@@ -65,6 +65,8 @@ class DBoardNavbar extends React.Component {
   };
 
   togglePost = () => {
+    if (this.props.auth.status !== SUCCESS)
+      return history.push('/login', { modal: true });
     this.setState({ postOpen: !this.state.postOpen });
   };
 
