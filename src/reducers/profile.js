@@ -28,6 +28,17 @@ const genNewState = (currState, alteredTab, newVal) =>
       Object.assign({}, currState[alteredTab], newVal),
     ),
   });
+const getCreatedAtFromHist = a =>
+  (a.channel && a.channel.created_at) ||
+  (a.followed_channel && a.followed_channel.created_at) ||
+  (a.article && a.article.created_at) ||
+  (a.comment && a.comment.created_at) ||
+  (a.liked_article && a.liked_article.created_at);
+const sortHistObj = (a, b) => {
+  const aCreateAt = getCreatedAtFromHist(a);
+  const bCreateAt = getCreatedAtFromHist(b);
+  return aCreateAt > bCreateAt ? -1 : 1;
+};
 
 export default function profile(state = {}, action) {
   switch (action.type) {
@@ -96,9 +107,20 @@ export default function profile(state = {}, action) {
         value: action.payload.user,
       });
     case PROFILE_LOG_FAIL:
+      return genNewState(state, 'log', {
+        status: ERROR,
+        error: action.payload.message,
+      });
     case PROFILE_LOG_LOADING:
+      return genNewState(state, 'log', {
+        status: LOADING,
+      });
     case PROFILE_LOG_SUCCEED:
-      console.log(action.payload);
+      console.log(action.payload.history);
+      return genNewState(state, 'log', {
+        status: SUCCESS,
+        value: action.payload.history.sort(sortHistObj),
+      });
     default:
       return state;
   }

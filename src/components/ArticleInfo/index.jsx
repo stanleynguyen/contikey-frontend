@@ -38,7 +38,7 @@ const ArticleInfo = props => {
       <div className="info">
         {props.showUser && (
           <p className="user-to-channel">
-            <Link className="plain" to={`/user/${props.user.user_id}`}>
+            <Link className="plain" to={`/profile/${props.user.user_id}`}>
               {props.user.name + ' '}
             </Link>
             <span className="arrow">&gt;</span>
@@ -58,17 +58,16 @@ const ArticleInfo = props => {
 
 ArticleInfo.propTypes = {
   showUser: PropTypes.bool,
-  created_at: PropTypes.string,
+  created_at: PropTypes.string.isRequired,
   user: userType.isRequired,
   num_words: PropTypes.number,
+  channel: PropTypes.shape({
+    channel_id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }),
 };
 ArticleInfo.defaultProps = {
   showUser: true,
-  created_at: JSON.stringify(new Date()),
-  channel: {
-    channel_id: 1,
-    title: 'Random',
-  },
 };
 
 export default ArticleInfo;

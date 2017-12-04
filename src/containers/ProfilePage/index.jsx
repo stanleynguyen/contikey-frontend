@@ -10,6 +10,7 @@ import UserCard from 'components/UserCard';
 import TabsBar from './components/TabsBar';
 import UserInfo from './components/UserInfo';
 import Spinner from 'components/Spinner';
+import LogItem from './components/LogItem';
 import { auth as authType, profile as profileType } from 'constants/propTypes';
 import {
   profileLoadChannels,
@@ -75,6 +76,7 @@ class ProfilePage extends React.Component {
   };
   loadData = () => {
     const user_id = this.props.match.params.profile_id;
+    console.log(user_id);
     this.props.profileLoadUser({ user_id });
     this.props.profileLoadChannels({ user_id });
     this.props.profileLoadArticles({ user_id });
@@ -142,9 +144,6 @@ class ProfilePage extends React.Component {
                     key={v.article_id}
                     {...v}
                     user={this.props.profile.user.value}
-                    channel={this.props.profile.channels.value.find(
-                      c => c.channel_id === v.channel_id,
-                    )}
                   />
                 ))}
               {this.state.tab === 'friends' && (
@@ -157,7 +156,13 @@ class ProfilePage extends React.Component {
                 </Row>
               )}
               {this.state.tab === 'subscribed' &&
-                [...Array(10).keys()].map(i => <ChannelCard key={i} />)}
+                this.props.profile.following.value.map(v => (
+                  <ChannelCard key={v.channel_id} {...v} />
+                ))}
+              {this.state.tab === 'log' &&
+                this.props.profile.log.value.map((v, i) => (
+                  <LogItem {...v} key={i} />
+                ))}
               {showSpinner && <Spinner />}
             </Col>
           </Row>

@@ -10,6 +10,8 @@ const StyleWrapper = styled(Link)`
   border-radius: 5px;
   overflow: hidden;
   color: #000;
+  width: 800px;
+  max-width: 100%;
   &:hover,
   &:focus {
     color: #000;
