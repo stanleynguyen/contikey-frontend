@@ -2,6 +2,7 @@ export const AUTH_LOADING = '@auth/LOADING';
 export const AUTH_SUCCESS = '@auth/SUCCESS';
 export const AUTH_FAIL = '@auth/FAIL';
 export const AUTH_GET_NOTI = '@auth/GET_NOTI';
+export const AUTH_MARK_NOTI = '@auth/MARK_NOTI';
 export const AUTH_LOGOUT = '@auth/LOGOUT';
 
 export const FEED_LOADING = '@feed/LOADING';
@@ -9,6 +10,10 @@ export const FEED_SUCCESS = '@feed/SUCCESS';
 export const FEED_PAGINATING = '@feed/PAGINATING';
 export const FEED_PAGINATED = '@feed/PAGINATED';
 export const FEED_FAIL = '@feed/FAIL';
+export const FEED_GETTING_REC = '@feed/GETTING_REC';
+export const FEED_GOT_REC = '@feed/GOT_REC';
+export const FEED_SUB_REC = '@feed/SUB_REC';
+export const FEED_UNSUB_REC = '@feed/UNSUB_REC';
 
 export const PROFILE_USER_LOADING = '@profile/USER_LOADING';
 export const PROFILE_USER_SUCCEED = '@profile/USER_SUCCEED';
@@ -28,6 +33,8 @@ export const PROFILE_FOLLOWING_FAIL = '@profile/FOLLOWING_FAIL';
 export const PROFILE_LOG_LOADING = '@profile/LOG_LOADING';
 export const PROFILE_LOG_SUCCEED = '@profile/LOG_SUCCEED';
 export const PROFILE_LOG_FAIL = '@profile/LOG_FAIL';
+export const PROFILE_CHAN_SUB = '@profile/CHAN_SUB';
+export const PROFILE_CHAN_UNSUB = '@profile/CHAN_UNSUB';
 
 export const ARTICLE_LOADING = '@article/LOADING';
 export const ARTICLE_SUCCESS = '@article/SUCCESS';
@@ -36,8 +43,9 @@ export const ARTICLE_LIKE = '@article/LIKE';
 export const ARTICLE_UNLIKE = '@article/UNLIKE';
 export const ARTICLE_COMMENTING = '@article/COMMENTING';
 export const ARTICLE_COMMENT = '@article/COMMENT';
-export const ARTICLE_POSTED = '@article/POSTED';
 
 export const CHANNEL_LOADING = '@channel/LOADING';
 export const CHANNEL_SUCCESS = '@channel/SUCCESS';
 export const CHANNEL_FAIL = '@channel/FAIL';
+export const CHANNEL_FOLLOW = '@channel/FOLLOW';
+export const CHANNEL_UNFOLLOW = '@channel/UNFOLLOW';

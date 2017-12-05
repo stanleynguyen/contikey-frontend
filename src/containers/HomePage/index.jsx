@@ -5,17 +5,22 @@ import { Container, Col, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import { feed as feedType, auth as authType } from 'constants/propTypes';
-import { feedFetch, feedPaginate } from 'actions';
+import {
+  feedFetch,
+  feedPaginate,
+  feedGetRec,
+  feedSubscribeRec,
+  feedUnsubscribeRec,
+} from 'actions';
 import ArticleCard from '../../components/ArticleCard';
 import ChannelRec from './components/ChannelRecommendation';
-import { LOADING } from 'constants/misc';
+import { LOADING, SUCCESS } from 'constants/misc';
 import Spinner from 'components/Spinner';
+import { history } from '../../store';
 
 const StyleWrapper = styled.div`
   padding: 30px 0;
 `;
-
-import { history } from '../../store';
 
 class HomePage extends React.Component {
   static propTypes = {
@@ -26,11 +31,13 @@ class HomePage extends React.Component {
 
   componentDidMount() {
     this.props.feedFetch();
+    this.props.feedGetRec();
     document.addEventListener('scroll', this.handleScroll);
   }
   componentDidUpdate(prevProps) {
     if (prevProps.auth.status !== this.props.auth.status) {
       this.props.feedFetch();
+      this.props.feedGetRec();
     }
   }
   componentWillUnmount() {
@@ -50,6 +57,20 @@ class HomePage extends React.Component {
     }
   };
 
+  handleSubBtnClick = ({ channel_id }) => {
+    if (this.props.auth.status !== SUCCESS) {
+      history.push('/login', { modal: true });
+    } else {
+      const subStatus = this.props.feed.recommendations.find(
+        v => v.channel_id === channel_id,
+      ).subscribed;
+
+      subStatus
+        ? this.props.feedUnsubscribeRec({ channel_id })
+        : this.props.feedSubscribeRec({ channel_id });
+    }
+  };
+
   render() {
     return (
       <StyleWrapper>
@@ -61,7 +82,13 @@ class HomePage extends React.Component {
               ))}
             </div>
             <Col xs="4">
-              {[...Array(10).keys()].map(i => <ChannelRec key={i} />)}
+              {this.props.feed.recommendations.map(v => (
+                <ChannelRec
+                  key={v.channel_id}
+                  {...v}
+                  btnClickFn={this.handleSubBtnClick}
+                />
+              ))}
             </Col>
           </Row>
           {this.props.feed.status === LOADING && <Spinner />}
@@ -74,4 +101,7 @@ class HomePage extends React.Component {
 export default connect(({ auth, feed }) => ({ auth, feed }), {
   feedFetch,
   feedPaginate,
+  feedGetRec,
+  feedSubscribeRec,
+  feedUnsubscribeRec,
 })(HomePage);

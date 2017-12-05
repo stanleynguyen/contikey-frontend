@@ -8,8 +8,19 @@ export default styled.div`
   margin-bottom: 20px;
   border-radius: 5px;
 
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
   .btn {
     width: auto;
     align-self: center;
+    text-transform: capitalize;
+    &.btn-secondary,
+    &.btn-faded {
+      padding: 4px 7px;
+    }
   }
 `;

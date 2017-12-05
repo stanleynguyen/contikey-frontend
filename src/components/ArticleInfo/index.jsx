@@ -34,17 +34,25 @@ const StyleWrapper = styled.div`
 const ArticleInfo = props => {
   return (
     <StyleWrapper>
-      <img className="avatar" src={props.user.photo} />
+      {props.user && <img className="avatar" src={props.user.photo} />}
       <div className="info">
-        {props.showUser && (
+        {props.channel && (
           <p className="user-to-channel">
-            <Link className="plain" to={`/profile/${props.user.user_id}`}>
-              {props.user.name + ' '}
-            </Link>
-            <span className="arrow">&gt;</span>
-            <Link className="plain" to={`/channel/${props.channel.channel_id}`}>
-              {' ' + props.channel.title}
-            </Link>
+            {props.user && (
+              <Link className="plain" to={`/profile/${props.user.user_id}`}>
+                {props.user.name + ' '}
+              </Link>
+            )}
+            {props.showUser &&
+              props.user && <span className="arrow">&gt;</span>}
+            {props.channel && (
+              <Link
+                className="plain"
+                to={`/channel/${props.channel.channel_id}`}
+              >
+                {' ' + props.channel.title}
+              </Link>
+            )}
           </p>
         )}
         <p className="time-container">
@@ -59,7 +67,7 @@ const ArticleInfo = props => {
 ArticleInfo.propTypes = {
   showUser: PropTypes.bool,
   created_at: PropTypes.string.isRequired,
-  user: userType.isRequired,
+  user: userType,
   num_words: PropTypes.number,
   channel: PropTypes.shape({
     channel_id: PropTypes.number.isRequired,

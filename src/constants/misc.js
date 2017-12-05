@@ -18,8 +18,15 @@ export const defaultState = {
     status: NONE,
     error: '',
     user: defaultUser,
+    notifications: [],
   },
-  feed: { status: NONE, articles: [], cursor: '', error: '' },
+  feed: {
+    status: NONE,
+    articles: [],
+    cursor: '',
+    recommendations: [],
+    error: '',
+  },
   profile: {
     user: {
       status: NONE,

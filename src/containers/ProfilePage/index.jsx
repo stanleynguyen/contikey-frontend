@@ -18,6 +18,8 @@ import {
   profileLoadFriends,
   profileLoadLog,
   profileLoadUser,
+  profileSubChan,
+  profileUnsubChan,
 } from 'actions';
 import { LOADING, SUCCESS } from 'constants/misc';
 import { history } from 'store';
@@ -60,6 +62,7 @@ class ProfilePage extends React.Component {
     if (
       this.props.match.params.profile_id !== prevProps.match.params.profile_id
     ) {
+      this.setState({ tab: 'channels' });
       this.redirectIfMyOwnProfile();
       this.loadData();
     }
@@ -68,14 +71,14 @@ class ProfilePage extends React.Component {
   redirectIfMyOwnProfile = () => {
     if (
       this.props.auth.status === SUCCESS &&
-      this.props.auth.user.user_id === this.props.auth.user.user_id
+      this.props.auth.user.user_id ===
+        parseInt(this.props.match.params.profile_id)
     ) {
       history.push('/profile');
     }
   };
   loadData = () => {
     const user_id = this.props.match.params.profile_id;
-    console.log(user_id);
     this.props.profileLoadUser({ user_id });
     this.props.profileLoadChannels({ user_id });
     this.props.profileLoadArticles({ user_id });
@@ -89,6 +92,20 @@ class ProfilePage extends React.Component {
     );
     if (queryStringTab && this.state.tab !== queryStringTab) {
       this.setState({ tab: queryStringTab });
+    }
+  };
+  handleSubBtnClick = ({ channel_id }) => {
+    if (this.props.auth.status !== SUCCESS) {
+      history.push('/profile', { modal: true });
+    } else {
+      const subStatus = [
+        ...this.props.profile.channels.value,
+        ...this.props.profile.following.value,
+      ].find(v => v.channel_id === channel_id).subscribed;
+
+      subStatus
+        ? this.props.profileUnsubChan({ channel_id })
+        : this.props.profileSubChan({ channel_id });
     }
   };
 
@@ -117,6 +134,7 @@ class ProfilePage extends React.Component {
             articleCount={this.props.profile.articles.value.length}
             friendCount={this.props.profile.friends.value.length}
             followingCount={this.props.profile.following.value.length}
+            user_id={this.props.match.params.profile_id}
           />
         </Container>
         <Container>
@@ -135,6 +153,7 @@ class ProfilePage extends React.Component {
                           user: this.props.profile.user.value,
                         }),
                       )}
+                    btnClickFn={this.handleSubBtnClick}
                   />
                 ))}
               {this.state.tab === 'articles' &&
@@ -147,16 +166,20 @@ class ProfilePage extends React.Component {
                 ))}
               {this.state.tab === 'friends' && (
                 <Row>
-                  {[...Array(10).keys()].map(i => (
-                    <Col xs="6" key={i}>
-                      <UserCard name="Si-Yan Teo" />
+                  {this.props.profile.friends.value.map(v => (
+                    <Col xs="6" key={v.user_id}>
+                      <UserCard {...v} />
                     </Col>
                   ))}
                 </Row>
               )}
               {this.state.tab === 'subscribed' &&
                 this.props.profile.following.value.map(v => (
-                  <ChannelCard key={v.channel_id} {...v} />
+                  <ChannelCard
+                    key={v.channel_id}
+                    {...v}
+                    btnClickFn={this.handleSubBtnClick}
+                  />
                 ))}
               {this.state.tab === 'log' &&
                 this.props.profile.log.value.map((v, i) => (
@@ -178,4 +201,6 @@ export default connect(({ auth, profile }) => ({ auth, profile }), {
   profileLoadFriends,
   profileLoadLog,
   profileLoadUser,
+  profileSubChan,
+  profileUnsubChan,
 })(ProfilePage);

@@ -17,6 +17,8 @@ import {
   PROFILE_USER_LOADING,
   PROFILE_USER_SUCCEED,
   PROFILE_USER_FAIL,
+  PROFILE_CHAN_SUB,
+  PROFILE_CHAN_UNSUB,
 } from 'constants/actionTypes';
 import { authRefresh } from './auth';
 import { withAuth } from 'lib/authentication';
@@ -28,6 +30,7 @@ import {
   getUserInfo,
 } from 'lib/userService';
 import { getActivityLog } from 'lib/statService';
+import { subUnsubChannel } from 'lib/channelService';
 
 const profileArticlesLoading = () => ({
   type: PROFILE_ARTICLES_LOADING,
@@ -77,6 +80,8 @@ const profileLogFail = payload => ({ type: PROFILE_LOG_FAIL, payload });
 const profileUserLoading = () => ({ type: PROFILE_USER_LOADING });
 const profileUserSucceed = payload => ({ type: PROFILE_USER_SUCCEED, payload });
 const profileUserFail = payload => ({ type: PROFILE_USER_FAIL, payload });
+const profileChanSub = payload => ({ type: PROFILE_CHAN_SUB, payload });
+const profileChanUnsub = payload => ({ type: PROFILE_CHAN_UNSUB, payload });
 
 export const profileLoadUser = (
   params = { user_id: '' },
@@ -177,5 +182,33 @@ export const profileLoadLog = () => async dispatchEvent => {
     dispatchEvent(profileLogSucceed(res));
   } catch (e) {
     dispatchEvent(profileLogFail(e));
+  }
+};
+
+export const profileSubChan = ({ channel_id }) => async dispatchEvent => {
+  try {
+    const dispatchRefresh = () =>
+      dispatchEvent(authRefresh(() => profileSubChan({ channel_id })));
+    await withAuth(
+      subUnsubChannel.bind(null, { channel_id }, true),
+      dispatchRefresh,
+    );
+    dispatchEvent(profileChanSub({ channel_id }));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const profileUnsubChan = ({ channel_id }) => async dispatchEvent => {
+  try {
+    const dispatchRefresh = () =>
+      dispatchEvent(authRefresh(() => profileUnsubChan({ channel_id })));
+    await withAuth(
+      subUnsubChannel.bind(null, { channel_id }, false),
+      dispatchRefresh,
+    );
+    dispatchEvent(profileChanUnsub({ channel_id }));
+  } catch (e) {
+    console.log(e);
   }
 };

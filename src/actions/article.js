@@ -76,15 +76,11 @@ export const articleComment = ({ article_id, comment_text }) => async (
       dispatchEvent(
         authRefresh(() => articleComment({ article_id, comment_text })),
       );
-    await withAuth(
+    const res = await withAuth(
       commentArticle.bind(null, { article_id, comment_text }),
       dispatchRefresh,
     );
-    const payload = Object.assign({}, getState().auth.user, {
-      article_id,
-      comment_text,
-      created_at: new Date(),
-    });
+    const payload = Object.assign({}, getState().auth.user, res[0]);
     dispatchEvent(articleCommented(payload));
   } catch (e) {
     dispatchEvent(articleFail(e));

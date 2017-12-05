@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import store, { history } from './store';
 import ModalSwitch from './components/ModalSwitch';
-import { startSubs } from 'lib/fbSDK';
+import { startSubs, getAccessToken } from 'lib/fbSDK';
 import { authenticateUser, unauthenticateUser } from 'actions';
 
 import { GeneralLayout, NavbarLayout } from './components/Layout';
@@ -20,7 +20,11 @@ import SearchPage from './containers/SearchPage';
 import LoginPage, { ModalLoginPage } from './containers/LoginPage';
 
 // attempt to authenticate with FB on app load
-store.dispatch(authenticateUser());
+// if previously logged in fb then create new session
+// otherwise delete any existing session
+getAccessToken()
+  .then(() => store.dispatch(authenticateUser()))
+  .catch(() => store.dispatch(unauthenticateUser()));
 // start listening if user login/logout using fb
 startSubs(
   r =>

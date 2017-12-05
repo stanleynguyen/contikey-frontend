@@ -1,18 +1,20 @@
 import {
-  CHANNEL_FAIL,
   CHANNEL_LOADING,
   CHANNEL_SUCCESS,
+  CHANNEL_FAIL,
+  CHANNEL_FOLLOW,
+  CHANNEL_UNFOLLOW,
 } from 'constants/actionTypes';
-import { postChannel } from 'lib/channelService';
+import { loadChannelById } from 'lib/channelService';
 
 const channelLoading = () => ({ type: CHANNEL_LOADING });
 const channelSuccess = payload => ({ type: CHANNEL_SUCCESS, payload });
 const channelFail = payload => ({ type: CHANNEL_FAIL, payload });
 
-export const channelNew = params => async dispatchEvent => {
+export const channelFetch = ({ channel_id }) => async dispatchEvent => {
   dispatchEvent(channelLoading());
   try {
-    const res = await postChannel(params);
+    const res = await loadChannelById({ channel_id });
     dispatchEvent(channelSuccess(res));
   } catch (e) {
     dispatchEvent(channelFail(e));

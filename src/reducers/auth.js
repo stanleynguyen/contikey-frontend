@@ -4,6 +4,7 @@ import {
   AUTH_FAIL,
   AUTH_GET_NOTI,
   AUTH_LOGOUT,
+  AUTH_MARK_NOTI,
 } from 'constants/actionTypes';
 import { NONE, LOADING, SUCCESS, ERROR } from 'constants/misc';
 import { defaultState } from 'constants/misc';
@@ -31,9 +32,29 @@ export default function auth(state = {}, action) {
         { message: action.payload.message },
       );
     case AUTH_GET_NOTI:
-      return Object.assign({}, state, { notifications: action.payload.data });
+      if (
+        JSON.stringify(state.notifications) ===
+        JSON.stringify(action.payload.data)
+      )
+        return state;
+      return Object.assign({}, state, {
+        notifications: action.payload.data.sort(
+          (a, b) => (a.created_at > b.created_at ? -1 : 1),
+        ),
+      });
     case AUTH_LOGOUT:
       return Object.assign({}, defaultState.auth);
+    case AUTH_MARK_NOTI:
+      const idx = state.notifications.findIndex(
+        n => n.notification_id === action.payload.notification_id,
+      );
+      return Object.assign({}, state, {
+        notifications: [
+          ...state.notifications.slice(0, idx),
+          Object.assign({}, state.notifications[idx], { is_read: 1 }),
+          ...state.notifications.slice(idx + 1),
+        ],
+      });
     default:
       return state;
   }

@@ -30,6 +30,7 @@ import PostModal from './components/PostModal';
 import { history } from 'store';
 import { articleNew, channelNew } from 'actions';
 import { SUCCESS } from 'constants/misc';
+import { authLoadNoti, authMarkNotiAsRead } from 'actions';
 
 class DBoardNavbar extends React.Component {
   state = {
@@ -45,9 +46,19 @@ class DBoardNavbar extends React.Component {
 
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutsideNoti);
+    this.startNotiInterval();
+  }
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.auth.status === SUCCESS &&
+      this.props.auth.status !== prevProps.auth.status
+    ) {
+      this.startNotiInterval();
+    }
   }
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutsideNoti);
+    this.clearNotiInterval();
   }
 
   handleClickOutsideNoti = e => {
@@ -84,7 +95,18 @@ class DBoardNavbar extends React.Component {
     if (query) history.push(`/search?q=${query}`);
   };
 
+  startNotiInterval = () => {
+    this.clearNotiInterval();
+    if (this.props.auth.status === SUCCESS) {
+      this.notiInterval = setInterval(this.props.authLoadNoti, 3000);
+    }
+  };
+  clearNotiInterval = () => {
+    if (this.notiInterval) clearInterval(this.notiInterval);
+  };
+
   render() {
+    const newNoti = this.props.auth.notifications.filter(n => n.is_read === 0);
     return (
       <StyledNavbar light expand="md" fixed="top">
         <NavbarBrand tag={Link} to="/">
@@ -118,12 +140,18 @@ class DBoardNavbar extends React.Component {
                 onClick={this.toggleNoti}
                 innerRef={i => (this.notiBtn = i)}
               >
-                <span className="badge">4</span>
+                {newNoti.length > 0 && (
+                  <span className="badge">{newNoti.length}</span>
+                )}
                 <img className="navbar-icon" src={noti} />
               </Button>
-              {this.state.notiOpen && (
-                <NotificationPopup innerRef={i => (this.popup = i)} />
-              )}
+              <NotificationPopup
+                innerRef={i => (this.popup = i)}
+                notifications={this.props.auth.notifications}
+                closeFn={this.toggleNoti}
+                markNoti={this.props.authMarkNotiAsRead}
+                show={this.state.notiOpen}
+              />
             </NavItem>
             <NavItem>
               {this.props.auth.status !== SUCCESS && (
@@ -162,10 +190,7 @@ class DBoardNavbar extends React.Component {
   }
 }
 
-export default connect(
-  ({ auth, article, channel }) => ({ auth, article, channel }),
-  {
-    articleNew,
-    channelNew,
-  },
-)(DBoardNavbar);
+export default connect(({ auth }) => ({ auth }), {
+  authLoadNoti,
+  authMarkNotiAsRead,
+})(DBoardNavbar);

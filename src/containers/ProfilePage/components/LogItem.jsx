@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { formatAgo } from 'lib/time';
+import PropTypes from 'prop-types';
+import { user as userType } from 'constants/propTypes';
 
 import ChannelInfo from 'components/ChannelCard/components/ChannelInfo';
 import ArticlePreview from 'components/ArticleCard/components/ArticlePreview';
@@ -45,6 +47,27 @@ const LogItem = props => {
       </div>
     </StyleWrapper>
   );
+};
+const channelShape = PropTypes.shape({
+  channel_id: PropTypes.number.isRequired,
+  user: userType.isRequired,
+  title: PropTypes.string.isRequired,
+  num_subscribers: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
+});
+const articleShape = PropTypes.shape({
+  article_id: PropTypes.number.isRequired,
+  preview_image: PropTypes.string.isRequired,
+  preview_title: PropTypes.string.isRequired,
+  preview_text: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+});
+LogItem.propTypes = {
+  channel: channelShape,
+  followed_channel: channelShape,
+  article: articleShape,
+  liked_article: articleShape,
+  comment: articleShape,
 };
 
 export default LogItem;
