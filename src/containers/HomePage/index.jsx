@@ -86,7 +86,7 @@ class HomePage extends React.Component {
                 <ChannelRec
                   key={v.channel_id}
                   {...v}
-                  onBtnClick={this.handleSubBtnClick}
+                  btnClickFn={this.handleSubBtnClick}
                 />
               ))}
             </Col>

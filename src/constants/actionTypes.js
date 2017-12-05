@@ -33,6 +33,8 @@ export const PROFILE_FOLLOWING_FAIL = '@profile/FOLLOWING_FAIL';
 export const PROFILE_LOG_LOADING = '@profile/LOG_LOADING';
 export const PROFILE_LOG_SUCCEED = '@profile/LOG_SUCCEED';
 export const PROFILE_LOG_FAIL = '@profile/LOG_FAIL';
+export const PROFILE_CHAN_SUB = '@profile/CHAN_SUB';
+export const PROFILE_CHAN_UNSUB = '@profile/CHAN_UNSUB';
 
 export const ARTICLE_LOADING = '@article/LOADING';
 export const ARTICLE_SUCCESS = '@article/SUCCESS';

@@ -17,7 +17,7 @@ const ChannelRec = props => (
         </div>
         <button
           className={`btn ${props.subscribed ? 'btn-faded' : 'btn-secondary'}`}
-          onClick={props.onBtnClick.bind(null, {
+          onClick={props.btnClickFn.bind(null, {
             channel_id: props.channel_id,
           })}
         >
@@ -31,7 +31,7 @@ const ChannelRec = props => (
   </StyleWrapper>
 );
 ChannelRec.propTypes = Object.assign(channelType, {
-  onBtnClick: PropTypes.func.isRequired,
+  btnClickFn: PropTypes.func.isRequired,
 }).isRequired;
 
 export default ChannelRec;

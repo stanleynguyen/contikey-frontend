@@ -10,13 +10,23 @@ import ChannelInfo from './components/ChannelInfo';
 
 const ChannelCard = props => (
   <StyleWrapper>
-    <ChannelInfo
-      channel_id={props.channel_id}
-      user={props.user}
-      title={props.title}
-      num_subscribers={props.num_subscribers}
-      description={props.description}
-    />
+    <div className="header">
+      <ChannelInfo
+        channel_id={props.channel_id}
+        user={props.user}
+        title={props.title}
+        num_subscribers={props.num_subscribers}
+        description={props.description}
+      />
+      <button
+        className={`btn ${props.subscribed ? 'btn-faded' : 'btn-secondary'}`}
+        onClick={props.btnClickFn.bind(null, {
+          channel_id: props.channel_id,
+        })}
+      >
+        {props.subscribed ? 'unsubscribed' : 'subscribe'}
+      </button>
+    </div>
     <div className="articles">
       <Row>
         {props.articles

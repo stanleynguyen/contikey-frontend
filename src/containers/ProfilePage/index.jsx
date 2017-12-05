@@ -19,6 +19,8 @@ import {
   profileLoadFriends,
   profileLoadLog,
   profileLoadUser,
+  profileSubChan,
+  profileUnsubChan,
 } from 'actions';
 import { LOADING, SUCCESS } from 'constants/misc';
 import { history } from 'store';
@@ -93,6 +95,20 @@ class ProfilePage extends React.Component {
       this.setState({ tab: queryStringTab });
     }
   };
+  handleSubBtnClick = ({ channel_id }) => {
+    if (this.props.auth.status !== SUCCESS) {
+      history.push('/profile', { modal: true });
+    } else {
+      const subStatus = [
+        ...this.props.profile.channels.value,
+        ...this.props.profile.following.value,
+      ].find(v => v.channel_id === channel_id).subscribed;
+
+      subStatus
+        ? this.props.profileUnsubChan({ channel_id })
+        : this.props.profileSubChan({ channel_id });
+    }
+  };
 
   render() {
     const showSpinner =
@@ -138,6 +154,7 @@ class ProfilePage extends React.Component {
                           user: this.props.profile.user.value,
                         }),
                       )}
+                    btnClickFn={this.handleSubBtnClick}
                   />
                 ))}
               {this.state.tab === 'articles' &&
@@ -159,7 +176,11 @@ class ProfilePage extends React.Component {
               )}
               {this.state.tab === 'subscribed' &&
                 this.props.profile.following.value.map(v => (
-                  <ChannelCard key={v.channel_id} {...v} />
+                  <ChannelCard
+                    key={v.channel_id}
+                    {...v}
+                    btnClickFn={this.handleSubBtnClick}
+                  />
                 ))}
               {this.state.tab === 'log' &&
                 this.props.profile.log.value.map((v, i) => (
@@ -181,4 +202,6 @@ export default connect(({ auth, profile }) => ({ auth, profile }), {
   profileLoadFriends,
   profileLoadLog,
   profileLoadUser,
+  profileSubChan,
+  profileUnsubChan,
 })(ProfilePage);

@@ -17,6 +17,8 @@ import {
   PROFILE_USER_FAIL,
   PROFILE_USER_LOADING,
   PROFILE_USER_SUCCEED,
+  PROFILE_CHAN_SUB,
+  PROFILE_CHAN_UNSUB,
 } from 'constants/actionTypes';
 import { LOADING, SUCCESS, ERROR } from 'constants/misc';
 
@@ -41,6 +43,7 @@ const sortHistObj = (a, b) => {
 };
 
 export default function profile(state = {}, action) {
+  let idxInChannels, idxInFollowing, newChannelsVal, newFollowingVal;
   switch (action.type) {
     case PROFILE_ARTICLES_FAIL:
       return genNewState(state, 'articles', {
@@ -119,6 +122,80 @@ export default function profile(state = {}, action) {
       return genNewState(state, 'log', {
         status: SUCCESS,
         value: action.payload.history.sort(sortHistObj),
+      });
+    case PROFILE_CHAN_SUB:
+      idxInChannels = state.channels.value.findIndex(
+        v => v.channel_id === action.payload.channel_id,
+      );
+      idxInFollowing = state.following.value.findIndex(
+        v => v.channel_id === action.payload.channel_id,
+      );
+      newChannelsVal =
+        idxInChannels !== -1
+          ? [
+              ...state.channels.value.slice(0, idxInChannels),
+              Object.assign(state.channels.value[idxInChannels], {
+                subscribed: true,
+                num_subscribers:
+                  state.channels.value[idxInChannels].num_subscribers + 1,
+              }),
+              ...state.channels.value.slice(idxInChannels + 1),
+            ]
+          : state.channels.value;
+      newFollowingVal =
+        idxInFollowing !== -1
+          ? [
+              ...state.following.value.slice(0, idxInFollowing),
+              Object.assign(state.following.value[idxInFollowing], {
+                subscribed: true,
+                num_subscribers:
+                  state.following.value[idxInFollowing].num_subscribers + 1,
+              }),
+              ...state.following.value.slice(idxInFollowing + 1),
+            ]
+          : state.following.value;
+      return Object.assign({}, state, {
+        channels: Object.assign({}, state.channels, { value: newChannelsVal }),
+        following: Object.assign({}, state.following, {
+          value: newFollowingVal,
+        }),
+      });
+    case PROFILE_CHAN_UNSUB:
+      idxInChannels = state.channels.value.findIndex(
+        v => v.channel_id === action.payload.channel_id,
+      );
+      idxInFollowing = state.following.value.findIndex(
+        v => v.channel_id === action.payload.channel_id,
+      );
+      newChannelsVal =
+        idxInChannels !== -1
+          ? [
+              ...state.channels.value.slice(0, idxInChannels),
+              Object.assign(state.channels.value[idxInChannels], {
+                subscribed: false,
+                num_subscribers:
+                  state.channels.value[idxInChannels].num_subscribers - 1,
+              }),
+              ...state.channels.value.slice(idxInChannels + 1),
+            ]
+          : state.channels.value;
+      newFollowingVal =
+        idxInFollowing !== -1
+          ? [
+              ...state.following.value.slice(0, idxInFollowing),
+              Object.assign(state.following.value[idxInFollowing], {
+                subscribed: false,
+                num_subscribers:
+                  state.following.value[idxInFollowing].num_subscribers - 1,
+              }),
+              ...state.following.value.slice(idxInFollowing + 1),
+            ]
+          : state.following.value;
+      return Object.assign({}, state, {
+        channels: Object.assign({}, state.channels, { value: newChannelsVal }),
+        following: Object.assign({}, state.following, {
+          value: newFollowingVal,
+        }),
       });
     default:
       return state;

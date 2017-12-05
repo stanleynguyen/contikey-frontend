@@ -13,6 +13,8 @@ import { NONE, LOADING, SUCCESS, ERROR } from 'constants/misc';
 
 import { loadFeed } from 'lib/articleService';
 import { getRecommendations, subUnsubChannel } from 'lib/channelService';
+import { authRefresh } from 'actions';
+import { withAuth } from 'lib/authentication';
 
 const feedLoading = () => ({ type: FEED_LOADING });
 const feedSuccess = payload => ({ type: FEED_SUCCESS, payload });
@@ -58,7 +60,12 @@ export const feedGetRec = () => async dispatchEvent => {
 
 export const feedSubscribeRec = ({ channel_id }) => async dispatchEvent => {
   try {
-    await subUnsubChannel({ channel_id }, true);
+    const dispatchRefresh = () =>
+      dispatchEvent(authRefresh(() => feedSubscribeRec({ channel_id })));
+    await withAuth(
+      subUnsubChannel.bind(null, { channel_id }, true),
+      dispatchRefresh,
+    );
     dispatchEvent(feedSubRec({ channel_id }));
   } catch (e) {
     console.log(e);
@@ -67,7 +74,12 @@ export const feedSubscribeRec = ({ channel_id }) => async dispatchEvent => {
 
 export const feedUnsubscribeRec = ({ channel_id }) => async dispatchEvent => {
   try {
-    await subUnsubChannel({ channel_id }, false);
+    const dispatchRefresh = () =>
+      dispatchEvent(authRefresh(() => feedUnsubscribeRec({ channel_id })));
+    await withAuth(
+      subUnsubChannel.bind(null, { channel_id }, false),
+      dispatchRefresh,
+    );
     dispatchEvent(feedUnsubRec({ channel_id }));
   } catch (e) {
     console.log(e);
