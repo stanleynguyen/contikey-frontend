@@ -12,11 +12,13 @@ export default function channel(state = {}, action) {
     case CHANNEL_LOADING:
       return Object.assign({}, state, { status: LOADING });
     case CHANNEL_SUCCESS:
-      return Object.assign({}, state, { status: SUCCESS }, action.payload);
+      return Object.assign({}, state, action.payload, { status: SUCCESS });
     case CHANNEL_FAIL:
       return Object.assign({}, state, {
         status: ERROR,
         error: action.payload.message,
       });
+    default:
+      return state;
   }
 }
