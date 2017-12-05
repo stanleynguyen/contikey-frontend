@@ -15,8 +15,6 @@ class PostModal extends React.Component {
     isOpen: PropTypes.bool.isRequired,
     toggle: PropTypes.func.isRequired,
     user: userType.isRequired,
-    articleNew: PropTypes.func.isRequired,
-    channelNew: PropTypes.func.isRequired,
   };
 
   changeTab = tab => {
@@ -28,7 +26,7 @@ class PostModal extends React.Component {
       <StyledModal isOpen={this.props.isOpen} toggle={this.props.toggle}>
         <img
           className="img-fluid avatar"
-          src="https://picsum.photos/400/400"
+          src={this.props.user.photo}
           alt="Avatar"
         />
         <div className="box">
@@ -51,15 +49,10 @@ class PostModal extends React.Component {
               <ArticleForm
                 toggle={this.props.toggle}
                 channels={this.props.user.channels}
-                articleNew={this.props.articleNew}
               />
             )}
             {this.state.tab === 'channel' && (
-              <ChannelForm
-                toggle={this.props.toggle}
-                user_id={this.props.user.user_id}
-                channelNew={this.props.channelNew}
-              />
+              <ChannelForm toggle={this.props.toggle} />
             )}
           </div>
         </div>

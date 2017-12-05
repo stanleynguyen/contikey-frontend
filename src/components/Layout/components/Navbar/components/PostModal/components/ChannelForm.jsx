@@ -3,6 +3,7 @@ import { Input, Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { postChannel } from 'lib/channelService';
 import StyledForm from './StyledForm';
 import { tagList } from 'constants/tags';
 import TagComponent from './TagComponent';
@@ -15,18 +16,21 @@ const StyleWrapper = styled(StyledForm)`
     display: flex;
     margin-bottom: 10px;
   }
+  label {
+    margin-left: 10px;
+    font: small-caption;
+  }
 `;
 
 class ChannelForm extends React.Component {
   state = {
     tags: [],
     successOpen: false,
+    failOpen: false,
   };
 
   static propTypes = {
     toggle: PropTypes.func.isRequired,
-    channelNew: PropTypes.func.isRequired,
-    user_id: PropTypes.number.isRequired,
   };
 
   handleSubmit = e => {
@@ -34,25 +38,30 @@ class ChannelForm extends React.Component {
     const params = {
       title: this.title.value,
       description: this.description.value,
-      tags: this.state.tags,
+      tags: this.state.tags.join(','),
     };
-    this.props.channelNew(params);
-    this.setState({ successOpen: !this.state.successOpen });
+    postChannel(params).then(
+      onFulfill => {
+        this.setState({ successOpen: !this.state.successOpen });
+      },
+      onReject => {
+        {
+          this.setState({ failOpen: !this.state.failOpen });
+        }
+      },
+    );
   };
 
   addTag = tag_id => {
-    if (this.state.tags.indexOf(tag_id) != -1) {
-      new_tags = this.state.tags.slice().append(tagList);
-      this.setState((tags = new_tags));
-    }
+    this.setState({ tags: [...this.state.tags, tag_id] });
   };
 
   removeTag = tag_id => {
     if (this.state.tags.length) {
-      new_tags = this.state.tags.filter(i => {
+      var new_tags = this.state.tags.filter(i => {
         i !== tag_id;
       });
-      this.setState((tags = new_tags));
+      this.setState({ tags: new_tags });
     }
   };
 
@@ -71,10 +80,11 @@ class ChannelForm extends React.Component {
           placeholder="Describe your channel!"
           innerRef={i => (this.description = i)}
         />
+        <label> Choose at least 1 tag for your channel. </label>
         <div className="tags-container">
           {tagList.map(i => (
             <TagComponent
-              key={tagList.indexOf(i)}
+              index={tagList.indexOf(i)}
               tag={i}
               addTag={this.addTag}
               removeTag={this.removeTag}
@@ -95,10 +105,13 @@ class ChannelForm extends React.Component {
         </div>
         <Alert
           className="alert"
-          isOpen={this.state.successOpen}
+          isOpen={this.state.successOpen || this.state.failOpen}
           toggle={this.props.toggle}
+          color={this.state.successOpen ? 'success' : 'danger'}
         >
-          You posted a channel successfully!{' '}
+          {this.state.successOpen
+            ? 'You posted a channel successfully!'
+            : 'Something went wrong'}
         </Alert>
       </StyleWrapper>
     );

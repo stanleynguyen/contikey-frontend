@@ -42,15 +42,12 @@ export const commentArticle = async ({ article_id, comment_text }) =>
 export const loadExplore = async () =>
   await serviceReq(fetch(`${SERVICE_URL}/explore/`, { method: 'GET' }));
 
-export const postArticle = async params => {
-  return await serviceReq(
+export const postArticle = async params =>
+  await serviceReq(
     fetch(`${SERVICE_URL}/new/`, {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(params),
     }),
   );
-};

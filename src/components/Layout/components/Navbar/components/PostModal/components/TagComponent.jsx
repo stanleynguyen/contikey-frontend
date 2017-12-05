@@ -12,6 +12,7 @@ const StyleWrapper = styled(StyledForm)`
     border: 1px solid #ccc;
     border-radius: 9999px;
     padding: 5px 10px;
+    font: 0.8em 'Fira Sans', sans-serif;
     line-height: 0.8rem;
     &.selected {
       border-color: ${SECONDARY};
@@ -25,28 +26,33 @@ class TagComponent extends React.Component {
   };
   static propTypes = {
     tag: PropTypes.string,
-    key: PropTypes.number,
+    index: PropTypes.number,
     addTag: PropTypes.func,
     removeTag: PropTypes.func,
   };
 
   toggleTag = e => {
-    this.setState((isSelected = !this.state.isSelected));
-    if (this.state.isSelected) {
-      this.props.addTag(this.props.key);
-    } else {
-      this.props.removeTag(this.props.key);
-    }
+    this.setState({ isSelected: !this.state.isSelected }, () => {
+      if (this.state.isSelected) {
+        console.log('tag selected! ', this.props.index);
+        this.props.addTag(this.props.index);
+      } else {
+        console.log('tag removed! ', this.props.index);
+        this.props.removeTag(this.props.index);
+      }
+    });
   };
 
   render() {
     return (
-      <div
-        className={`tag ${this.state.isSelected ? 'selected' : ''}`}
-        onClick={this.handleTag}
-      >
-        {this.props.tag}
-      </div>
+      <StyleWrapper>
+        <div
+          className={`tag ${this.state.isSelected ? 'selected' : ''}`}
+          onClick={this.toggleTag}
+        >
+          {this.props.tag}
+        </div>
+      </StyleWrapper>
     );
   }
 }

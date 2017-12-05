@@ -28,7 +28,6 @@ import StyledNavbar from './components/StyledNavbar';
 import NotificationPopup from './components/NotificationPopup';
 import PostModal from './components/PostModal';
 import { history } from 'store';
-import { articleNew, channelNew } from 'actions';
 import { SUCCESS } from 'constants/misc';
 import { authLoadNoti, authMarkNotiAsRead } from 'actions';
 
@@ -40,8 +39,6 @@ class DBoardNavbar extends React.Component {
   };
   static propTypes = {
     auth: authType,
-    articleNew: PropTypes.func,
-    channelNew: PropTypes.func,
   };
 
   componentDidMount() {
@@ -179,8 +176,6 @@ class DBoardNavbar extends React.Component {
                 isOpen={this.state.postOpen}
                 toggle={this.togglePost}
                 user={this.props.auth.user}
-                articleNew={this.props.articleNew}
-                channelNew={this.props.channelNew}
               />
             </NavItem>
           </Nav>

@@ -6,7 +6,6 @@ import {
   ARTICLE_UNLIKE,
   ARTICLE_COMMENT,
   ARTICLE_COMMENTING,
-  ARTICLE_POSTED,
 } from 'constants/actionTypes';
 import { LOADING, SUCCESS, ERROR } from 'constants/misc';
 
@@ -42,8 +41,6 @@ export default function article(state = {}, action) {
       });
     case ARTICLE_COMMENTING:
       return Object.assign({}, state, { comment_status: LOADING });
-    case ARTICLE_POSTED:
-      return Object.assign({}, state, { status: SUCCESS });
     default:
       return state;
   }

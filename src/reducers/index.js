@@ -6,7 +6,6 @@ import feed from './feed';
 import profile from './profile';
 import channel from './channel';
 import article from './article';
-import channel from './channel';
 
 export default combineReducers({
   router: routerReducer,
@@ -15,5 +14,4 @@ export default combineReducers({
   profile,
   channel,
   article,
-  channel,
 });
