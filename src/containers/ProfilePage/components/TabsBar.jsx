@@ -18,25 +18,27 @@ const TabsBar = props => (
     <div className={`tabs-bar ? ${props.showLog ? 'with-log' : ''}`}>
       <Link
         className={`tab-btn ${props.tab === 'channels' ? 'active' : ''}`}
-        to="/profile?tab=channels"
+        to={`/profile/${props.user_id ? `${props.user_id}/` : ''}?tab=channels`}
       >
         Channels <span className="count">{props.channelCount}</span>
       </Link>
       <Link
         className={`tab-btn ${props.tab === 'articles' ? 'active' : ''}`}
-        to="/profile?tab=articles"
+        to={`/profile/${props.user_id ? `${props.user_id}/` : ''}?tab=articles`}
       >
         Articles <span className="count">{props.articleCount}</span>
       </Link>
       <Link
         className={`tab-btn ${props.tab === 'friends' ? 'active' : ''}`}
-        to="/profile?tab=friends"
+        to={`/profile/${props.user_id ? `${props.user_id}/` : ''}?tab=friends`}
       >
         Friends <span className="count">{props.friendCount}</span>
       </Link>
       <Link
         className={`tab-btn ${props.tab === 'subscribed' ? 'active' : ''}`}
-        to="/profile?tab=subscribed"
+        to={`/profile/${props.user_id
+          ? `${props.user_id}/`
+          : ''}?tab=subscribed`}
       >
         Subscribed <span className="count">{props.followingCount}</span>
       </Link>
@@ -58,6 +60,7 @@ TabsBar.propTypes = {
   articleCount: PropTypes.number.isRequired,
   friendCount: PropTypes.number.isRequired,
   followingCount: PropTypes.number.isRequired,
+  user_id: PropTypes.string,
 };
 TabsBar.defaultProps = {
   tab: 'channels',

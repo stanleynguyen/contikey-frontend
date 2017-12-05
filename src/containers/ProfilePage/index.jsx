@@ -117,6 +117,7 @@ class ProfilePage extends React.Component {
             articleCount={this.props.profile.articles.value.length}
             friendCount={this.props.profile.friends.value.length}
             followingCount={this.props.profile.following.value.length}
+            user_id={this.props.match.params.profile_id}
           />
         </Container>
         <Container>
