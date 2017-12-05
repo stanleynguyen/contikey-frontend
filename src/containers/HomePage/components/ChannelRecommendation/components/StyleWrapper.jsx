@@ -15,11 +15,13 @@ export default styled.div`
   }
   .info-container {
     font-size: 0.8rem;
+    padding: 0 0 0 10px;
+    flex-basis: 100%;
     .header {
       display: flex;
       height: 50px;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
       .info {
         .title,
         .extra {
@@ -29,7 +31,7 @@ export default styled.div`
           color: #999;
         }
       }
-      .btn-secondary {
+      .btn {
         height: 20px;
         padding: 0 10px;
         text-transform: uppercase;

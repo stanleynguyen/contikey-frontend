@@ -17,6 +17,14 @@ export const notification = PropTypes.shape({
   article_id: PropTypes.number,
   channel_id: PropTypes.number,
 });
+export const channel = PropTypes.shape({
+  channel_id: PropTypes.number.isRequired,
+  user: user,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  articles: PropTypes.arrayOf(articlePreview),
+  num_subscribers: PropTypes.number.isRequired,
+});
 
 export const auth = PropTypes.shape({
   status: PropTypes.oneOf(availableStatuses).isRequired,
@@ -28,6 +36,7 @@ export const feed = PropTypes.shape({
   status: PropTypes.oneOf(availableStatuses).isRequired,
   articles: PropTypes.array.isRequired,
   error: PropTypes.string.isRequired,
+  recommendations: PropTypes.arrayOf(channel).isRequired,
 });
 
 const profileFieldShape = PropTypes.shape({
@@ -72,12 +81,4 @@ export const articlePreview = PropTypes.shape({
   user: user.isRequired,
   showUser: PropTypes.bool,
   created_at: PropTypes.string.isRequired,
-});
-export const channel = PropTypes.shape({
-  channel_id: PropTypes.number.isRequired,
-  user: user,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  articles: PropTypes.arrayOf(articlePreview),
-  num_subscribers: PropTypes.number.isRequired,
 });

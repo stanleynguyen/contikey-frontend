@@ -69,7 +69,8 @@ class ProfilePage extends React.Component {
   redirectIfMyOwnProfile = () => {
     if (
       this.props.auth.status === SUCCESS &&
-      this.props.auth.user.user_id === this.props.auth.user.user_id
+      this.props.auth.user.user_id ===
+        parseInt(this.props.match.params.profile_id)
     ) {
       history.push('/profile');
     }

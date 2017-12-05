@@ -4,16 +4,25 @@ import {
   FEED_PAGINATING,
   FEED_PAGINATED,
   FEED_FAIL,
+  FEED_GETTING_REC,
+  FEED_GOT_REC,
+  FEED_SUB_REC,
+  FEED_UNSUB_REC,
 } from 'constants/actionTypes';
 import { NONE, LOADING, SUCCESS, ERROR } from 'constants/misc';
 
 import { loadFeed } from 'lib/articleService';
+import { getRecommendations, subUnsubChannel } from 'lib/channelService';
 
 const feedLoading = () => ({ type: FEED_LOADING });
 const feedSuccess = payload => ({ type: FEED_SUCCESS, payload });
 const feedFail = payload => ({ type: FEED_FAIL, payload });
 const feedPaginating = () => ({ type: FEED_PAGINATING });
 const feedPaginated = payload => ({ type: FEED_PAGINATED });
+const feedGettingRec = () => ({ type: FEED_GETTING_REC });
+const feedGotRec = payload => ({ type: FEED_GOT_REC, payload });
+const feedSubRec = payload => ({ type: FEED_SUB_REC, payload });
+const feedUnsubRec = payload => ({ type: FEED_UNSUB_REC, payload });
 
 export const feedFetch = () => async dispatchEvent => {
   dispatchEvent(feedLoading());
@@ -34,5 +43,33 @@ export const feedPaginate = () => async (dispatchEvent, getState) => {
     dispatchEvent(feedPaginated(res));
   } catch (e) {
     dispatchEvent(feedFail(e));
+  }
+};
+
+export const feedGetRec = () => async dispatchEvent => {
+  dispatchEvent(feedGettingRec());
+  try {
+    const res = await getRecommendations();
+    dispatchEvent(feedGotRec(res));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const feedSubscribeRec = ({ channel_id }) => async dispatchEvent => {
+  try {
+    await subUnsubChannel({ channel_id }, true);
+    dispatchEvent(feedSubRec({ channel_id }));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const feedUnsubscribeRec = ({ channel_id }) => async dispatchEvent => {
+  try {
+    await subUnsubChannel({ channel_id }, false);
+    dispatchEvent(feedUnsubRec({ channel_id }));
+  } catch (e) {
+    console.log(e);
   }
 };

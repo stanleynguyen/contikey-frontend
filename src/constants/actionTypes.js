@@ -10,6 +10,10 @@ export const FEED_SUCCESS = '@feed/SUCCESS';
 export const FEED_PAGINATING = '@feed/PAGINATING';
 export const FEED_PAGINATED = '@feed/PAGINATED';
 export const FEED_FAIL = '@feed/FAIL';
+export const FEED_GETTING_REC = '@feed/GETTING_REC';
+export const FEED_GOT_REC = '@feed/GOT_REC';
+export const FEED_SUB_REC = '@feed/SUB_REC';
+export const FEED_UNSUB_REC = '@feed/UNSUB_REC';
 
 export const PROFILE_USER_LOADING = '@profile/USER_LOADING';
 export const PROFILE_USER_SUCCEED = '@profile/USER_SUCCEED';

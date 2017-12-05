@@ -14,6 +14,11 @@ export default styled.div`
     border-color: ${SECONDARY};
     color: #fff;
   }
+  .btn-faded {
+    background-color: ${FADED};
+    border-color: ${FADED};
+    color: #fff;
+  }
   .btn-invisible {
     background: transparent;
     border: none;
