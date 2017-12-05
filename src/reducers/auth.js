@@ -37,7 +37,11 @@ export default function auth(state = {}, action) {
         JSON.stringify(action.payload.data)
       )
         return state;
-      return Object.assign({}, state, { notifications: action.payload.data });
+      return Object.assign({}, state, {
+        notifications: action.payload.data.sort(
+          (a, b) => (a.created_at > b.created_at ? -1 : 1),
+        ),
+      });
     case AUTH_LOGOUT:
       return Object.assign({}, defaultState.auth);
     case AUTH_MARK_NOTI:
