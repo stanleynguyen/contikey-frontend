@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import store, { history } from './store';
 import ModalSwitch from './components/ModalSwitch';
 import { startSubs } from 'lib/fbSDK';
-import { authenticateUser } from 'actions';
+import { authenticateUser, unauthenticateUser } from 'actions';
 
 import { GeneralLayout, NavbarLayout } from './components/Layout';
 import HomePage from './containers/HomePage';
@@ -22,7 +22,12 @@ import LoginPage, { ModalLoginPage } from './containers/LoginPage';
 // attempt to authenticate with FB on app load
 store.dispatch(authenticateUser());
 // start listening if user login/logout using fb
-startSubs(() => store.dispatch(authenticateUser()));
+startSubs(
+  r =>
+    r.status === 'connected'
+      ? store.dispatch(authenticateUser())
+      : store.dispatch(unauthenticateUser()),
+);
 
 const router = (
   <Provider store={store}>

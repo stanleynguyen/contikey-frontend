@@ -1,5 +1,12 @@
-import { AUTH_LOADING, AUTH_SUCCESS, AUTH_FAIL } from 'constants/actionTypes';
+import {
+  AUTH_LOADING,
+  AUTH_SUCCESS,
+  AUTH_FAIL,
+  AUTH_GET_NOTI,
+  AUTH_LOGOUT,
+} from 'constants/actionTypes';
 import { NONE, LOADING, SUCCESS, ERROR } from 'constants/misc';
+import { defaultState } from 'constants/misc';
 
 export default function auth(state = {}, action) {
   switch (action.type) {
@@ -23,6 +30,10 @@ export default function auth(state = {}, action) {
         { status: ERROR },
         { message: action.payload.message },
       );
+    case AUTH_GET_NOTI:
+      return Object.assign({}, state, { notifications: action.payload.data });
+    case AUTH_LOGOUT:
+      return Object.assign({}, defaultState.auth);
     default:
       return state;
   }

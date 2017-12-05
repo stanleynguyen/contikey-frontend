@@ -19,6 +19,14 @@ export const login = async () => {
   return res;
 };
 
+export const logout = async () =>
+  await serviceReq(
+    fetch(`${SERVICE_URL}/logout/`, {
+      method: 'POST',
+      credentials: 'include',
+    }),
+  );
+
 const getFieldTemplate = field => async (params = { user_id: '' }) => {
   const { user_id } = params;
   const res = await serviceReq(
