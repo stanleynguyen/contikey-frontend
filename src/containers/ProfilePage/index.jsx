@@ -61,6 +61,7 @@ class ProfilePage extends React.Component {
     if (
       this.props.match.params.profile_id !== prevProps.match.params.profile_id
     ) {
+      this.setState({ tab: 'channels' });
       this.redirectIfMyOwnProfile();
       this.loadData();
     }
@@ -149,9 +150,9 @@ class ProfilePage extends React.Component {
                 ))}
               {this.state.tab === 'friends' && (
                 <Row>
-                  {[...Array(10).keys()].map(i => (
-                    <Col xs="6" key={i}>
-                      <UserCard name="Si-Yan Teo" />
+                  {this.props.profile.friends.value.map(v => (
+                    <Col xs="6" key={v.user_id}>
+                      <UserCard {...v} />
                     </Col>
                   ))}
                 </Row>

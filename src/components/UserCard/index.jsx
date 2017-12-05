@@ -38,11 +38,7 @@ const UserCard = props => (
 UserCard.propTypes = {
   user_id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  photo: PropTypes.string,
-};
-
-UserCard.defaultProps = {
-  photo: NO_IMAGE_PLACEHOLDER,
+  photo: PropTypes.string.isRequired,
 };
 
 export default UserCard;
