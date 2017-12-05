@@ -76,7 +76,6 @@ class ProfilePage extends React.Component {
   };
   loadData = () => {
     const user_id = this.props.match.params.profile_id;
-    console.log(user_id);
     this.props.profileLoadUser({ user_id });
     this.props.profileLoadChannels({ user_id });
     this.props.profileLoadArticles({ user_id });

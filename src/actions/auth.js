@@ -4,15 +4,17 @@ import {
   AUTH_FAIL,
   AUTH_GET_NOTI,
   AUTH_LOGOUT,
+  AUTH_MARK_NOTI,
 } from 'constants/actionTypes';
 import { login, logout } from 'lib/userService';
-import { getNoti } from 'lib/notificationService';
+import { getNoti, markNotiAsRead } from 'lib/notificationService';
 
 const authLoading = () => ({ type: AUTH_LOADING });
 const authSuccess = payload => ({ type: AUTH_SUCCESS, payload });
 const authFail = payload => ({ type: AUTH_FAIL, payload });
 const authGetNoti = payload => ({ type: AUTH_GET_NOTI, payload });
 const authLogout = () => ({ type: AUTH_LOGOUT });
+const authMarkNoti = payload => ({ type: AUTH_MARK_NOTI, payload });
 
 export const authenticateUser = () => async dispatchEvent => {
   dispatchEvent(authLoading());
@@ -45,6 +47,18 @@ export const authRefresh = actionToRetry => async dispatchEvent => {
 export const authLoadNoti = () => async dispatchEvent => {
   try {
     dispatchEvent(authGetNoti(await getNoti()));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const authMarkNotiAsRead = ({
+  notification_id,
+}) => async dispatchEvent => {
+  if (!notification_id) return;
+  try {
+    await markNotiAsRead({ notification_id });
+    dispatchEvent(authMarkNoti({ notification_id }));
   } catch (e) {
     console.log(e);
   }

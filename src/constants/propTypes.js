@@ -9,10 +9,19 @@ export const user = PropTypes.shape({
   name: PropTypes.string.isRequired,
   photo: PropTypes.string.isRequired,
 });
+export const notification = PropTypes.shape({
+  notification_id: PropTypes.number.isRequired,
+  type: PropTypes.oneOf(['like', 'comment', 'channel', 'article']).isRequired,
+  type_user: user.isRequired,
+  is_read: PropTypes.oneOf([0, 1]).isRequired,
+  article_id: PropTypes.number,
+  channel_id: PropTypes.number,
+});
 
 export const auth = PropTypes.shape({
   status: PropTypes.oneOf(availableStatuses).isRequired,
   user: user.isRequired,
+  notifications: PropTypes.arrayOf(notification).isRequired,
 });
 
 export const feed = PropTypes.shape({
@@ -47,7 +56,7 @@ export const article = PropTypes.shape({
   url: PropTypes.string.isRequired,
   comments: PropTypes.arrayOf(comment),
   created_at: PropTypes.string.isRequired,
-  user: user.isRequired,
+  user: user,
   likes: PropTypes.number.isRequired,
   comment_status: PropTypes.oneOf(availableStatuses).isRequired,
 });
@@ -70,4 +79,5 @@ export const channel = PropTypes.shape({
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   articles: PropTypes.arrayOf(articlePreview),
+  num_subscribers: PropTypes.number.isRequired,
 });

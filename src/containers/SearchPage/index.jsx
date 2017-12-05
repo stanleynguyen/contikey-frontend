@@ -37,8 +37,8 @@ class SearchPage extends React.Component {
       this.state.tab !== prevState.tab ||
       this.state.query !== prevState.query
     ) {
-      loadSearch(this.state.tab, this.state.query).then(res =>
-        this.setState({ data: res.data }),
+      loadSearch(this.state.tab, this.state.query).then(
+        res => console.log(res) || this.setState({ data: res.data }),
       );
     }
   }

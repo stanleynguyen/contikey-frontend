@@ -9,7 +9,7 @@ export default styled.div`
   border: 1px solid #999;
   border-radius: 5px;
   width: 35vw;
-  display: flex;
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   flex-direction: column;
   background: #fff;
   .header {

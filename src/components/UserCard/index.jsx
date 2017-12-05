@@ -31,22 +31,18 @@ const StyleWrapper = styled(Link)`
 
 const UserCard = props => (
   <StyleWrapper to={`/profile/${props.user_id}`}>
-    <img
-      className="avatar img-fluid"
-      src={props.photo ? props.photo : NO_IMAGE_PLACEHOLDER}
-      alt="Avatar"
-    />
+    <img className="avatar img-fluid" src={props.photo} alt="Avatar" />
     <h3 className="name">{props.name}</h3>
   </StyleWrapper>
 );
 UserCard.propTypes = {
+  user_id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  photo: PropTypes.string,
 };
 
 UserCard.defaultProps = {
-  name: 'Si-Yan Teo',
-  photo: 'https://picsum.photos/400/400?random',
-  user_id: 1,
+  photo: NO_IMAGE_PLACEHOLDER,
 };
 
 export default UserCard;

@@ -43,11 +43,8 @@ ChannelInfo.propTypes = {
   channel_id: PropTypes.number.isRequired,
   user: userType.isRequired,
   title: PropTypes.string.isRequired,
-  num_subscribers: PropTypes.number,
+  num_subscribers: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
-};
-ChannelInfo.defaultProps = {
-  num_subscribers: 0,
 };
 
 export default ChannelInfo;

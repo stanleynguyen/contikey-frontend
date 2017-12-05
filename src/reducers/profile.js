@@ -116,7 +116,6 @@ export default function profile(state = {}, action) {
         status: LOADING,
       });
     case PROFILE_LOG_SUCCEED:
-      console.log(action.payload.history);
       return genNewState(state, 'log', {
         status: SUCCESS,
         value: action.payload.history.sort(sortHistObj),
