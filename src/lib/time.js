@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export function formatAgo(date) {
-  return moment(date).fromNow();
+  return moment.utc(date).fromNow();
 }
 
 export const getMinutesRead = numWords =>
