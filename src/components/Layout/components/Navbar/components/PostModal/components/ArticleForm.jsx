@@ -4,19 +4,27 @@ import PropTypes from 'prop-types';
 
 import StyledForm from './StyledForm';
 import { postArticle } from 'lib/articleService';
+import { getChannels } from 'lib/userService';
 
 class ArticleForm extends React.Component {
   state = {
-    channel_id: 1,
+    channel_id: '',
     successOpen: false,
     failOpen: false,
     isPosting: false,
+    channels: [],
   };
 
   static propTypes = {
-    channels: PropTypes.array,
     toggle: PropTypes.func.isRequired,
   };
+
+  componentDidMount() {
+    getChannels.then(
+      success => this.setState({ channels: success.data.channels }),
+      failure => this.setState({ failOpen: true }),
+    );
+  }
 
   componentWillUnmount() {
     if (this.timeout) clearTimeout(this.timeout);
@@ -38,19 +46,19 @@ class ArticleForm extends React.Component {
     postArticle(params).then(
       success => {
         this.setState({
-          successOpen: !this.state.successOpen,
+          successOpen: true,
           isPosting: false,
         });
         this.timeout = setTimeout(
-          () => this.setState({ successOpen: !this.state.successOpen }),
+          () => this.setState({ successOpen: false }),
           5000,
         );
         this.formEl.reset();
       },
       failure => {
-        this.setState({ failOpen: !this.state.failOpen, isPosting: false });
+        this.setState({ failOpen: true, isPosting: false });
         this.timeout = setTimeout(
-          () => this.setState({ failOpen: !this.state.failOpen }),
+          () => this.setState({ failOpen: false }),
           5000,
         );
       },
@@ -65,12 +73,11 @@ class ArticleForm extends React.Component {
       >
         <label>Post to:&nbsp;</label>
         <select className="channels">
-          {this.props.channels.map(channel => (
-            <option
-              key={channel.channel_id}
-              value={channel.title}
-              onClick={this.changeChannel}
-            >
+          <option value="" disabled>
+            Select a channel to post to
+          </option>
+          {this.state.channels.map(channel => (
+            <option value={channel.channel_id} onClick={this.changeChannel}>
               {channel.title}
             </option>
           ))}
