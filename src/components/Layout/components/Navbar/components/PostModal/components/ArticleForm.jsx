@@ -20,10 +20,9 @@ class ArticleForm extends React.Component {
   };
 
   componentDidMount() {
-    getChannels.then(
-      success => this.setState({ channels: success.data.channels }),
-      failure => this.setState({ failOpen: true }),
-    );
+    getChannels()
+      .then(success => this.setState({ channels: success.data }))
+      .catch(failure => this.setState({ failOpen: true }));
   }
 
   componentWillUnmount() {
@@ -72,7 +71,7 @@ class ArticleForm extends React.Component {
         onSubmit={this.handleSubmit}
       >
         <label>Post to:&nbsp;</label>
-        <select className="channels">
+        <select className="channels" value={this.state.channel_id}>
           <option value="" disabled>
             Select a channel to post to
           </option>
