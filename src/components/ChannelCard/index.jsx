@@ -19,12 +19,12 @@ const ChannelCard = props => (
         description={props.description}
       />
       <button
-        className={`btn ${props.subscribed ? 'btn-faded' : 'btn-secondary'}`}
+        className={`btn ${props.subscribed ? 'btn-faded' : 'btn-primary'}`}
         onClick={props.btnClickFn.bind(null, {
           channel_id: props.channel_id,
         })}
       >
-        {props.subscribed ? 'unsubscribed' : 'subscribe'}
+        {props.subscribed ? 'unsubscribe' : 'subscribe'}
       </button>
     </div>
     <div className="articles">

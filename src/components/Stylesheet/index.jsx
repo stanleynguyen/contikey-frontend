@@ -14,6 +14,11 @@ export default styled.div`
     border-color: ${SECONDARY};
     color: #fff;
   }
+  .btn-primary {
+    background-color: ${PRIMARY};
+    border-color: ${PRIMARY};
+    color: #fff;
+  }
   .btn-faded {
     background-color: ${FADED};
     border-color: ${FADED};
