@@ -9,6 +9,7 @@ export async function serviceReq(fetchProm) {
       throw Object.assign({}, { status: res.status }, payload);
     }
   } catch (e) {
+    if (e.status) throw e;
     throw { status: 599, message: JSON.stringify(e) };
   }
 }
