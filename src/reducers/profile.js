@@ -21,6 +21,7 @@ import {
   PROFILE_CHAN_UNSUB,
 } from 'constants/actionTypes';
 import { LOADING, SUCCESS, ERROR } from 'constants/misc';
+import { sortByCreatedAt } from 'lib/misc';
 
 const genNewState = (currState, alteredTab, newVal) =>
   Object.assign({}, currState, {
@@ -69,7 +70,7 @@ export default function profile(state = {}, action) {
     case PROFILE_CHANNELS_SUCCEED:
       return genNewState(state, 'channels', {
         status: SUCCESS,
-        value: action.payload.data,
+        value: action.payload.data.sort(sortByCreatedAt),
       });
     case PROFILE_FOLLOWING_FAIL:
       return genNewState(state, 'following', {
@@ -81,7 +82,7 @@ export default function profile(state = {}, action) {
     case PROFILE_FOLLOWING_SUCCEED:
       return genNewState(state, 'following', {
         status: SUCCESS,
-        value: action.payload.data,
+        value: action.payload.data.sort(sortByCreatedAt),
       });
     case PROFILE_FRIENDS_FAIL:
       return genNewState(state, 'friends', {
@@ -93,7 +94,7 @@ export default function profile(state = {}, action) {
     case PROFILE_FRIENDS_SUCCEED:
       return genNewState(state, 'friends', {
         status: SUCCESS,
-        value: action.payload.data,
+        value: action.payload.data.sort(sortByCreatedAt),
       });
     case PROFILE_USER_FAIL:
       return genNewState(state, 'user', {
