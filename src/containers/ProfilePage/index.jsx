@@ -96,7 +96,7 @@ class ProfilePage extends React.Component {
   };
   handleSubBtnClick = ({ channel_id }) => {
     if (this.props.auth.status !== SUCCESS) {
-      history.push('/profile', { modal: true });
+      history.push('/login', { modal: true });
     } else {
       const subStatus = [
         ...this.props.profile.channels.value,

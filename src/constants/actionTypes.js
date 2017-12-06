@@ -48,8 +48,8 @@ export const ARTICLE_COMMENT = '@article/COMMENT';
 export const CHANNEL_LOADING = '@channel/LOADING';
 export const CHANNEL_SUCCESS = '@channel/SUCCESS';
 export const CHANNEL_FAIL = '@channel/FAIL';
-export const CHANNEL_FOLLOW = '@channel/FOLLOW';
-export const CHANNEL_UNFOLLOW = '@channel/UNFOLLOW';
+export const CHANNEL_SUB = '@channel/SUB';
+export const CHANNEL_UNSUB = '@channel/UNSUB';
 
 export const TAGS_LOADING = '@tags/LOADING';
 export const TAGS_SUCCESS = '@tags/SUCCESS';

@@ -2,28 +2,34 @@ import React from 'react';
 import styled from 'styled-components';
 import { Container, Col, Row } from 'reactstrap';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { channel as channelType } from 'constants/propTypes';
 import { SUCCESS, LOADING } from 'constants/misc';
 import Spinner from 'components/Spinner';
 import ChannelInfo from './components/ChannelInfo';
 import ArticleCard from 'components/ArticleCard';
-import { channelFetch } from 'actions';
+import { channelFetch, channelSubscribe } from 'actions';
+import { history } from 'store';
 
 const StyleWrapper = styled.div`
   padding: 30px 0;
 `;
 
 class ChannelPage extends React.Component {
-  // static propTypes = {
-  //   channel: channelType.isRequired,
-  // };
-
   componentDidMount() {
     const { channel_id } = this.props.match.params;
     this.props.channelFetch({ channel_id });
   }
+
+  handleSubBtnClick = ({ channel_id }) => {
+    if (this.props.auth.status !== SUCCESS) {
+      history.push('/login', { modal: true });
+    } else {
+      this.props.channel.subscribed
+        ? this.props.channelSubscribe({ channel_id, sub: false })
+        : this.props.channelSubscribe({ channel_id, sub: true });
+    }
+  };
 
   render() {
     console.log(this.props.channel);
@@ -39,7 +45,10 @@ class ChannelPage extends React.Component {
                 ))}
               </Col>
               <Col xs="4">
-                <ChannelInfo {...this.props.channel} />
+                <ChannelInfo
+                  {...this.props.channel}
+                  btnClickFn={this.handleSubBtnClick}
+                />
               </Col>
             </Row>
           )}
@@ -49,6 +58,7 @@ class ChannelPage extends React.Component {
   }
 }
 
-export default connect(({ channel }) => ({ channel }), { channelFetch })(
-  ChannelPage,
-);
+export default connect(({ auth, channel }) => ({ auth, channel }), {
+  channelFetch,
+  channelSubscribe,
+})(ChannelPage);

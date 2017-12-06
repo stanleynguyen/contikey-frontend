@@ -38,6 +38,9 @@ const StyleWrapper = styled.div`
     font-size: 0.9rem;
     margin-top: 20px;
   }
+  .margin-bottom {
+    margin-bottom: 20px;
+  }
 `;
 
 const ChannelInfo = props => (
@@ -53,6 +56,16 @@ const ChannelInfo = props => (
       </div>
     </div>
     <div className="channel-body">
+      <button
+        className={`btn ${props.subscribed
+          ? 'btn-faded'
+          : 'btn-primary'} margin-bottom`}
+        onClick={props.btnClickFn.bind(null, {
+          channel_id: props.channel_id,
+        })}
+      >
+        {props.subscribed ? 'unsubscribe' : 'subscribe'}
+      </button>
       <p>{props.description}</p>
       {props.tags.length > 0 && <p>Tags: {props.tags.join(', ')}</p>}
     </div>
@@ -68,6 +81,7 @@ ChannelInfo.propTypes = {
   title: PropTypes.string.isRequired,
   user: userType.isRequired,
   user_id: PropTypes.number.isRequired,
+  btnClickFn: PropTypes.func.isRequired,
 };
 
 export default ChannelInfo;
