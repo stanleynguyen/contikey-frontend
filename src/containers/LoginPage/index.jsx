@@ -47,7 +47,7 @@ class LoginPage extends React.Component {
         <div className="header">
           <img className="logo img-fluid" alt="Logo" src={logo} />
           <div className="tagline">
-            <h1 className="title">dboard</h1>
+            <h1 className="title">contikey</h1>
             <p className="subtitle">read. share. discover.</p>
           </div>
         </div>
