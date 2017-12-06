@@ -10,12 +10,17 @@ class ArticleForm extends React.Component {
     channel_id: 1,
     successOpen: false,
     failOpen: false,
+    isPosting: false,
   };
 
   static propTypes = {
     channels: PropTypes.array,
     toggle: PropTypes.func.isRequired,
   };
+
+  componentWillUnmount() {
+    if (this.timeout) clearTimeout(this.timeout);
+  }
 
   changeChannel = e => {
     e.preventDefault();
@@ -29,14 +34,35 @@ class ArticleForm extends React.Component {
       caption: this.caption.value,
       channel_id: this.state.channel_id,
     };
-    postArticle(params).then(success => {
-      this.setState({ successOpen: !this.state.successOpen });
-    }, failure => console.log(failure) || this.setState({ failOpen: !this.state.failOpen }));
+    this.setState({ isPosting: true });
+    postArticle(params).then(
+      success => {
+        this.setState({
+          successOpen: !this.state.successOpen,
+          isPosting: false,
+        });
+        this.timeout = setTimeout(
+          () => this.setState({ successOpen: !this.state.successOpen }),
+          5000,
+        );
+        this.formEl.reset();
+      },
+      failure => {
+        this.setState({ failOpen: !this.state.failOpen, isPosting: false });
+        this.timeout = setTimeout(
+          () => this.setState({ failOpen: !this.state.failOpen }),
+          5000,
+        );
+      },
+    );
   };
 
   render() {
     return (
-      <StyledForm onSubmit={this.handleSubmit}>
+      <StyledForm
+        innerRef={e => (this.formEl = e)}
+        onSubmit={this.handleSubmit}
+      >
         <label>Post to:&nbsp;</label>
         <select className="channels">
           {this.props.channels.map(channel => (
@@ -68,19 +94,29 @@ class ArticleForm extends React.Component {
           >
             Cancel
           </button>
-          <button className="btn-secondary" type="submit">
-            Post
+          <button
+            className="btn-secondary"
+            type="submit"
+            disabled={this.state.isPosting}
+          >
+            {this.state.isPosting ? 'Posting' : 'Post'}
           </button>
         </div>
         <Alert
           className="alert"
-          isOpen={this.state.successOpen || this.state.failOpen}
+          isOpen={this.state.successOpen}
           toggle={this.props.toggle}
-          color={this.state.successOpen ? 'success' : 'danger'}
+          color="success"
         >
-          {this.state.successOpen
-            ? 'You posted an article successfully!'
-            : 'Please use a valid URL'}
+          You posted an article successfully!
+        </Alert>
+        <Alert
+          className="alert"
+          isOpen={this.state.failOpen}
+          toggle={this.props.toggle}
+          color="danger"
+        >
+          Something went wrong.
         </Alert>
       </StyledForm>
     );

@@ -28,12 +28,17 @@ class ChannelForm extends React.Component {
     chosenTagIds: [],
     successOpen: false,
     failOpen: false,
+    isCreating: false,
   };
 
   static propTypes = {
     toggle: PropTypes.func.isRequired,
     tags: tagsType.isRequired,
   };
+
+  componentWillUnmount() {
+    if (this.timeout) clearTimeout(this.timeout);
+  }
 
   handleSubmit = e => {
     e.preventDefault();
@@ -42,13 +47,27 @@ class ChannelForm extends React.Component {
       description: this.description.value,
       tags: this.state.chosenTagIds.join(','),
     };
+    this.setState({ isCreating: true });
     postChannel(params).then(
       onFulfill => {
-        this.setState({ successOpen: !this.state.successOpen });
+        this.setState({
+          successOpen: !this.state.successOpen,
+          isCreating: false,
+        });
+        this.timeout = setTimeout(
+          () => this.setState({ successOpen: !this.state.successOpen }),
+          5000,
+        );
+        this.formEl.reset();
+        this.setState({ chosenTagIds: [] });
       },
       onReject => {
         {
-          this.setState({ failOpen: !this.state.failOpen });
+          this.setState({ failOpen: !this.state.failOpen, isCreating: false });
+          this.timeout = setTimeout(
+            () => this.setState({ failOpen: !this.state.failOpen }),
+            5000,
+          );
         }
       },
     );
@@ -65,7 +84,10 @@ class ChannelForm extends React.Component {
 
   render() {
     return (
-      <StyleWrapper onSubmit={this.handleSubmit}>
+      <StyleWrapper
+        onSubmit={this.handleSubmit}
+        innerRef={e => (this.formEl = e)}
+      >
         <Input
           type="text"
           className="input-title"
@@ -98,19 +120,29 @@ class ChannelForm extends React.Component {
           >
             Cancel
           </button>
-          <button className="btn-secondary" type="submit">
-            Create
+          <button
+            className="btn-secondary"
+            type="submit"
+            disabled={this.isCreating}
+          >
+            {this.isCreating ? 'Creating' : 'Create'}
           </button>
         </div>
         <Alert
           className="alert"
-          isOpen={this.state.successOpen || this.state.failOpen}
+          isOpen={this.state.successOpen}
           toggle={this.props.toggle}
-          color={this.state.successOpen ? 'success' : 'danger'}
+          color="success"
         >
-          {this.state.successOpen
-            ? 'You posted a channel successfully!'
-            : 'Something went wrong'}
+          You posted a channel successfully!
+        </Alert>
+        <Alert
+          className="alert"
+          isOpen={this.state.failOpen}
+          toggle={this.props.toggle}
+          color="danger"
+        >
+          Make sure you have at least one tag!
         </Alert>
       </StyleWrapper>
     );
