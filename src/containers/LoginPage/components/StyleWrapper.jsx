@@ -1,5 +1,21 @@
 import styled from 'styled-components';
 import kidPic from 'assets/kid.jpeg';
+import { ModalBody } from 'reactstrap';
+import { ACCENT } from 'constants/colors';
+
+export const StyledModalBody = styled(ModalBody)`
+  .btn-invisible {
+    cursor: pointer;
+    margin-top: 15px;
+    background: transparent;
+    border: none;
+    color: ${ACCENT};
+    &:hover {
+      background: ${ACCENT};
+      color: #fff;
+    }
+  }
+`;
 
 export default styled.div`
   width: 100%;
@@ -27,6 +43,21 @@ export default styled.div`
       .subtitle {
         margin-bottom: 0;
       }
+    }
+  }
+  .tags-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .tags-container {
+      display: flex;
+      max-width: 400px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-invisible {
+      cursor: pointer;
+      margin-top: 15px;
     }
   }
 `;

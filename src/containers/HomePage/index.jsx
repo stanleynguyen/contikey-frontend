@@ -36,8 +36,9 @@ class HomePage extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      prevProps.auth.status !== this.props.auth.status &&
-      this.props.auth.status !== LOADING
+      (prevProps.auth.status !== this.props.auth.status &&
+        this.props.auth.status !== LOADING) ||
+      prevProps.auth.user.new_user !== this.props.auth.user.new_user
     ) {
       this.props.feedFetch();
       this.props.feedGetRec();

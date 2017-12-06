@@ -23,7 +23,7 @@ import noti from 'assets/notifications.svg';
 import glass from 'assets/mag-glass.svg';
 
 import PropTypes from 'prop-types';
-import { auth as authType, tags as tagsType } from 'constants/propTypes';
+import { auth as authType } from 'constants/propTypes';
 import StyledNavbar from './components/StyledNavbar';
 import NotificationPopup from './components/NotificationPopup';
 import PostModal from './components/PostModal';
@@ -39,7 +39,6 @@ class DBoardNavbar extends React.Component {
   };
   static propTypes = {
     auth: authType.isRequired,
-    tags: tagsType.isRequired,
   };
 
   componentDidMount() {
@@ -177,7 +176,6 @@ class DBoardNavbar extends React.Component {
                 isOpen={this.state.postOpen}
                 toggle={this.togglePost}
                 user={this.props.auth.user}
-                tags={this.props.tags}
               />
             </NavItem>
           </Nav>
@@ -187,7 +185,7 @@ class DBoardNavbar extends React.Component {
   }
 }
 
-export default connect(({ auth, tags }) => ({ auth, tags }), {
+export default connect(({ auth }) => ({ auth }), {
   authLoadNoti,
   authMarkNotiAsRead,
 })(DBoardNavbar);

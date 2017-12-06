@@ -5,6 +5,7 @@ import {
   AUTH_GET_NOTI,
   AUTH_LOGOUT,
   AUTH_MARK_NOTI,
+  AUTH_FOLLOW_TAGS,
 } from 'constants/actionTypes';
 import { NONE, LOADING, SUCCESS, ERROR } from 'constants/misc';
 import { defaultState } from 'constants/misc';
@@ -54,6 +55,10 @@ export default function auth(state = {}, action) {
           Object.assign({}, state.notifications[idx], { is_read: 1 }),
           ...state.notifications.slice(idx + 1),
         ],
+      });
+    case AUTH_FOLLOW_TAGS:
+      return Object.assign({}, state, {
+        user: Object.assign({}, state.user, { new_user: false }),
       });
     default:
       return state;

@@ -2,11 +2,11 @@ import React from 'react';
 import { Input, Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import { postChannel } from 'lib/channelService';
 import StyledForm from './StyledForm';
-import { tagList } from 'constants/tags';
-import TagComponent from './TagComponent';
+import TagComponent from 'components/Tag';
 import { tags as tagsType } from 'constants/propTypes';
 
 const StyleWrapper = styled(StyledForm)`
@@ -25,7 +25,7 @@ const StyleWrapper = styled(StyledForm)`
 
 class ChannelForm extends React.Component {
   state = {
-    tags: [],
+    chosenTagIds: [],
     successOpen: false,
     failOpen: false,
   };
@@ -40,7 +40,7 @@ class ChannelForm extends React.Component {
     const params = {
       title: this.title.value,
       description: this.description.value,
-      tags: this.state.tags.join(','),
+      tags: this.state.chosenTagIds.join(','),
     };
     postChannel(params).then(
       onFulfill => {
@@ -55,16 +55,12 @@ class ChannelForm extends React.Component {
   };
 
   addTag = tag_id => {
-    this.setState({ tags: [...this.state.tags, tag_id] });
+    this.setState({ chosenTagIds: [...this.state.chosenTagIds, tag_id] });
   };
 
   removeTag = tag_id => {
-    if (this.state.tags.length) {
-      var new_tags = this.state.tags.filter(i => {
-        i !== tag_id;
-      });
-      this.setState({ tags: new_tags });
-    }
+    const new_tags = this.state.chosenTagIds.filter(i => i !== tag_id);
+    this.setState({ chosenTagIds: new_tags });
   };
 
   render() {
@@ -87,8 +83,8 @@ class ChannelForm extends React.Component {
           {this.props.tags.value.map(v => (
             <TagComponent
               key={v.tag_id}
-              index={v.tag_id}
-              tag={v.label}
+              {...v}
+              selected={this.state.chosenTagIds.some(id => id === v.tag_id)}
               addTag={this.addTag}
               removeTag={this.removeTag}
             />
@@ -121,4 +117,4 @@ class ChannelForm extends React.Component {
   }
 }
 
-export default ChannelForm;
+export default connect(({ tags }) => ({ tags }), {})(ChannelForm);

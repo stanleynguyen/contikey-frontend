@@ -4,6 +4,7 @@ export const AUTH_FAIL = '@auth/FAIL';
 export const AUTH_GET_NOTI = '@auth/GET_NOTI';
 export const AUTH_MARK_NOTI = '@auth/MARK_NOTI';
 export const AUTH_LOGOUT = '@auth/LOGOUT';
+export const AUTH_FOLLOW_TAGS = '@auth/FOLLOW_TAGS';
 
 export const FEED_LOADING = '@feed/LOADING';
 export const FEED_SUCCESS = '@feed/SUCCESS';

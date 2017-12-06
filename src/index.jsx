@@ -32,7 +32,7 @@ startSubs(
       ? store.dispatch(authenticateUser())
       : store.dispatch(unauthenticateUser()),
 );
-// load constant list of tags into store
+// lazy load constant list of tags into store
 store.dispatch(tagsLoad());
 
 const router = (
