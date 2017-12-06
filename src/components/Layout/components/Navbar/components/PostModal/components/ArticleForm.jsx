@@ -45,7 +45,11 @@ class ArticleForm extends React.Component {
         <label>Post to:&nbsp;</label>
         <select className="channels">
           {this.props.channels.map(channel => (
-            <option value={channel.title} onClick={this.changeChannel}>
+            <option
+              key={channel.channel_id}
+              value={channel.title}
+              onClick={this.changeChannel}
+            >
               {channel.title}
             </option>
           ))}

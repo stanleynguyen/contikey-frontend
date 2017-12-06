@@ -83,3 +83,14 @@ export const articlePreview = PropTypes.shape({
   showUser: PropTypes.bool,
   created_at: PropTypes.string.isRequired,
 });
+
+export const tags = PropTypes.shape({
+  status: PropTypes.oneOf(availableStatuses).isRequired,
+  value: PropTypes.arrayOf(
+    PropTypes.shape({
+      tag_id: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  error: PropTypes.string.isRequired,
+});

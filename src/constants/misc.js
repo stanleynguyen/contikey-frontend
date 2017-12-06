@@ -70,4 +70,9 @@ export const defaultState = {
     user: defaultUser,
     comment_status: NONE,
   },
+  tags: {
+    status: NONE,
+    value: [],
+    error: '',
+  },
 };

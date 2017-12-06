@@ -44,10 +44,6 @@ export default styled(Modal)`
       }
       .box-body {
         padding: 20px;
-        .channels {
-          border: none;
-          background: transparent;
-        }
       }
     }
   }

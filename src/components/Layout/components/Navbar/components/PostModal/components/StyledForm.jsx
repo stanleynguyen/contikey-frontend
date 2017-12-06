@@ -9,6 +9,13 @@ export default styled.form`
     border-radius: 0;
     padding-left: 0;
   }
+  .channels {
+    border: none;
+    background: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
   .alert {
     margin-top: 10px;
   }

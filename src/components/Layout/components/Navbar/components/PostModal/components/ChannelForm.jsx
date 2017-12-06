@@ -7,6 +7,7 @@ import { postChannel } from 'lib/channelService';
 import StyledForm from './StyledForm';
 import { tagList } from 'constants/tags';
 import TagComponent from './TagComponent';
+import { tags as tagsType } from 'constants/propTypes';
 
 const StyleWrapper = styled(StyledForm)`
   .input-title {
@@ -31,6 +32,7 @@ class ChannelForm extends React.Component {
 
   static propTypes = {
     toggle: PropTypes.func.isRequired,
+    tags: tagsType.isRequired,
   };
 
   handleSubmit = e => {
@@ -82,10 +84,11 @@ class ChannelForm extends React.Component {
         />
         <label> Choose at least 1 tag for your channel. </label>
         <div className="tags-container">
-          {tagList.map(i => (
+          {this.props.tags.value.map(v => (
             <TagComponent
-              index={tagList.indexOf(i)}
-              tag={i}
+              key={v.tag_id}
+              index={v.tag_id}
+              tag={v.label}
               addTag={this.addTag}
               removeTag={this.removeTag}
             />

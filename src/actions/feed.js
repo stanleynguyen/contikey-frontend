@@ -9,7 +9,6 @@ import {
   FEED_SUB_REC,
   FEED_UNSUB_REC,
 } from 'constants/actionTypes';
-import { NONE, LOADING, SUCCESS, ERROR } from 'constants/misc';
 
 import { loadFeed } from 'lib/articleService';
 import { getRecommendations, subUnsubChannel } from 'lib/channelService';

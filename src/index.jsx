@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import store, { history } from './store';
 import ModalSwitch from './components/ModalSwitch';
 import { startSubs, getAccessToken } from 'lib/fbSDK';
-import { authenticateUser, unauthenticateUser } from 'actions';
+import { authenticateUser, unauthenticateUser, tagsLoad } from 'actions';
 
 import { GeneralLayout, NavbarLayout } from './components/Layout';
 import HomePage from './containers/HomePage';
@@ -32,6 +32,8 @@ startSubs(
       ? store.dispatch(authenticateUser())
       : store.dispatch(unauthenticateUser()),
 );
+// load constant list of tags into store
+store.dispatch(tagsLoad());
 
 const router = (
   <Provider store={store}>

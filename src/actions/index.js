@@ -3,3 +3,4 @@ export * from './auth';
 export * from './channel';
 export * from './feed';
 export * from './profile';
+export * from './tags';
