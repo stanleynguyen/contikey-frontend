@@ -29,14 +29,9 @@ class ArticleForm extends React.Component {
       caption: this.caption.value,
       channel_id: this.state.channel_id,
     };
-    postArticle(params).then(
-      success => {
-        this.setState({ successOpen: !this.state.successOpen });
-      },
-      failure => {
-        this.setState({ failOpen: !this.state.failOpen });
-      },
-    );
+    postArticle(params).then(success => {
+      this.setState({ successOpen: !this.state.successOpen });
+    }, failure => console.log(failure) || this.setState({ failOpen: !this.state.failOpen }));
   };
 
   render() {
