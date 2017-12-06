@@ -56,7 +56,7 @@ const ArticleInfo = props => {
           </p>
         )}
         <p className="time-container">
-          {formatAgo(new Date(props.created_at))} &middot;{' '}
+          {formatAgo(props.created_at)} &middot;{' '}
           {props.num_words && getMinutesRead(props.num_words)}
         </p>
       </div>

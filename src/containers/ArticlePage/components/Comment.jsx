@@ -35,7 +35,7 @@ const Comment = props => (
     <img className="img-fluid avatar" src={props.photo} />
     <h6 className="author">{props.name}</h6>
     <p className="text">{props.comment_text}</p>
-    <p className="time">{formatAgo(new Date(props.created_at))}</p>
+    <p className="time">{formatAgo(props.created_at)}</p>
   </StyleWrapper>
 );
 

@@ -23,13 +23,11 @@ const LogItem = props => {
   return (
     <StyleWrapper>
       <div className="time">
-        {props.channel && formatAgo(new Date(props.channel.created_at))}
-        {props.followed_channel &&
-          formatAgo(new Date(props.followed_channel.created_at))}
-        {props.article && formatAgo(new Date(props.article.created_at))}
-        {props.liked_article &&
-          formatAgo(new Date(props.liked_article.created_at))}
-        {props.comment && formatAgo(new Date(props.comment.created_at))}
+        {props.channel && formatAgo(props.channel.created_at)}
+        {props.followed_channel && formatAgo(props.followed_channel.created_at)}
+        {props.article && formatAgo(props.article.created_at)}
+        {props.liked_article && formatAgo(props.liked_article.created_at)}
+        {props.comment && formatAgo(props.comment.created_at)}
       </div>
       <div className="body">
         <h4 className="title">

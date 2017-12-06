@@ -49,7 +49,7 @@ const ChannelInfo = props => (
       <img className="avatar" src={props.user.photo} />
       <div className="info">
         <p className="user-to-channel">{props.title}</p>
-        <Link className="plain" to={`/user/${props.user_id}`}>
+        <Link className="plain" to={`/profile/${props.user_id}`}>
           <p>by {props.user.name}</p>
         </Link>
         <p className="time-container">{props.num_subscribers} subscribers</p>
@@ -67,7 +67,9 @@ const ChannelInfo = props => (
         {props.subscribed ? 'unsubscribe' : 'subscribe'}
       </button>
       <p>{props.description}</p>
-      {props.tags.length > 0 && <p>Tags: {props.tags.join(', ')}</p>}
+      {props.tags.length > 0 && (
+        <p>Tags: {props.tags.map(t => t.label).join(', ')}</p>
+      )}
     </div>
   </StyleWrapper>
 );
