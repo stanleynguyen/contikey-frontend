@@ -6,7 +6,7 @@ const SRC_DIR = path.resolve('src');
 const DIST_DIR = path.resolve('dist');
 
 module.exports = {
-  entry: [`${SRC_DIR}/index.jsx`],
+  entry: ['babel-polyfill', `${SRC_DIR}/index.jsx`],
   resolve: {
     extensions: ['.js', '.jsx'],
     modules: ['src', 'node_modules'],
