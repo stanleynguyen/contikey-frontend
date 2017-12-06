@@ -15,6 +15,7 @@ const StyleWrapper = styled(StyledForm)`
   }
   .tags-container {
     display: flex;
+    flex-wrap: wrap;
     margin-bottom: 10px;
   }
   label {
