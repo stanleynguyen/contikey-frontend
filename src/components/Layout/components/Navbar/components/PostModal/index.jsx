@@ -46,10 +46,7 @@ class PostModal extends React.Component {
           </div>
           <div className="box-body">
             {this.state.tab === 'post' && (
-              <ArticleForm
-                toggle={this.props.toggle}
-                channels={this.props.user.channels}
-              />
+              <ArticleForm toggle={this.props.toggle} />
             )}
             {this.state.tab === 'channel' && (
               <ChannelForm toggle={this.props.toggle} />
