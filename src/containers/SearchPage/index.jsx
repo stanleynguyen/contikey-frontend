@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 
-import { searchFetch } from 'actions';
+import { history } from 'store';
+import { searchFetch, searchSubChan } from 'actions';
 import Spinner from 'components/Spinner';
 import TabsBar from './components/TabsBar';
 import ChannelCard from 'components/ChannelCard';
@@ -28,10 +29,6 @@ class SearchPage extends React.Component {
 
   componentDidMount() {
     this.updateParams();
-
-    // loadSearch(this.state.tab, this.state.query).then(res =>
-    //   this.setState({ data: res.data }),
-    // );
   }
   componentDidUpdate(prevProps, prevState) {
     this.updateParams();
@@ -43,9 +40,6 @@ class SearchPage extends React.Component {
         searchType: this.state.tab,
         searchTerm: this.state.query,
       });
-      // loadSearch(this.state.tab, this.state.query).then(
-      //   res => console.log(res) || this.setState({ data: res.data }),
-      // );
     }
   }
 
@@ -64,43 +58,49 @@ class SearchPage extends React.Component {
     }
   };
 
-  render() {
-    let state = 'loading';
-    if (this.props.search.status == SUCCESS) {
-      this.props.search.data.length > 0 ? (state = 'data') : 'empty';
+  handleSubBtnClick = ({ channel_id }) => {
+    if (this.props.auth.status !== SUCCESS) {
+      history.push('/login', { modal: true });
+    } else {
+      const subStatus = this.props.search.channels.find(
+        v => v.channel_id === channel_id,
+      ).subscribed;
+      this.props.searchSubChan({ channel_id, sub: !subStatus });
     }
-    // if (this.props.search.status == SUCCESS && this.props.search.data.length === 0) state = 'empty';
-    // if (this.props.search.status == SUCCESS && this.props.search.data.length > 0) state = 'data';
+  };
 
+  render() {
     return (
       <StyleWrapper>
         <Container fluid>
           <h3 className="page-title">Searching for: {this.state.query}</h3>
-          <TabsBar url={'?q=' + this.state.query + '&'} tab={this.state.tab} />
+          <TabsBar
+            url={'?q=' + this.state.query + '&'}
+            tab={this.props.search.tab}
+          />
         </Container>
         <Container>
           <Row>
             <Col xs="12">
-              {state == 'loading' && <Spinner />}
-              {state == 'empty' && <p>No results found :(</p>}
-              {state == 'data' &&
-                this.state.tab === 'channels' &&
-                this.props.search.data.map(c => (
+              {this.props.search.status == LOADING && <Spinner />}
+              {this.props.search.status == SUCCESS &&
+                this.props.search.tab === 'channels' &&
+                this.props.search.channels.map(c => (
                   <ChannelCard
                     key={c['channel_id']}
                     {...c}
-                    btnClickFn={() => {}}
+                    btnClickFn={this.handleSubBtnClick}
                   />
                 ))}
-              {state == 'data' &&
-                this.state.tab === 'articles' &&
-                this.props.search.data.map(a => (
+              {this.props.search.status == SUCCESS &&
+                this.props.search.tab === 'articles' &&
+                this.props.search.articles.map(a => (
                   <ArticleCard key={a['article_id']} {...a} />
                 ))}
-              {state == 'data' &&
-                this.state.tab === 'users' && (
+              {this.props.search.status == SUCCESS &&
+                this.props.search.tab === 'users' && (
                   <Row>
-                    {this.props.search.data.map(u => (
+                    {this.props.search.users.map(u => (
                       <Col xs="6" key={u['user_id']}>
                         <UserCard key={u['user_id']} {...u} />
                       </Col>
@@ -117,4 +117,5 @@ class SearchPage extends React.Component {
 
 export default connect(({ auth, search }) => ({ auth, search }), {
   searchFetch,
+  searchSubChan,
 })(SearchPage);

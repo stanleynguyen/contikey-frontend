@@ -25,14 +25,14 @@ class ChannelPage extends React.Component {
     if (this.props.auth.status !== SUCCESS) {
       history.push('/login', { modal: true });
     } else {
-      this.props.channel.subscribed
-        ? this.props.channelSubscribe({ channel_id, sub: false })
-        : this.props.channelSubscribe({ channel_id, sub: true });
+      this.props.channelSubscribe({
+        channel_id,
+        sub: !this.props.channel.subscribed,
+      });
     }
   };
 
   render() {
-    console.log(this.props.channel);
     return (
       <StyleWrapper>
         <Container>

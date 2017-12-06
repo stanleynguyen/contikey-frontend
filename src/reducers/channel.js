@@ -19,8 +19,13 @@ export default function channel(state = {}, action) {
         error: action.payload.message,
       });
     case CHANNEL_SUB:
+      var subscribersChange;
+      action.payload.subscribed
+        ? (subscribersChange = 1)
+        : (subscribersChange = -1);
       return Object.assign({}, state, {
         subscribed: action.payload.subscribed,
+        num_subscribers: state.num_subscribers + subscribersChange,
       });
     default:
       return state;

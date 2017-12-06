@@ -13,24 +13,38 @@ import { subUnsubChannel } from 'lib/channelService';
 const searchLoading = () => ({ type: SEARCH_LOADING });
 const searchSuccess = payload => ({ type: SEARCH_SUCCESS, payload });
 const searchFail = payload => ({ type: SEARCH_FAIL, payload });
+const channelSubUnsub = payload => ({ type: SEARCH_CHAN_SUB, payload });
 
 export const searchFetch = ({
   searchType,
   searchTerm,
 }) => async dispatchEvent => {
-  console.log('searchFetch action');
   dispatchEvent(searchLoading);
   try {
     const dispatchRefresh = () =>
       dispatchEvent(authRefresh(() => searchFetch({ searchType, searchTerm })));
-    // const res = await loadSearch({ searchType, searchTerm });
     const res = await withAuth(
       loadSearch.bind(null, { searchType, searchTerm }),
       dispatchRefresh,
     );
-    console.log(res);
-    dispatchEvent(searchSuccess(res));
+    dispatchEvent(
+      searchSuccess({ tab: searchType, query: searchTerm, ...res }),
+    );
   } catch (e) {
     dispatchEvent(searchFail(e));
+  }
+};
+
+export const searchSubChan = ({ channel_id, sub }) => async dispatchEvent => {
+  try {
+    const dispatchRefresh = () =>
+      dispatchEvent(authRefresh(() => channelSubscribe({ channel_id })));
+    await withAuth(
+      subUnsubChannel.bind(null, { channel_id }, sub),
+      dispatchEvent,
+    );
+    dispatchEvent(channelSubUnsub({ subscribed: sub, channel_id }));
+  } catch (e) {
+    console.log(e);
   }
 };
