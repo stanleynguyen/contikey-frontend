@@ -35,7 +35,10 @@ class HomePage extends React.Component {
     document.addEventListener('scroll', this.handleScroll);
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.auth.status !== this.props.auth.status) {
+    if (
+      prevProps.auth.status !== this.props.auth.status &&
+      this.props.auth.status !== LOADING
+    ) {
       this.props.feedFetch();
       this.props.feedGetRec();
     }
@@ -77,8 +80,8 @@ class HomePage extends React.Component {
         <Container>
           <Row>
             <div className="col-8" ref={i => (this.articleStream = i)}>
-              {this.props.feed.articles.map(i => (
-                <ArticleCard key={i} {...i} user={this.props.auth.user} />
+              {this.props.feed.articles.map(v => (
+                <ArticleCard key={v.article_id} {...v} />
               ))}
             </div>
             <Col xs="4">
