@@ -1,13 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 
-import { loadSearch } from 'lib/searchService';
+import { searchFetch } from 'actions';
 import Spinner from 'components/Spinner';
 import TabsBar from './components/TabsBar';
 import ChannelCard from 'components/ChannelCard';
 import ArticleCard from 'components/ArticleCard';
 import UserCard from 'components/UserCard';
+import { LOADING, SUCCESS, ERROR } from 'constants/misc';
 
 const StyleWrapper = styled.div`
   .container-fluid {
@@ -22,11 +24,11 @@ class SearchPage extends React.Component {
   state = {
     query: '',
     tab: '',
-    data: null,
   };
 
   componentDidMount() {
     this.updateParams();
+
     // loadSearch(this.state.tab, this.state.query).then(res =>
     //   this.setState({ data: res.data }),
     // );
@@ -37,9 +39,13 @@ class SearchPage extends React.Component {
       this.state.tab !== prevState.tab ||
       this.state.query !== prevState.query
     ) {
-      loadSearch(this.state.tab, this.state.query).then(
-        res => console.log(res) || this.setState({ data: res.data }),
-      );
+      this.props.searchFetch({
+        searchType: this.state.tab,
+        searchTerm: this.state.query,
+      });
+      // loadSearch(this.state.tab, this.state.query).then(
+      //   res => console.log(res) || this.setState({ data: res.data }),
+      // );
     }
   }
 
@@ -60,8 +66,11 @@ class SearchPage extends React.Component {
 
   render() {
     let state = 'loading';
-    if (this.state.data && this.state.data.length === 0) state = 'empty';
-    if (this.state.data && this.state.data.length > 0) state = 'data';
+    if (this.props.search.status == SUCCESS) {
+      this.props.search.data.length > 0 ? (state = 'data') : 'empty';
+    }
+    // if (this.props.search.status == SUCCESS && this.props.search.data.length === 0) state = 'empty';
+    // if (this.props.search.status == SUCCESS && this.props.search.data.length > 0) state = 'data';
 
     return (
       <StyleWrapper>
@@ -76,18 +85,22 @@ class SearchPage extends React.Component {
               {state == 'empty' && <p>No results found :(</p>}
               {state == 'data' &&
                 this.state.tab === 'channels' &&
-                this.state.data.map(c => (
-                  <ChannelCard key={c['channel_id']} {...c} />
+                this.props.search.data.map(c => (
+                  <ChannelCard
+                    key={c['channel_id']}
+                    {...c}
+                    btnClickFn={() => {}}
+                  />
                 ))}
               {state == 'data' &&
                 this.state.tab === 'articles' &&
-                this.state.data.map(a => (
+                this.props.search.data.map(a => (
                   <ArticleCard key={a['article_id']} {...a} />
                 ))}
               {state == 'data' &&
                 this.state.tab === 'users' && (
                   <Row>
-                    {this.state.data.map(u => (
+                    {this.props.search.data.map(u => (
                       <Col xs="6" key={u['user_id']}>
                         <UserCard key={u['user_id']} {...u} />
                       </Col>
@@ -102,4 +115,6 @@ class SearchPage extends React.Component {
   }
 }
 
-export default SearchPage;
+export default connect(({ auth, search }) => ({ auth, search }), {
+  searchFetch,
+})(SearchPage);

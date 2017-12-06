@@ -1,3 +1,11 @@
+export const ARTICLE_LOADING = '@article/LOADING';
+export const ARTICLE_SUCCESS = '@article/SUCCESS';
+export const ARTICLE_FAIL = '@article/FAIL';
+export const ARTICLE_LIKE = '@article/LIKE';
+export const ARTICLE_UNLIKE = '@article/UNLIKE';
+export const ARTICLE_COMMENTING = '@article/COMMENTING';
+export const ARTICLE_COMMENT = '@article/COMMENT';
+
 export const AUTH_LOADING = '@auth/LOADING';
 export const AUTH_SUCCESS = '@auth/SUCCESS';
 export const AUTH_FAIL = '@auth/FAIL';
@@ -5,6 +13,12 @@ export const AUTH_GET_NOTI = '@auth/GET_NOTI';
 export const AUTH_MARK_NOTI = '@auth/MARK_NOTI';
 export const AUTH_LOGOUT = '@auth/LOGOUT';
 export const AUTH_FOLLOW_TAGS = '@auth/FOLLOW_TAGS';
+
+export const CHANNEL_LOADING = '@channel/LOADING';
+export const CHANNEL_SUCCESS = '@channel/SUCCESS';
+export const CHANNEL_FAIL = '@channel/FAIL';
+export const CHANNEL_SUB = '@channel/SUB';
+export const CHANNEL_UNSUB = '@channel/UNSUB';
 
 export const FEED_LOADING = '@feed/LOADING';
 export const FEED_SUCCESS = '@feed/SUCCESS';
@@ -37,19 +51,11 @@ export const PROFILE_LOG_FAIL = '@profile/LOG_FAIL';
 export const PROFILE_CHAN_SUB = '@profile/CHAN_SUB';
 export const PROFILE_CHAN_UNSUB = '@profile/CHAN_UNSUB';
 
-export const ARTICLE_LOADING = '@article/LOADING';
-export const ARTICLE_SUCCESS = '@article/SUCCESS';
-export const ARTICLE_FAIL = '@article/FAIL';
-export const ARTICLE_LIKE = '@article/LIKE';
-export const ARTICLE_UNLIKE = '@article/UNLIKE';
-export const ARTICLE_COMMENTING = '@article/COMMENTING';
-export const ARTICLE_COMMENT = '@article/COMMENT';
-
-export const CHANNEL_LOADING = '@channel/LOADING';
-export const CHANNEL_SUCCESS = '@channel/SUCCESS';
-export const CHANNEL_FAIL = '@channel/FAIL';
-export const CHANNEL_SUB = '@channel/SUB';
-export const CHANNEL_UNSUB = '@channel/UNSUB';
+export const SEARCH_LOADING = '@search/LOADING';
+export const SEARCH_SUCCESS = '@search/SUCCESS';
+export const SEARCH_FAIL = '@search/FAIL';
+export const SEARCH_CHAN_SUB = '@search/CHAN_SUB';
+export const SEARCH_CHAN_UNSUB = '@search/CHAN_UNSUB';
 
 export const TAGS_LOADING = '@tags/LOADING';
 export const TAGS_SUCCESS = '@tags/SUCCESS';
