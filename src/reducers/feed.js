@@ -58,6 +58,7 @@ export default function feed(state = {}, action) {
             subscribed: true,
             num_subscribers: state.recommendations[idx].num_subscribers + 1,
           }),
+          ...state.recommendations.slice(idx + 1),
         ],
       });
     case FEED_UNSUB_REC:
@@ -71,6 +72,7 @@ export default function feed(state = {}, action) {
             subscribed: false,
             num_subscribers: state.recommendations[idx].num_subscribers - 1,
           }),
+          ...state.recommendations.slice(idx + 1),
         ],
       });
     default:
