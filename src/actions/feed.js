@@ -35,6 +35,15 @@ export const feedFetch = () => async dispatchEvent => {
   }
 };
 
+export const feedReload = () => async dispatchEvent => {
+  try {
+    const res = await loadFeed();
+    dispatchEvent(feedSuccess(res));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const feedPaginate = () => async (dispatchEvent, getState) => {
   const { cursor, articles } = getState().feed;
   if (!cursor || !articles || articles.length === 0) return;

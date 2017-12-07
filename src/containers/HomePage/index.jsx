@@ -11,6 +11,7 @@ import {
   feedGetRec,
   feedSubscribeRec,
   feedUnsubscribeRec,
+  feedReload,
 } from 'actions';
 import ArticleCard from '../../components/ArticleCard';
 import ChannelRec from './components/ChannelRecommendation';
@@ -42,6 +43,10 @@ class HomePage extends React.Component {
     ) {
       this.props.feedFetch();
       this.props.feedGetRec();
+    } else if (
+      prevProps.feed.recommendations !== this.props.feed.recommendations
+    ) {
+      this.props.feedReload();
     }
   }
   componentWillUnmount() {
@@ -108,4 +113,5 @@ export default connect(({ auth, feed }) => ({ auth, feed }), {
   feedGetRec,
   feedSubscribeRec,
   feedUnsubscribeRec,
+  feedReload,
 })(HomePage);
