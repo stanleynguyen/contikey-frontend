@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SECONDARY } from '../../../constants/colors';
-import { formatAgo } from '../../../lib/time';
+import { SECONDARY } from 'constants/colors';
+import { formatAgo } from 'lib/time';
 import { comment as commentType } from 'constants/propTypes';
+import { Link } from 'react-router-dom';
 
 const StyleWrapper = styled.div`
   background-color: ${SECONDARY};
@@ -33,7 +34,9 @@ const StyleWrapper = styled.div`
 const Comment = props => (
   <StyleWrapper>
     <img className="img-fluid avatar" src={props.photo} />
-    <h6 className="author">{props.name}</h6>
+    <Link className="plain" to={`/profile/${props.user_id}`}>
+      <h6 className="author">{props.name}</h6>
+    </Link>
     <p className="text">{props.comment_text}</p>
     <p className="time">{formatAgo(props.created_at)}</p>
   </StyleWrapper>
