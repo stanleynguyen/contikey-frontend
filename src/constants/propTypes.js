@@ -76,6 +76,7 @@ export const articlePreview = PropTypes.shape({
   preview_image: PropTypes.string.isRequired,
   preview_title: PropTypes.string.isRequired,
   preview_text: PropTypes.string.isRequired,
+  preview_x_frame_options: PropTypes.string,
   channel_id: PropTypes.number.isRequired,
   caption: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,

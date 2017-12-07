@@ -19,10 +19,23 @@ export default styled.div`
     justify-content: center;
   }
   .left-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .view {
       border-top: none;
       border-left: none;
       border-bottom: none;
+    }
+    .sorry {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .img-fluid {
+        margin-top: 20px;
+        max-height: 300px;
+      }
     }
   }
   .right-section {

@@ -14,6 +14,7 @@ import ArticleInfo from '../../components/ArticleInfo';
 import Comment from './components/Comment';
 import like from '../../assets/like.svg';
 import send from '../../assets/send.svg';
+import sad from 'assets/sad-wolf.jpg';
 import StyleWrapper from './components/StyleWrapper';
 import {
   articleFetch,
@@ -88,7 +89,21 @@ class ArticlePage extends React.Component {
           {this.props.article.status === SUCCESS && (
             <Row>
               <Col md="9" className="left-section">
-                <iframe className="view" src={this.props.article.url} />
+                {!this.props.article.preview_x_frame_options && (
+                  <iframe className="view" src={this.props.article.url} />
+                )}
+                {this.props.article.preview_x_frame_options && (
+                  <div className="sorry">
+                    <h6>
+                      Seems like the host doesn't let us display the page.
+                      Please view it directly{' '}
+                      <a href={this.props.article.url} target="blank">
+                        here
+                      </a>
+                    </h6>
+                    <img className="img-fluid" src={sad} />
+                  </div>
+                )}
               </Col>
               <Col md="3" className="right-section">
                 <ArticleInfo
