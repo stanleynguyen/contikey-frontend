@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { channel as channelType } from 'constants/propTypes';
 
 import StyleWrapper from './components/StyleWrapper';
@@ -12,7 +13,9 @@ const ChannelRec = props => (
     <div className="info-container">
       <div className="header">
         <div className="info">
-          <h6 className="title">{props.title}</h6>
+          <Link to={`/channel/${props.channel_id}`} className="plain">
+            <h6 className="title">{props.title}</h6>
+          </Link>
           <p className="extra">{props.num_subscribers} subscribers</p>
         </div>
         <button

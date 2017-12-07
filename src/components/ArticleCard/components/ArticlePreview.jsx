@@ -41,9 +41,19 @@ const ArticlePreview = props => (
       <img className="img-fluid" src={props.preview_image} />
     </div>
     <div className="detail">
-      <h4 className="title">{props.preview_title}</h4>
-      <p className="text">{props.preview_text}</p>
-      <p className="url faded">{props.url}</p>
+      <h4 className="title">
+        {props.preview_title.length > 43
+          ? `${props.preview_title.substring(0, 40)}...`
+          : props.preview_title}
+      </h4>
+      <p className="text">
+        {props.preview_text.length > 167
+          ? `${props.preview_text.substring(0, 164)}...`
+          : props.preview_text}
+      </p>
+      <p className="url faded">
+        {props.url.length > 54 ? `${props.url.substring(0, 51)}...` : props.url}
+      </p>
     </div>
   </StyleWrapper>
 );

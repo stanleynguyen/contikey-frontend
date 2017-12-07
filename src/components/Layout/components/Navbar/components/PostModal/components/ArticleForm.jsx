@@ -71,14 +71,16 @@ class ArticleForm extends React.Component {
         onSubmit={this.handleSubmit}
       >
         <label>Post to:&nbsp;</label>
-        <select className="channels" value={this.state.channel_id}>
+        <select
+          className="channels"
+          value={this.state.channel_id}
+          onChange={this.changeChannel}
+        >
           <option value="" disabled>
             Select a channel to post to
           </option>
           {this.state.channels.map(channel => (
-            <option value={channel.channel_id} onClick={this.changeChannel}>
-              {channel.title}
-            </option>
+            <option value={channel.channel_id}>{channel.title}</option>
           ))}
         </select>
         <Input

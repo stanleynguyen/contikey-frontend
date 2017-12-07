@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { user as userType } from 'constants/propTypes';
+import tag from 'assets/tag.svg';
 
 const StyleWrapper = styled.div`
   padding-left: 50px;
@@ -41,6 +42,9 @@ const StyleWrapper = styled.div`
   .margin-bottom {
     margin-bottom: 20px;
   }
+  .img-fluid {
+    height: 15px;
+  }
 `;
 
 const ChannelInfo = props => (
@@ -68,7 +72,10 @@ const ChannelInfo = props => (
       </button>
       <p>{props.description}</p>
       {props.tags.length > 0 && (
-        <p>Tags: {props.tags.map(t => t.label).join(', ')}</p>
+        <p>
+          <img className="img-fluid" src={tag} />{' '}
+          {props.tags.map(t => t.label).join(', ')}
+        </p>
       )}
     </div>
   </StyleWrapper>

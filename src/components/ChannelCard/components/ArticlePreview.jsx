@@ -30,6 +30,11 @@ const StyleWrapper = styled(Link)`
   .title {
     color: #000;
   }
+  .faded {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 const ArticlePreview = props => (
