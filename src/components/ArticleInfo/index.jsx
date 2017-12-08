@@ -57,7 +57,7 @@ const ArticleInfo = props => {
         )}
         <p className="time-container">
           {formatAgo(props.created_at)} &middot;{' '}
-          {props.num_words && getMinutesRead(props.num_words)}
+          {props.num_words > 0 && getMinutesRead(props.num_words)}
         </p>
       </div>
     </StyleWrapper>

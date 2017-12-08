@@ -36,4 +36,4 @@ export function formatAgo(dateStr) {
 }
 
 export const getMinutesRead = numWords =>
-  numWords ? `${Math.round(numWords / 200)} min read` : '';
+  numWords ? `${Math.ceil(numWords / 200)} mins read` : '';
