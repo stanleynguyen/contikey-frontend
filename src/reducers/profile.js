@@ -36,7 +36,8 @@ const getCreatedAtFromHist = a =>
   (a.followed_channel && a.followed_channel.created_at) ||
   (a.article && a.article.created_at) ||
   (a.comment && a.comment.created_at) ||
-  (a.liked_article && a.liked_article.created_at);
+  (a.liked_article && a.liked_article.created_at) ||
+  (a.friend && a.friend.created_at);
 const sortHistObj = (a, b) => {
   const aCreateAt = getCreatedAtFromHist(a);
   const bCreateAt = getCreatedAtFromHist(b);
