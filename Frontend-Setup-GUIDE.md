@@ -41,8 +41,8 @@ it has been going on for years without a clear winner.
 In recent years, a frontend library by [Facebook](https://facebook.com) has
 emerged as one of the most popular go-to options for frontend developers, with
 its innovative Shadow DOM algorithm and philosophy "do one thing and do it well"
-(which make it very light as it only handle the view and leave other parts to be
-handle by other libraries in the ecosystem). This is
+(which make it very light as it only handled the view and leave other parts to
+be handled by other libraries in the ecosystem). This is
 [ReactJS](https://reactjs.org). Another advantage of React is that, unlike other
 frameworks which develop their own syntax and notations (i.e. Angular, VueJS),
 developers using React will be writing true Javascript, no nonsense.
@@ -81,7 +81,7 @@ typical frontend guy's job is not simply hacking HTML, CSS, and a bit of JS
 together to produce something to display the page rendered from server nicely
 anymore. Doing frontend in 2017 is like riding a lion, and webpack is like your
 girth. There are multiple other module bundlers on the market (namely
-[Browserify](http://browserify.org/), etc) but none offer as great features as
+[Browserify](http://browserify.org/), etc) but none offers as great features as
 Webpack does.
 
 * Webpack creates the same build bundles in development and production for
@@ -227,8 +227,8 @@ plugins: [
 
 This part of the config files specify which plugins to use. `plugins` are
 modules that can be created by anyone which can tap into webpack's build
-process. Without them, webpack will lose 50% of it's power, and this is where
-the community can make their mark.
+process. Without them, webpack will lose 50% of its power, and this is where the
+community can make their mark.
 
 `HtmlWebpackPlugin`: this plugins handles the creations of HTML files for you.
 the plugin will generate HTML5 file that automatically includes **all your
@@ -259,7 +259,7 @@ not available in frontend development without module bundlers) so developers can
 separate their config or even logic accordingly (Interestingly, React loader
 will take in this `NODE_ENV` env variable to output different bundle i.e. a more
 optimized one for production build). In here we only have a `BASE_URL` env
-variable to indetify where we want to send our requests based depends on the
+variable to indetify where we want to send our requests depends on the
 environments.
 
 `UglifyJsPlugin`: this plugin is used to minify your bundle, reducing its size
