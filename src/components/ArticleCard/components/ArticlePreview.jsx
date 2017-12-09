@@ -42,17 +42,19 @@ const ArticlePreview = props => (
     </div>
     <div className="detail">
       <h4 className="title">
-        {props.preview_title.length > 43
+        {props.preview_title && props.preview_title.length > 43
           ? `${props.preview_title.substring(0, 40)}...`
           : props.preview_title}
       </h4>
       <p className="text">
-        {props.preview_text.length > 167
+        {props.preview_text && props.preview_text.length > 167
           ? `${props.preview_text.substring(0, 164)}...`
           : props.preview_text}
       </p>
       <p className="url faded">
-        {props.url.length > 54 ? `${props.url.substring(0, 51)}...` : props.url}
+        {props.url && props.url.length > 54
+          ? `${props.url.substring(0, 51)}...`
+          : props.url}
       </p>
     </div>
   </StyleWrapper>

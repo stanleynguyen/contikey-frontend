@@ -13,11 +13,11 @@ import {
   feedUnsubscribeRec,
   feedReload,
 } from 'actions';
-import ArticleCard from '../../components/ArticleCard';
+import ArticleCard from 'components/ArticleCard';
 import ChannelRec from './components/ChannelRecommendation';
 import { LOADING, SUCCESS } from 'constants/misc';
 import Spinner from 'components/Spinner';
-import { history } from '../../store';
+import { history } from 'store';
 
 const StyleWrapper = styled.div`
   padding: 30px 0;

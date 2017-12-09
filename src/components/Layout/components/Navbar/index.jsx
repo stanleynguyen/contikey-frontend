@@ -106,80 +106,82 @@ class DBoardNavbar extends React.Component {
     const newNoti = this.props.auth.notifications.filter(n => n.is_read === 0);
     return (
       <StyledNavbar light expand="md" fixed="top">
-        <NavbarBrand tag={Link} to="/">
-          <img className="logo" src={logo} alt="Logo" />
-        </NavbarBrand>
-        <form onSubmit={this.handleSearch}>
-          <InputGroup>
-            <InputGroupButton>
-              <img className="navbar-icon" src={glass} />
-            </InputGroupButton>
-            <Input type="text" innerRef={i => (this.searchInput = i)} />
-          </InputGroup>
-        </form>
-        <NavbarToggler onClick={this.toggle} />
-        <Collapse isOpen={this.state.isOpen} navbar>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink tag={Link} to="/">
-                <img className="navbar-icon" src={home} />
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/explore">
-                <img className="navbar-icon" src={compass} />
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <Button
-                className="nav-link"
-                color=""
-                onClick={this.toggleNoti}
-                innerRef={i => (this.notiBtn = i)}
-              >
-                {newNoti.length > 0 && (
-                  <span className="badge">{newNoti.length}</span>
-                )}
-                <img className="navbar-icon" src={noti} />
-              </Button>
-              <NotificationPopup
-                innerRef={i => (this.popup = i)}
-                notifications={this.props.auth.notifications}
-                closeFn={this.toggleNoti}
-                markNoti={this.props.authMarkNotiAsRead}
-                show={this.state.notiOpen}
-              />
-            </NavItem>
-            <NavItem>
-              {this.props.auth.status !== SUCCESS && (
-                <NavLink
-                  tag={Link}
-                  to={{ pathname: '/login', state: { modal: true } }}
+        <div className="nav-inner">
+          <NavbarBrand tag={Link} to="/">
+            <img className="logo" src={logo} alt="Logo" />
+          </NavbarBrand>
+          <form onSubmit={this.handleSearch}>
+            <InputGroup>
+              <InputGroupButton>
+                <img className="navbar-icon" src={glass} />
+              </InputGroupButton>
+              <Input type="text" innerRef={i => (this.searchInput = i)} />
+            </InputGroup>
+          </form>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink tag={Link} to="/">
+                  <img className="navbar-icon" src={home} />
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/explore">
+                  <img className="navbar-icon" src={compass} />
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <Button
+                  className="nav-link"
+                  color=""
+                  onClick={this.toggleNoti}
+                  innerRef={i => (this.notiBtn = i)}
                 >
-                  <img className="navbar-icon" src={user} />
-                </NavLink>
-              )}
-              {this.props.auth.status === SUCCESS && (
-                <NavLink tag={Link} to="/profile">
-                  <img
-                    className="navbar-icon avatar"
-                    src={this.props.auth.user.photo}
-                  />
-                </NavLink>
-              )}
-            </NavItem>
-            <NavItem>
-              <Button className="nav-link" color="" onClick={this.togglePost}>
-                <img className="navbar-icon" src={writing} />
-              </Button>
-              <PostModal
-                isOpen={this.state.postOpen}
-                toggle={this.togglePost}
-                user={this.props.auth.user}
-              />
-            </NavItem>
-          </Nav>
-        </Collapse>
+                  {newNoti.length > 0 && (
+                    <span className="badge">{newNoti.length}</span>
+                  )}
+                  <img className="navbar-icon" src={noti} />
+                </Button>
+                <NotificationPopup
+                  innerRef={i => (this.popup = i)}
+                  notifications={this.props.auth.notifications}
+                  closeFn={this.toggleNoti}
+                  markNoti={this.props.authMarkNotiAsRead}
+                  show={this.state.notiOpen}
+                />
+              </NavItem>
+              <NavItem>
+                {this.props.auth.status !== SUCCESS && (
+                  <NavLink
+                    tag={Link}
+                    to={{ pathname: '/login', state: { modal: true } }}
+                  >
+                    <img className="navbar-icon" src={user} />
+                  </NavLink>
+                )}
+                {this.props.auth.status === SUCCESS && (
+                  <NavLink tag={Link} to="/profile">
+                    <img
+                      className="navbar-icon avatar"
+                      src={this.props.auth.user.photo}
+                    />
+                  </NavLink>
+                )}
+              </NavItem>
+              <NavItem>
+                <Button className="nav-link" color="" onClick={this.togglePost}>
+                  <img className="navbar-icon" src={writing} />
+                </Button>
+                <PostModal
+                  isOpen={this.state.postOpen}
+                  toggle={this.togglePost}
+                  user={this.props.auth.user}
+                />
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </div>
       </StyledNavbar>
     );
   }

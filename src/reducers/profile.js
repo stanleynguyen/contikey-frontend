@@ -56,7 +56,7 @@ export default function profile(state = {}, action) {
     case PROFILE_ARTICLES_SUCCEED:
       return genNewState(state, 'articles', {
         status: SUCCESS,
-        value: action.payload.data,
+        value: action.payload.data.sort(sortByCreatedAt),
       });
     case PROFILE_CHANNELS_FAIL:
       return genNewState(state, 'channels', {

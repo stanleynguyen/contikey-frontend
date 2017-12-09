@@ -40,6 +40,6 @@ const ChannelCard = props => (
   </StyleWrapper>
 );
 
-ChannelCard.PropTypes = channelType.isRequired;
+ChannelCard.propTypes = channelType.isRequired;
 
 export default ChannelCard;

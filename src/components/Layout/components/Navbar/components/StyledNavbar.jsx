@@ -4,6 +4,12 @@ import { PRIMARY } from '../../../../../constants/colors';
 
 export default styled(Navbar)`
   background-color: ${PRIMARY};
+  display: flex;
+  justify-content: center;
+  .nav-inner {
+    width: 1200px;
+    display: flex;
+  }
   .logo {
     height: 50px;
     width: auto;
