@@ -47,6 +47,9 @@ export default styled(Navbar)`
     top: 0;
     right: 0;
   }
+  form {
+    margin-top: 8px;
+  }
   .input-group {
     width: 400px;
     margin-left: 20px;

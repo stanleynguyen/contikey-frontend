@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 
 import { loadExplore } from 'lib/articleService';
+import { sortByCreatedAt } from 'lib/misc';
 import ArticleCard from 'components/ArticleCard';
 import Spinner from 'components/Spinner';
 
@@ -14,7 +15,9 @@ class ExplorePage extends React.Component {
   };
 
   componentDidMount() {
-    loadExplore().then(res => this.setState({ data: res.data }));
+    loadExplore().then(res =>
+      this.setState({ data: res.data.sort(sortByCreatedAt) }),
+    );
   }
 
   render() {
